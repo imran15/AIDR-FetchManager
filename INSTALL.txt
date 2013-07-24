@@ -1,0 +1,45 @@
+AIDR Collector Manager Installation Instructions
+----------------------------------------
+
+Required technologies
+---------------------
+1- Apache Maven (http://maven.apache.org/)
+2- Apache Tomcat (http://tomcat.apache.org/) OR GlassFish (https://glassfish.java.net/)
+3- MySql (http://www.mysql.com/)
+
+Pre-building
+------------
+Prior to start the project building process make sure you have completed the following tasks:
+
+1- Install the MySql database server on your machine and create a database schema having "aidr_fetch_manager" as schema name.
+2- If you are deploying this application for the first time make sure you add the following line in the "spring-servlet.xml" file. The file is located under "<project-root>/src/main/webapp/WEB-INF/".
+<prop key="hibernate.hbm2ddl.auto">update</prop> 
+NOTE:- If the application has previously deployed and you have MySql schema with tables in place then just remove the above line.
+3- Apply the following changes to "system.properties" file located under "<app-root>/src/main/resources/"
+    (a):    twitter.consumerKey=<put here your Twitter's application consumer key>
+            twitter.consumerSecret=<put here your Twitter's application consumer key secret>
+    (b):    twitter.callBackURL=<here goes the URL where the applciation is accessible>. e.g., http://localhost:8080/AIDRFetchManager        
+    (c):    application.secureUrl=<here goes the URL where the applciation is accessible>. e.g., http://localhost:8080/AIDRFetchManager
+    (d):    fetchMainUrl=<here specify the URL of the Collector/Fetcher application>. e.g., http://localhost:8080/AIDRFetcher/webresources/fetcher
+
+Building 
+--------
+Pre-requisite: Maven should be installed and the pre-building requirements must be completed.
+
+AIDR-Collector manager is a maven based project so it comes with a POM file which the Maven platform uses during the project building process. To build, go to the root directory of the project where POM.xml is located and run "mvn install" command. This process initiates downloading process of required packages/libraries from the maven central repository. This process may take a few minutes. A successful build will create a target folder in the project root directory and a couple of other files too. You must find a file "AIDRFetchManager-1.0.war" under the target directory if the building process successfully completed.
+
+Deployment
+----------
+Pre-requisite: Tomcat/Glassfish server must be installed and running.
+
+Incase of Tomcat:
+Simply copy and paste the AIDRFetchManager-1.0.war file to the <tomcat-root>/webapps directory of the tomcat server. It will automatically deploy the application.
+
+Incase of Glassfish:
+Go to the admin page of your Glassfish server, usually it can be accessed through http://localhost:4848/. Login and go to the applications tab, choose deploy option and browse to the "AIDRFetchManager-1.0.war" file to deploy it.
+
+The Collector Manager application uses ExtJS javascript library for client-side interface that means along with the application deployment ExtJS must also be deployed in the same application server. For ease, we provide we provide a complied version of the ExtJS library which is located under "<app-root>/ExtJS/ExtJS.war". Deploy the "ExtJS.war" library exactly as you deployed the main application.
+
+Running
+-------
+If the application has been deployed following the above instructions the the application should be accessible at http://localhost:8080/AIDRFetchManager.

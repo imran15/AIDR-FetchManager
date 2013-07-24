@@ -17,6 +17,7 @@
         <spring-social-twitter>1.0.3.RELEASE</spring-social-twitter>
         <jersey>1.8</jersey>
         <org.socialsignin.spring.security.version>1.0.2.RELEASE</org.socialsignin.spring.security.version>
+        <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
     </properties>
  
     <dependencies>
