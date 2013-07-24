@@ -13,7 +13,7 @@ Prior to start the project building process make sure you have completed the fol
 
 1- Install the MySql database server on your machine and create a database schema having "aidr_fetch_manager" as schema name. The schema name can also be changed that requires to change application configurations which specify schema details mentioned as follows.
 2- If you are deploying this application for the first time make sure you add the following line in the "spring-servlet.xml" file. The file is located under "<project-root>/src/main/webapp/WEB-INF/".
-<prop key="hibernate.hbm2ddl.auto">update</prop> 
+<prop key="hibernate.hbm2ddl.auto">create</prop> 
 3- In the same file "spring-servlet.xml" database credentials can be specified/changed according to your installation.
 NOTE:- If the application has previously deployed and you have MySql schema with tables in place then just remove the above line.
 4- Apply the following changes to "system.properties" file located under "<app-root>/src/main/resources/"
