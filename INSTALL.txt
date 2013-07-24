@@ -9,7 +9,7 @@ Required technologies
 
 Pre-building
 ------------
-Prior to start the project building process make sure you have completed the following tasks:
+Prior to start the project building process make sure you have completed the following steps:
 
 1- Install the MySql database server on your machine and create a database schema having "aidr_fetch_manager" as schema name. The schema name can also be changed that requires to change application configurations which specify schema details mentioned as follows.
 2- If you are deploying this application for the first time make sure you add the following line in the "spring-servlet.xml" file. The file is located under "<project-root>/src/main/webapp/WEB-INF/".
