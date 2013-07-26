@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import com.aidr.app.dto.CollectionDataResponse;
 import com.aidr.app.hibernateEntities.AidrCollection;
-import com.aidr.app.hibernateEntities.AidrCollectionLog;
 import com.aidr.app.repository.CollectionRepository;
 import com.aidr.app.util.CollectionStatus;
 
@@ -52,7 +51,7 @@ public class CollectionRepositoryImpl extends GenericRepositoryImpl<AidrCollecti
 		Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(AidrCollection.class);
 		criteria.add(Restrictions.eq("code", code));
 	    AidrCollection collection = (AidrCollection) criteria.uniqueResult();
-	    return collection != null ? true :false;
+	    return collection != null;
 	}
 
 	@Override
