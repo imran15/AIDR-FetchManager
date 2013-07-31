@@ -81,7 +81,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
 
             "#collectionStart": {
                 click: function (btn, e, eOpts) {
-                    var mask = this.getMask();
+                    var mask = AIDRFMFunctions.getMask();
                     mask.show();
 
                     Ext.Ajax.request({
@@ -109,7 +109,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
                                     datailsController.startCollection();
                                 }
                             } else {
-                                datailsController.setAlert(
+                                AIDRFMFunctions.setAlert(
                                     "Error",
                                     ['Error while starting Collection .',
                                     'Please try again later or contact Support']
@@ -139,16 +139,20 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
                 click: function (btn, e, eOpts) {
                     datailsController.cancelCollectionEdit();
                 }
+            },
+
+            "#refreshBtn": {
+                click: function (btn, e, eOpts) {
+                    var id = datailsController.DetailsComponent.currentCollection.id;
+                    datailsController.refreshStatus(id);
+                }
             }
 
         });
     },
 
     afterRenderDetailsView: function (component, eOpts) {
-        this.msgCt = Ext.DomHelper.insertFirst(document.body, {id:'msg-div'}, true);
-        this.msgCt.setStyle('position', 'absolute');
-        this.msgCt.setStyle('z-index', 99999);
-        this.msgCt.setWidth(300);
+        AIDRFMFunctions.initMessageContainer();
 
         this.DetailsComponent = component;
         datailsController = this;
@@ -159,6 +163,18 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         me.ns = "<span class='na-text'>Not specified</span>";
 
         this.loadCollection(id);
+
+        var isFirstRun = true;
+        var refreshStatusTask = Ext.TaskManager.start({
+            run: function () {
+                if (!isFirstRun) {
+                    me.refreshStatus(id);
+                }
+                isFirstRun = false;
+            },
+//            5 minutes
+            interval: 5 * 60 * 1000
+        });
 
     },
 
@@ -176,7 +192,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
     loadCollection: function (id) {
         var me = this;
 
-        var mask = this.getMask();
+        var mask = AIDRFMFunctions.getMask();
         mask.show();
 
         Ext.Ajax.request({
@@ -216,7 +232,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         p.languageFiltersL.setText(r.langFilters ? r.langFilters : this.ns, false);
 
         p.createdL.setText(r.createdDate);
-        p.docCountL.setText(r.count ? r.count : 0);
+        this.setCountOfDocuments(r.count);
         p.lastDocL.setText(r.lastDocument ? r.lastDocument : this.na, false);
     },
 
@@ -258,8 +274,12 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         this.DetailsComponent.lastStoppedL.setText(raw ? raw : me.na, false);
     },
 
+    setCountOfDocuments: function (raw) {
+        this.DetailsComponent.docCountL.setText(raw ? raw : 0);
+    },
+
     startCollection: function () {
-        var mask = this.getMask();
+        var mask = AIDRFMFunctions.getMask();
         mask.show();
 
         var me = this;
@@ -277,7 +297,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
             success: function (response) {
                 mask.hide();
                 var resp = Ext.decode(response.responseText);
-                me.setAlert("Ok", "Collection Started");
+                AIDRFMFunctions.setAlert("Ok", "Collection Started");
 
                 me.DetailsComponent.startButton.setDisabled(true);
                 me.DetailsComponent.stopButton.setDisabled(false);
@@ -286,12 +306,12 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
                     var data = resp.data;
                     me.updateDetailsPanel(data);
                 }
+
                 var ranOnce = false;
                 var task = Ext.TaskManager.start({
                     run: function () {
                         if (ranOnce) {
-//                            TODO check this part
-//                            refreshStatus(selection);
+                            me.refreshStatus(id);
                             Ext.TaskManager.stop(task);
                         }
                         ranOnce = true;
@@ -306,7 +326,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         var me = this;
         var id = datailsController.DetailsComponent.currentCollection.id;
 
-        var mask = this.getMask();
+        var mask = AIDRFMFunctions.getMask();
         mask.show();
 
         Ext.Ajax.request({
@@ -321,7 +341,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
             waitMsg: '...',
             success: function (response) {
                 mask.hide();
-                me.setAlert("Ok", "Collection Stopped");
+                AIDRFMFunctions.setAlert("Ok", "Collection Stopped");
                 me.DetailsComponent.startButton.setDisabled(false);
                 me.DetailsComponent.stopButton.setDisabled(true);
                 var resp = Ext.decode(response.responseText);
@@ -339,21 +359,21 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         var form = Ext.getCmp('collectionForm').getForm();
         if (!form.findField('code').getValue()) {
             form.findField('code').markInvalid(['Collection Code is mandatory']);
-            me.setAlert('Error', 'Collection Code is mandatory');
+            AIDRFMFunctions.setAlert('Error', 'Collection Code is mandatory');
             isValid = false;
         }
         if (form.findField('code').getValue() && form.findField('code').getValue().length > 15) {
             form.findField('code').markInvalid(['The maximum length for Collection Code field is 15']);
-            me.setAlert('Error', 'The maximum length for Collection Code field is 15');
+            AIDRFMFunctions.setAlert('Error', 'The maximum length for Collection Code field is 15');
             isValid = false;
         }
         if (!form.findField('name').getValue()) {
             form.findField('name').markInvalid(['Collection Name is mandatory']);
-            me.setAlert('Error', 'Collection Name is mandatory');
+            AIDRFMFunctions.setAlert('Error', 'Collection Name is mandatory');
             isValid = false;
         }
         if (!(form.findField('track').getValue() || form.findField('geo').getValue() || form.findField('follow').getValue())) {
-            me.setAlert('Error', 'One of Keywords,Geo or Follow field is mandatory');
+            AIDRFMFunctions.setAlert('Error', 'One of Keywords,Geo or Follow field is mandatory');
             isValid = false;
         }
         return isValid;
@@ -390,21 +410,9 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
             success: function (response) {
                 me.DetailsComponent.tabPanel.setActiveTab(0);
                 me.loadCollection(id);
-                me.setAlert("Ok", "Collection saved successfully");
+                AIDRFMFunctions.setAlert("Ok", "Collection saved successfully");
             }
         });
-    },
-
-    getMask:function (msg) {
-        if (!msg) {
-            msg = 'Loading...';
-        }
-        if (this.maskScreen == null) {
-            this.maskScreen = new Ext.LoadMask(Ext.getBody(), {msg:msg});
-        } else {
-            this.maskScreen.msg = msg;
-        }
-        return this.maskScreen;
     },
 
     cancelCollectionEdit: function () {
@@ -412,39 +420,31 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         this.updateEditPanel();
     },
 
-    setAlert: function (status, msg) {
-        var message = '<ul>';
-        if (Ext.isArray(msg)) {
-            Ext.each(msg, function (ms) {
-                message += '<li>' + ms + '</li>';
-            })
-        } else {
-            message = '<li>' + msg + '</li>';
-        }
-        message += '</ul>';
+    refreshStatus: function (id, record) {
+        var me = this;
 
-        // add some smarts to msg's duration (div by 13.3 between 3 & 9 seconds)
-        var delay = msg.length / 13.3;
-        if (delay < 3) {
-            delay = 3;
-        }
-        else if (delay > 9) {
-            delay = 9;
-        }
-        delay = delay * 1000;
+        Ext.Ajax.request({
+            url: 'collection/refreshCount.action',
+            method: 'GET',
+            params: {
+                id: id
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            waitMsg: 'Refresh count status ...',
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success && resp.data) {
+                    var data = resp.data;
 
-        this.msgCt.alignTo(document, 't-t');
-        Ext.DomHelper.append(this.msgCt, {html: this.buildMessageBox(status, message)}, true).slideIn('t').ghost("t", {delay: delay, remove: true});
-    },
-
-    buildMessageBox : function(title, msg) {
-        return [
-            '<div class="app-msg">',
-            '<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>',
-            '<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc"><h3 class="x-icon-text icon-status-' + title + '">', title, '</h3>', msg, '</div></div></div>',
-            '<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>',
-            '</div>'
-        ].join('');
+                    me.setStatus(data.status);
+                    me.setStartDate(data.startDate);
+                    me.setEndDate(data.endDate);
+                    me.setCountOfDocuments(data.count);
+                }
+            }
+        });
     }
 
 });

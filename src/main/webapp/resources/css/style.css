@@ -3081,3 +3081,14 @@ footer p a:hover{
     height: 20px;
     line-height: 22px;
 }
+
+.bread-crumbs a{
+    text-decoration: none;
+    color: #00acee;
+    font-size: 15px;
+}
+
+.bread-crumbs a:hover {
+    text-decoration: underline;
+    color: #0080A6;
+}

@@ -15,7 +15,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
 
             "#newCollection": {
                 click: function (btn, e, eOpts) {
-                    var mask = this.getMask(false);
+                    var mask = AIDRFMFunctions.getMask(false);
                     mask.show();
 
                     collectionController.mainComponent.win.show();
@@ -87,6 +87,12 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                         dismissDelay: 0
                     });
                 }
+            },
+
+            "#refreshBtn": {
+                click: function (btn, e, eOpts) {
+                    alert("Will be implemented soon");
+                }
             }
 
         });
@@ -95,10 +101,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
     },
 
     beforeRenderView: function (component, eOpts) {
-        this.msgCt = Ext.DomHelper.insertFirst(document.body, {id:'msg-div'}, true);
-        this.msgCt.setStyle('position', 'absolute');
-        this.msgCt.setStyle('z-index', 99999);
-        this.msgCt.setWidth(300);
+        AIDRFMFunctions.initMessageContainer();
 
         this.mainComponent = component;
         collectionController = this;
@@ -152,10 +155,10 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 },
                 waitMsg: 'Saving collection ...',
                 success: function (response) {
-                    var mask = collectionController.getMask(false);
+                    var mask = AIDRFMFunctions.getMask(false);
                     mask.hide();
 
-                    me.setAlert("Ok", "Collection created successfully");
+                    AIDRFMFunctions.setAlert("Ok", "Collection created successfully");
 
                     collectionController.mainComponent.win.hide();
                     collectionController.mainComponent.collectionStore.load();
@@ -164,55 +167,6 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 }
             });
         }
-    },
-
-    getMask: function (show, msg) {
-        if (show) {
-            if (!msg) {
-                msg = 'Loading...';
-            }
-        }
-        if (this.maskScreen == null) {
-            this.maskScreen = new Ext.LoadMask(Ext.getBody(), {msg: msg});
-        } else {
-            this.maskScreen.msg = msg;
-        }
-        return this.maskScreen;
-    },
-
-    setAlert: function (status, msg) {
-        var message = '<ul>';
-        if (Ext.isArray(msg)) {
-            Ext.each(msg, function (ms) {
-                message += '<li>' + ms + '</li>';
-            })
-        } else {
-            message = '<li>' + msg + '</li>';
-        }
-        message += '</ul>';
-
-        // add some smarts to msg's duration (div by 13.3 between 3 & 9 seconds)
-        var delay = msg.length / 13.3;
-        if (delay < 3) {
-            delay = 3;
-        }
-        else if (delay > 9) {
-            delay = 9;
-        }
-        delay = delay * 1000;
-
-        this.msgCt.alignTo(document, 't-t');
-        Ext.DomHelper.append(this.msgCt, {html: this.buildMessageBox(status, message)}, true).slideIn('t').ghost("t", {delay: delay, remove: true});
-    },
-
-    buildMessageBox : function(title, msg) {
-        return [
-            '<div class="app-msg">',
-            '<div class="x-box-tl"><div class="x-box-tr"><div class="x-box-tc"></div></div></div>',
-            '<div class="x-box-ml"><div class="x-box-mr"><div class="x-box-mc"><h3 class="x-icon-text icon-status-' + title + '">', title, '</h3>', msg, '</div></div></div>',
-            '<div class="x-box-bl"><div class="x-box-br"><div class="x-box-bc"></div></div></div>',
-            '</div>'
-        ].join('');
     }
 
 });

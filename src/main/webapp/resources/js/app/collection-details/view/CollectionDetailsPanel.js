@@ -1,3 +1,7 @@
+Ext.require([
+    'AIDRFM.app.common.AIDRFMFunctions'
+]);
+
 Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.collection-details-view',
@@ -22,9 +26,33 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
     initComponent: function () {
         var me = this;
 
+        this.breadcrumbs = Ext.create('Ext.form.Label', {
+            html: '<div class="bread-crumbs"><a href="home">Home</a></div>',
+            margin: 0,
+            padding: 0
+        });
+
+        this.horisontalLine = Ext.create('Ext.container.Container', {
+            margin: '5 0 0 0',
+            html: '<div class="horisontalLine"></div>'
+        });
+
         this.collectionTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1',
-            text: 'Collection: '
+            margin: '10 0 15 0',
+            padding: 0,
+            text: 'Collection: ',
+            flex: 1
+        });
+
+        this.refreshButton = Ext.create('Ext.Button', {
+            text: null,
+            height: 32,
+            width: 32,
+            margin: '13 0 0 0',
+            tooltip: 'Refresh',
+            iconCls: 'refrashIcon',
+            id: 'refreshBtn'
         });
 
         this.collectionHistoryTitle = Ext.create('Ext.form.Label', {
@@ -557,7 +585,16 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
         });
 
         this.items = [
-            this.collectionTitle,
+            this.breadcrumbs,
+            this.horisontalLine,
+            {
+                xtype: 'container',
+                layout: 'hbox',
+                items: [
+                    this.collectionTitle,
+                    this.refreshButton
+                ]
+            },
             this.tabPanel,
             this.collectionHistoryTitle,
             this.collectionLogGrid

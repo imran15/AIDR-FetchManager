@@ -1,3 +1,7 @@
+Ext.require([
+    'AIDRFM.app.common.AIDRFMFunctions'
+]);
+
 Ext.define('AIDRFM.home.view.CollectionPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.collection-view',
@@ -48,7 +52,7 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
             width: 32,
             tooltip: 'Refresh',
             iconCls: 'refrashIcon',
-            id: 'refresh'
+            id: 'refreshBtn'
         });
 
         this.collectionStore = Ext.create('Ext.data.JsonStore', {
@@ -315,7 +319,7 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
             ],
             listeners: {
                 hide: function () {
-                    var mask = collectionController.getMask(false);
+                    var mask = AIDRFMFunctions.getMask(false);
                     mask.hide();
                 }
             },

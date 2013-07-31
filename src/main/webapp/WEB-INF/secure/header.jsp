@@ -5,13 +5,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title>AIDR Fetch Manager</title>
-    <link rel="stylesheet" type="text/css" href="/Extjs/extjs-4.1/resources/css/ext-all.css" />
-    <link rel="stylesheet" type="text/css" href="<%=request.getContextPath() %>/resources/css/style.css"/>
-    <script type="text/javascript" src="/Extjs/extjs-4.1/ext-all.js"></script>
-
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/Extjs/extjs-4.1/resources/css/ext-all.css"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/Extjs/extjs-4.1/ext-all.js"></script>
     <script>
         Ext.Loader.setConfig({
-                enabled: true
+                enabled: true,
+                disableCaching: false,
+                paths : {
+                    AIDRFM: '${pageContext.request.contextPath}/resources/js'
+                }
             }
         );
         var BASE_URL = '<%=request.getContextPath() %>';
