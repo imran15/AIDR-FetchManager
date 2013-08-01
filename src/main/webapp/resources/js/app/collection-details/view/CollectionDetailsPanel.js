@@ -143,15 +143,18 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
 
         this.startButton = Ext.create('Ext.Button', {
             text: 'Start',
-            margin: '0 10 0 10',
+            margin: 0,
             cls:'btn btn-blue',
-            id: 'collectionStart'
+            id: 'collectionStart',
+            hidden: true
         });
 
         this.stopButton = Ext.create('Ext.Button', {
             text: 'Stop',
             cls:'btn btn-red',
-            id: 'collectionStop'
+            id: 'collectionStop',
+            margin: '0 0 0 10',
+            hidden: true
         });
 
         this.saveButton = Ext.create('Ext.Button', {
@@ -207,18 +210,18 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
             '<div class="collection-item">',
 
             '<div class="img">',
-            '<img alt="Collection History image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70">',
+            '<img alt="Collection History image" height="70" src="/AIDRFetchManager/resources/img/twitter_icon2.png" width="70">',
             '</div>',
 
             '<div class="content">',
             '<div class="info">',
-            '<div class="styled-text-14">Downloaded documents: {[this.getDocNumber(values.count)]}</div>',
-            '<div class="styled-text-14">Start Date: {startDate}</div>',
-            '<div class="styled-text-14">End Date: {endDate}</div>',
-            '<div class="styled-text-14">Geographical region: {geo}</div>',
-            '<div class="styled-text-14">Follow specific users: {follow}</div>',
-            '<div class="styled-text-14">Language Filters: {langFilters}</div>',
-            '<div class="styled-text-14">Keywords: {track}</div>',
+            '<div>Downloaded documents: {[this.getDocNumber(values.count)]}</div>',
+            '<div>Start Date: {[this.getField(values.startDate)]}</div>',
+            '<div>End Date: {[this.getField(values.endDate)]}</div>',
+            '<div>Geographical region: {[this.getField(values.geo)]}</div>',
+            '<div>Follow specific users: {[this.getField(values.follow)]}</div>',
+            '<div>Language Filters: {[this.getField(values.langFilters)]}</div>',
+            '<div>Keywords: {[this.getField(values.track)]}</div>',
 
             '</div>',
             '</div>',
@@ -227,21 +230,8 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
             '</tpl>',
             '</div>',
             {
-                getStatus: function (raw) {
-                    var statusText = '';
-                    if (raw == 'RUNNING') {
-                        statusText = "<b class='greenInfo'> RUNNING </b>";
-                    } else if (raw == 'INITIALIZING') {
-                        statusText = "<b class='blueInfo'> INITIALIZING </b>";
-                    } else if (raw == 'STOPPED' || raw == 'FATAL-ERROR') {
-                        statusText = "<b class='redInfo'>" + raw + " </b>";
-                    } else {
-                        statusText = "<b class='warningFont'>" + raw + " </b>";
-                    }
-                    return statusText;
-                },
-                getLastDoc: function (r) {
-                    return r ? r : "<span class='na-text'>N/A</span>";
+                getField: function (r) {
+                    return r ? r : "<span class='na-text'>Not specified</span>";
                 },
                 getDocNumber: function (r) {
                     return r ? r : 0;

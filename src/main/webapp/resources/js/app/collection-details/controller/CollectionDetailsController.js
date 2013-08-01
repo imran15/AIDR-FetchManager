@@ -253,12 +253,22 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         var statusText = '';
         if (raw == 'RUNNING') {
             statusText = "<b class='greenInfo'> RUNNING </b>";
+            this.DetailsComponent.startButton.hide();
+            this.DetailsComponent.stopButton.show();
         } else if (raw == 'INITIALIZING') {
             statusText = "<b class='blueInfo'> INITIALIZING </b>";
         } else if (raw == 'STOPPED' || raw == 'FATAL-ERROR') {
             statusText = "<b class='redInfo'>" + raw + " </b>";
         } else {
             statusText = "<b class='warningFont'>" + raw + " </b>";
+        }
+
+        if (raw == 'RUNNING-WARNNING' || raw == 'RUNNING'){
+            this.DetailsComponent.startButton.hide();
+            this.DetailsComponent.stopButton.show();
+        } else {
+            this.DetailsComponent.startButton.show();
+            this.DetailsComponent.stopButton.hide();
         }
 
         this.DetailsComponent.statusL.setText(statusText, false);
@@ -298,9 +308,6 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
                 mask.hide();
                 var resp = Ext.decode(response.responseText);
                 AIDRFMFunctions.setAlert("Ok", "Collection Started");
-
-                me.DetailsComponent.startButton.setDisabled(true);
-                me.DetailsComponent.stopButton.setDisabled(false);
 
                 if (resp.success && resp.data) {
                     var data = resp.data;
@@ -342,8 +349,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
             success: function (response) {
                 mask.hide();
                 AIDRFMFunctions.setAlert("Ok", "Collection Stopped");
-                me.DetailsComponent.startButton.setDisabled(false);
-                me.DetailsComponent.stopButton.setDisabled(true);
+
                 var resp = Ext.decode(response.responseText);
                 if (resp.success && resp.data) {
                     var data = resp.data;
