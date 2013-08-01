@@ -3092,3 +3092,118 @@ footer p a:hover{
     text-decoration: underline;
     color: #0080A6;
 }
+
+/*
+
+Overriding of the standard ExtJs styles for tab panel
+
+*/
+.tabPanel .x-panel-body-default {
+    border-width: 0;
+}
+
+.tabPanel .x-tab-bar {
+    background-color: white;
+    background-image: none;
+    border-top-width: 0;
+}
+
+.tabPanel .x-tab-bar-body {
+    border-style: none;
+}
+
+.tabPanel .x-border-box .x-tab-bar-top .x-tab-bar-strip {
+    height: 1px;
+}
+
+.tabPanel .x-tab-bar-top .x-tab-bar-strip {
+    height: 1px;
+    border-bottom: 1px #e3e1e1 solid;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    top: 25px;
+}
+
+.tabPanel button {
+    color: #00acee;
+    padding: 0 14px;
+}
+
+.tabPanel .x-tab button {
+    color: #00acee;
+}
+
+.tabPanel .x-tab-active button {
+    color: #333;
+}
+
+.tabPanel .x-tab {
+    border-color: #e3e1e1;
+}
+
+.tabPanel .x-tab-default-top {
+    border-bottom: 1px #e3e1e1 solid !important;
+    background: #F8F8F8;
+    background: -moz-linear-gradient(top, #FFFFFF 0%, #F4F4F4 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #FFFFFF), color-stop(100%, #F4F4F4));
+    margin-right: 0.5em;
+    height: 25px;
+}
+
+.tabPanel .x-tab-active {
+    border-bottom: none !important;
+    border-color: #BBB;
+    background-color: #FFFFFF;
+    background-image: none;
+}
+.tabPanel .x-tab-active:hover  {
+    background-color: #FFFFFF !important;
+    background-image: none !important;
+}
+
+.tabPanel .x-tab-default-top:hover {
+    background-color: #EEE;
+    border-color: #CCC;
+    border-bottom-color: #EEE;
+    -moz-box-shadow: 0 6px #FFF,0 0 8px #CCC;
+    -webkit-box-shadow: 0 6px #FFF,0 0 8px #CCC;
+    box-shadow: 0 6px #FFF,0 0 8px #CCC;
+}
+
+.x-border-box .x-tab-bar-top .x-tab-bar-body {
+    height: 29px;
+}
+
+.x-border-box .x-tab-bar-body .x-horizontal-box-overflow-body{
+    height: 25px !important;
+}
+/*
+
+End of the tab panel styles
+
+*/
+
+.bordered-top {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px #e3e1e1 solid;
+}
+
+.bordered-bottom {
+    border-bottom: 1px #e3e1e1 solid;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+}
+
+.header-h2{
+    /*font-size: 30px ;*/
+    font-size: 1.3em;
+    font-weight: bold;
+    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
+    display: block;
+    -webkit-margin-before: 0.67em;
+    -webkit-margin-after: 0.67em;
+    -webkit-margin-start: 0px;
+    -webkit-margin-end: 0px;
+}

@@ -127,7 +127,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
             });
         }
         if (!(form.findField('track').getValue() || form.findField('geo').getValue() || form.findField('follow').getValue())) {
-            Ext.MessageBox.alert('Error', 'One of Keywords,Geo or Follow field is mandatory', function (btnId) {
+            Ext.MessageBox.alert('Error', 'One of Keywords, Geo or Follow field is mandatory', function (btnId) {
             });
             isValid = false;
         }

@@ -157,7 +157,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         this.DetailsComponent = component;
         datailsController = this;
         var me = this;
-        var id = this.getQueryParam("id");
+        var id = this.DetailsComponent.currentCollectionId = this.getQueryParam("id");
 
         me.na = "<span class='na-text'>N/A</span>";
         me.ns = "<span class='na-text'>Not specified</span>";
@@ -373,7 +373,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
             isValid = false;
         }
         if (!(form.findField('track').getValue() || form.findField('geo').getValue() || form.findField('follow').getValue())) {
-            AIDRFMFunctions.setAlert('Error', 'One of Keywords,Geo or Follow field is mandatory');
+            AIDRFMFunctions.setAlert('Error', 'One of Keywords, Geo or Follow field is mandatory');
             isValid = false;
         }
         return isValid;
@@ -435,13 +435,18 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
             waitMsg: 'Refresh count status ...',
             success: function (response) {
                 var resp = Ext.decode(response.responseText);
-                if (resp.success && resp.data) {
-                    var data = resp.data;
+                if (resp.success ) {
+                    AIDRFMFunctions.setAlert("Ok", "Collection status was updated");
+                    if (resp.data) {
+                        var data = resp.data;
 
-                    me.setStatus(data.status);
-                    me.setStartDate(data.startDate);
-                    me.setEndDate(data.endDate);
-                    me.setCountOfDocuments(data.count);
+                        me.setStatus(data.status);
+                        me.setStartDate(data.startDate);
+                        me.setEndDate(data.endDate);
+                        me.setCountOfDocuments(data.count);
+                    }
+                } else {
+                    AIDRFMFunctions.setAlert("Error", "While Collection status update");
                 }
             }
         });

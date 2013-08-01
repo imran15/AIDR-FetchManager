@@ -26,7 +26,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
     initComponent: function () {
         var me = this;
 
-        this.breadcrumbs = Ext.create('Ext.form.Label', {
+        this.breadcrumbs = Ext.create('Ext.container.Container', {
             html: '<div class="bread-crumbs"><a href="home">Home</a></div>',
             margin: 0,
             padding: 0
@@ -56,11 +56,13 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
         });
 
         this.collectionHistoryTitle = Ext.create('Ext.form.Label', {
+            hidden: true,
+            padding: '10 0 0 0',
             cls: 'header-h1',
             text: 'Collection History'
         });
 
-        this.statusL = Ext.create('Ext.form.Label', {flex: 1});
+        this.statusL = Ext.create('Ext.form.Label', {padding: '0 10 0 0'});
         this.lastStartedL = Ext.create('Ext.form.Label', {flex: 1});
         this.lastStoppedL = Ext.create('Ext.form.Label', {flex: 1});
         this.codeL = Ext.create('Ext.form.Label', {flex: 1});
@@ -71,6 +73,20 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
         this.createdL = Ext.create('Ext.form.Label', {flex: 1});
         this.docCountL = Ext.create('Ext.form.Label', {flex: 1});
         this.lastDocL = Ext.create('Ext.form.Label', {flex: 1});
+
+        this.timeDurationL = Ext.create('Ext.form.Label', {
+            flex: 1,
+            text: 'Time duration',
+            padding: '15 0 0 0',
+            cls: 'header-h2'
+        });
+
+        this.configurationsL = Ext.create('Ext.form.Label', {
+            flex: 1,
+            text: 'Configurations',
+            padding: '15 0 0 0',
+            cls: 'header-h2'
+        });
 
         this.codeE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Code',
@@ -102,15 +118,17 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
         });
 
         this.geoE = Ext.create('Ext.form.field.Text', {
-            fieldLabel: 'Geo',
+            fieldLabel: 'Geographical region',
+            labelWidth: 120,
             name: 'geo',
             flex: 1,
             emptyText: 'e.g., 43.43, 22.44, 89.32, 56.43'
         });
 
         this.followE = Ext.create('Ext.form.field.Text', {
-            fieldLabel: 'Follow',
+            fieldLabel: 'Follow specific users',
             name: 'follow',
+            labelWidth: 120,
             flex: 1,
             emptyText: 'e.g., 47423744, 53324456'
         });
@@ -118,6 +136,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
         this.languageFiltersE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Language Filters',
             name: 'langFilters',
+            labelWidth: 120,
             flex: 1,
             emptyText: 'e.g., en, ar, ja'
         });
@@ -163,7 +182,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
             autoLoad: true,
             listeners: {
                 beforeload: function (s) {
-                    var id = datailsController.DetailsComponent.currentCollection.id;
+                    var id = me.currentCollectionId;
                     s.getProxy().extraParams = {
                         id: id
                     }
@@ -172,84 +191,69 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                     var count = s.getCount();
                     if (count > 0) {
                         me.collectionHistoryTitle.show();
-                        me.collectionLogGrid.show();
+                        me.collectionLogView.show();
                     } else {
                         me.collectionHistoryTitle.hide();
-                        me.collectionLogGrid.hide();
+                        me.collectionLogView.hide();
                     }
                 }
             }
         });
 
-        this.collectionLogGrid = Ext.create('Ext.grid.Panel', {
-            id: 'collectionLogGrid',
-            margin: '0 0 15 0',
-            store: this.collectionLogStore,
-            height: 300,
-            title: 'Collection History',
-            columns: [
-                {
-                    text: 'ID',
-                    width: 25,
-                    sortable: true,
-                    dataIndex: 'id'
-                },
-                {
-                    text: 'Start Date',
-                    width: 80,
-                    sortable: true,
-                    dataIndex: 'startDate'
-                },
-                {
-                    text: 'End Date',
-                    width: 80,
-                    sortable: true,
-                    dataIndex: 'endDate'
-                },
-                {
-                    text: 'Keywords',
-                    width: 210,
-                    sortable: true,
-                    dataIndex: 'track'
-                },
-                {
-                    text: 'Geo',
-                    width: 140,
-                    sortable: true,
-                    dataIndex: 'geo'
-                },
-                {
-                    text: 'Follow',
-                    width: 140,
-                    sortable: true,
-                    dataIndex: 'follow'
-                },
-                {
-                    text: 'Language Filters',
-                    width: 140,
-                    sortable: true,
-                    dataIndex: 'langFilters'
-                },
-                {
-                    text: 'Documents Count',
-                    width: 140,
-                    sortable: true,
-                    dataIndex: 'count',
-                    renderer: function (value, p, record) {
-                        return value ? value : 0;
+        this.collectionLogTpl = new Ext.XTemplate(
+            '<div class="collections-list">',
+            '<tpl for=".">',
+
+            '<div class="collection-item">',
+
+            '<div class="img">',
+            '<img alt="Collection History image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70">',
+            '</div>',
+
+            '<div class="content">',
+            '<div class="info">',
+            '<div class="styled-text-14">Downloaded documents: {[this.getDocNumber(values.count)]}</div>',
+            '<div class="styled-text-14">Start Date: {startDate}</div>',
+            '<div class="styled-text-14">End Date: {endDate}</div>',
+            '<div class="styled-text-14">Geographical region: {geo}</div>',
+            '<div class="styled-text-14">Follow specific users: {follow}</div>',
+            '<div class="styled-text-14">Language Filters: {langFilters}</div>',
+            '<div class="styled-text-14">Keywords: {track}</div>',
+
+            '</div>',
+            '</div>',
+            '</div>',
+
+            '</tpl>',
+            '</div>',
+            {
+                getStatus: function (raw) {
+                    var statusText = '';
+                    if (raw == 'RUNNING') {
+                        statusText = "<b class='greenInfo'> RUNNING </b>";
+                    } else if (raw == 'INITIALIZING') {
+                        statusText = "<b class='blueInfo'> INITIALIZING </b>";
+                    } else if (raw == 'STOPPED' || raw == 'FATAL-ERROR') {
+                        statusText = "<b class='redInfo'>" + raw + " </b>";
+                    } else {
+                        statusText = "<b class='warningFont'>" + raw + " </b>";
                     }
+                    return statusText;
+                },
+                getLastDoc: function (r) {
+                    return r ? r : "<span class='na-text'>N/A</span>";
+                },
+                getDocNumber: function (r) {
+                    return r ? r : 0;
                 }
-            ],
-            dockedItems: [
-                {
-                    xtype: 'pagingtoolbar',
-                    store: this.collectionLogStore,
-                    dock: 'bottom',
-                    displayInfo: true,
-                    displayMsg: 'Displaying collections history entries {0} - {1} of {2}',
-                    emptyMsg: 'No collections history entries to display'
-                }
-            ]
+            }
+        );
+
+        this.collectionLogView = Ext.create('Ext.view.View', {
+            hidden: true,
+            store: this.collectionLogStore,
+            tpl: this.collectionLogTpl,
+            itemSelector: 'div.active'
         });
 
         this.editForm = {
@@ -333,7 +337,6 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                                             height: 22,
                                             width: 22,
                                             id: 'collectionGeoInfo'
-
                                         }
                                     ]
                                 },
@@ -407,13 +410,98 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                         {
                             xtype: 'container',
                             defaultType: 'label',
+                            padding: '10 0',
+                            layout: 'hbox',
+                            items: [
+                                {
+                                    xtype: 'container',
+                                    padding: '0 20 0 0',
+                                    html: '<img src="/AIDRFetchManager/resources/img/collection-icon.png"/>'
+                                },
+                                {
+                                    xtype: 'container',
+                                    flex: 1,
+                                    defaultType: 'label',
+                                    layout: 'vbox',
+                                    defaults: {
+                                        margin: '5 0'
+                                    },
+                                    items: [
+                                        {
+                                            xtype: 'container',
+                                            defaultType: 'label',
+                                            layout: 'hbox',
+                                            items: [
+                                                {
+                                                    padding: '0 10 0 0',
+                                                    text: 'Code:'
+                                                },
+                                                this.codeL
+                                            ]
+                                        },
+                                        {
+                                            xtype: 'container',
+                                            defaultType: 'label',
+                                            layout: 'hbox',
+                                            items: [
+                                                this.statusL,
+                                                {
+                                                    flex: 1,
+                                                    text: 'Status'
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                },
+                                {
+                                    xtype: 'container',
+                                    defaultType: 'label',
+                                    padding: '22 0 0 0',
+                                    layout: 'hbox',
+                                    items: [
+                                        this.startButton,
+                                        this.stopButton
+                                    ]
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            defaultType: 'label',
+                            layout: 'hbox',
+                            cls: 'bordered-top',
+                            items: [
+                                {
+                                    width: 170,
+                                    text: 'Last downloaded document:'
+                                },
+                                this.lastDocL
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            defaultType: 'label',
+                            cls: 'bordered-bottom',
                             layout: 'hbox',
                             items: [
                                 {
                                     width: 170,
-                                    text: 'Status:'
+                                    text: 'Downloaded documents:'
                                 },
-                                this.statusL
+                                this.docCountL
+                            ]
+                        },
+                        this.timeDurationL,
+                        {
+                            xtype: 'container',
+                            defaultType: 'label',
+                            layout: 'hbox',
+                            items: [
+                                {
+                                    width: 170,
+                                    text: 'Created on:'
+                                },
+                                this.createdL
                             ]
                         },
                         {
@@ -431,6 +519,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                         {
                             xtype: 'container',
                             defaultType: 'label',
+                            cls: 'bordered-bottom',
                             layout: 'hbox',
                             items: [
                                 {
@@ -440,18 +529,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                                 this.lastStoppedL
                             ]
                         },
-                        {
-                            xtype: 'container',
-                            defaultType: 'label',
-                            layout: 'hbox',
-                            items: [
-                                {
-                                    width: 170,
-                                    text: 'Code:'
-                                },
-                                this.codeL
-                            ]
-                        },
+                        this.configurationsL,
                         {
                             xtype: 'container',
                             defaultType: 'label',
@@ -471,7 +549,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 170,
-                                    text: 'Geo:'
+                                    text: 'Geographical region:'
                                 },
                                 this.geoL
                             ]
@@ -483,7 +561,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 170,
-                                    text: 'Follow:'
+                                    text: 'Follow specific users:'
                                 },
                                 this.followL
                             ]
@@ -491,6 +569,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                         {
                             xtype: 'container',
                             defaultType: 'label',
+                            cls: 'bordered-bottom',
                             layout: 'hbox',
                             items: [
                                 {
@@ -499,66 +578,18 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                                 },
                                 this.languageFiltersL
                             ]
-                        },
-                        {
-                            xtype: 'container',
-                            defaultType: 'label',
-                            layout: 'hbox',
-                            items: [
-                                {
-                                    width: 170,
-                                    text: 'Created:'
-                                },
-                                this.createdL
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            defaultType: 'label',
-                            layout: 'hbox',
-                            items: [
-                                {
-                                    width: 170,
-                                    text: 'Downloaded documents:'
-                                },
-                                this.docCountL
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            defaultType: 'label',
-                            layout: 'hbox',
-                            items: [
-                                {
-                                    width: 170,
-                                    text: 'Last downloaded document:'
-                                },
-                                this.lastDocL
-                            ]
                         }
 
-
-                    ]
-                },
-                {
-                    xtype: 'container',
-                    defaultType: 'label',
-                    layout: 'hbox',
-                    items: [
-                        this.startButton,
-                        this.stopButton
                     ]
                 }
             ]
         });
 
         this.tabPanel = Ext.create('Ext.tab.Panel', {
+            cls: 'tabPanel',
             width: '100%',
             minHeight: 400,
             activeTab: 0,
-            defaults: {
-                bodyPadding: 10
-            },
             items: [
                 {
                     title: 'Details',
@@ -568,6 +599,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                 },
                 {
                     title: 'Edit',
+                    padding: '10 0 0 0',
                     defaults: {
                         anchor: '100%'
                     },
@@ -577,11 +609,24 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                 },
                 {
                     title: 'Download',
+                    padding: '10 0 0 0',
                     html: '<div class="styled-text">You can read the collected tweets from:<br><br>' +
                         '<b>1.</b>&nbsp;&nbsp;File /var/data/aidr/persister/syria_civil_war.json on server scd1.qcri.org<br>' +
                         '<b>2.</b>&nbsp;&nbsp;Redis queue FetcherChannel.syria_civil_war on host scd1.qcri.org port 6379<br></div>'
                 }
-            ]
+            ],
+            listeners: {
+                'tabchange': function (tabPanel, tab) {
+                    var tabIndex = tabPanel.items.findIndex('id', tab.id)
+                    if (tabIndex == 0){
+                        me.collectionHistoryTitle.show();
+                        me.collectionLogView.show();
+                    } else {
+                        me.collectionHistoryTitle.hide();
+                        me.collectionLogView.hide();
+                    }
+                }
+            }
         });
 
         this.items = [
@@ -590,6 +635,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
             {
                 xtype: 'container',
                 layout: 'hbox',
+                padding: '10 0',
                 items: [
                     this.collectionTitle,
                     this.refreshButton
@@ -597,7 +643,7 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
             },
             this.tabPanel,
             this.collectionHistoryTitle,
-            this.collectionLogGrid
+            this.collectionLogView
         ];
 
         this.callParent(arguments);
