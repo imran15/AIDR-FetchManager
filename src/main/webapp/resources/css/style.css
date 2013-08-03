@@ -3211,3 +3211,14 @@ End of the tab panel styles
 .no-border {
     border-width: 0;
 }
+
+.collections-list .content .rightColumn {
+    line-height: 1.5;
+    float:left;
+    width:160px;
+}
+.collections-list .content .leftColumn {
+    line-height: 1.5;
+    float:left;
+    width:710px;
+}
