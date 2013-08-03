@@ -13,7 +13,7 @@
                 enabled: true,
                 disableCaching: false,
                 paths : {
-                    AIDRFM: '${pageContext.request.contextPath}/resources/js'
+                    AIDRFM: '${pageContext.request.contextPath}/resources/js/app'
                 }
             }
         );

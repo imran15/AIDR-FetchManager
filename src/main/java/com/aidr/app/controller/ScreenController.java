@@ -15,11 +15,6 @@ public class ScreenController extends BaseController{
 		return "home";
 	}
 
-    @RequestMapping("protected/homeold")
-	public String homeold(Map<String, String> model) throws Exception {
-		return "homeold";
-	}
-	
 	@RequestMapping("protected/task")
 	public String task() throws Exception {
 		return "task";
@@ -38,5 +33,10 @@ public class ScreenController extends BaseController{
     @RequestMapping("protected/collection-details")
     public String collectionDetails(Map<String, String> model) throws Exception {
         return "collection-details";
+    }
+
+    @RequestMapping("protected/collection-create")
+    public String collectionCreate(Map<String, String> model) throws Exception {
+        return "collection-create";
     }
 }

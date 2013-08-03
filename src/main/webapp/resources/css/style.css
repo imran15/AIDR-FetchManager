@@ -3207,3 +3207,7 @@ End of the tab panel styles
     -webkit-margin-start: 0px;
     -webkit-margin-end: 0px;
 }
+
+.no-border {
+    border-width: 0;
+}

@@ -1,4 +1,4 @@
-Ext.define('AIDRFM.app.common.AIDRFMFunctions', {
+Ext.define('AIDRFM.common.AIDRFMFunctions', {
 
     initMessageContainer: function (){
         msgCt = Ext.DomHelper.insertFirst(document.body, {id:'msg-div'}, true);
@@ -45,7 +45,7 @@ Ext.define('AIDRFM.app.common.AIDRFMFunctions', {
     getMask: function (showMessage, msg) {
         if (showMessage) {
             if (!msg) {
-                msg = 'Loading...';
+                msg = 'Loading ...';
             }
         }
         if (this.maskScreen == null) {
@@ -54,8 +54,46 @@ Ext.define('AIDRFM.app.common.AIDRFMFunctions', {
             this.maskScreen.msg = msg;
         }
         return this.maskScreen;
+    },
+
+    mandatoryFieldsEntered: function () {
+        var me = this;
+
+        var isValid = true;
+        var form = Ext.getCmp('collectionForm').getForm();
+        if (!form.findField('code').getValue()) {
+            form.findField('code').markInvalid(['Collection Code is mandatory']);
+            AIDRFMFunctions.setAlert('Error', 'Collection Code is mandatory');
+            isValid = false;
+        }
+        if (form.findField('code').getValue() && form.findField('code').getValue().length > 15) {
+            form.findField('code').markInvalid(['The maximum length for Collection Code field is 15']);
+            AIDRFMFunctions.setAlert('Error', 'The maximum length for Collection Code field is 15');
+            isValid = false;
+        }
+        if (!form.findField('name').getValue()) {
+            form.findField('name').markInvalid(['Collection Name is mandatory']);
+            AIDRFMFunctions.setAlert('Error', 'Collection Name is mandatory');
+            isValid = false;
+        }
+        if (!(form.findField('track').getValue() || form.findField('geo').getValue() || form.findField('follow').getValue())) {
+            AIDRFMFunctions.setAlert('Error', 'One of Keywords, Geo or Follow field is mandatory');
+            isValid = false;
+        }
+        return isValid;
+    },
+
+    getQueryParam: function (name) {
+        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+        var regexS = "[\\?&]" + name + "=([^&#]*)";
+        var regex = new RegExp(regexS);
+        var results = regex.exec(window.location.href);
+        if (results == null)
+            return null;
+        else
+            return results[1];
     }
 
 });
 
-AIDRFMFunctions = new AIDRFM.app.common.AIDRFMFunctions();
+AIDRFMFunctions = new AIDRFM.common.AIDRFMFunctions();

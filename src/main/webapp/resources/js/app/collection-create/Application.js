@@ -3,13 +3,13 @@ Ext.application({
         'Ext.container.Viewport'
     ],
 
-    name: 'AIDRFM.collection-details',
+    name: 'AIDRFM.collection-create',
 
     controllers: [
-        'CollectionDetailsController'
+        'CollectionCreateController'
     ],
 
-    appFolder: BASE_URL + '/resources/js/app/collection-details',
+    appFolder: BASE_URL + '/resources/js/app/collection-create',
 
     launch: function () {
         Ext.QuickTips.init();
@@ -33,7 +33,7 @@ Ext.application({
                                 '</div>'
                         },
                         {
-                            xtype: 'collection-details-view'
+                            xtype: 'collection-create'
                         },
                         {
                             xtype: 'container',

@@ -1,4 +1,4 @@
-Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
+Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
     extend: 'Ext.app.Controller',
 
     views: [
@@ -129,7 +129,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
 
             '#collectionUpdate': {
                 click: function (btn, e, eOpts) {
-                    if (datailsController.mandatoryFieldsEntered()) {
+                    if (AIDRFMFunctions.mandatoryFieldsEntered()) {
                         datailsController.updateCollection();
                     }
                 }
@@ -157,7 +157,26 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         this.DetailsComponent = component;
         datailsController = this;
         var me = this;
-        var id = this.DetailsComponent.currentCollectionId = this.getQueryParam("id");
+        var id = this.DetailsComponent.currentCollectionId = AIDRFMFunctions.getQueryParam("id");
+
+        if (!id){
+            AIDRFMFunctions.setAlert("Error", ["Collection not specified.", "You will be redirected to Home screen."]);
+
+            var maskRedirect = AIDRFMFunctions.getMask(true, 'Redirecting ...');
+            maskRedirect.show();
+
+//            wait for 3 sec to let user read information box
+            var isFirst = true;
+            Ext.TaskManager.start({
+                run: function () {
+                    if (!isFirst) {
+                        document.location.href = BASE_URL + '/protected/home';
+                    }
+                    isFirst = false;
+                },
+                interval: 3 * 1000
+            });
+        }
 
         me.na = "<span class='na-text'>N/A</span>";
         me.ns = "<span class='na-text'>Not specified</span>";
@@ -165,7 +184,7 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
         this.loadCollection(id);
 
         var isFirstRun = true;
-        var refreshStatusTask = Ext.TaskManager.start({
+        Ext.TaskManager.start({
             run: function () {
                 if (!isFirstRun) {
                     me.refreshStatus(id);
@@ -178,21 +197,10 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
 
     },
 
-    getQueryParam: function (name) {
-        name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
-        var regexS = "[\\?&]" + name + "=([^&#]*)";
-        var regex = new RegExp(regexS);
-        var results = regex.exec(window.location.href);
-        if (results == null)
-            return null;
-        else
-            return results[1];
-    },
-
     loadCollection: function (id) {
         var me = this;
 
-        var mask = AIDRFMFunctions.getMask();
+        var mask = AIDRFMFunctions.getMask(true);
         mask.show();
 
         Ext.Ajax.request({
@@ -356,33 +364,6 @@ Ext.define('AIDRFM.home.controller.CollectionDetailsController', {
                     me.updateDetailsPanel(data);
                 }
             }});
-    },
-
-    mandatoryFieldsEntered: function () {
-        var me = this;
-
-        var isValid = true;
-        var form = Ext.getCmp('collectionForm').getForm();
-        if (!form.findField('code').getValue()) {
-            form.findField('code').markInvalid(['Collection Code is mandatory']);
-            AIDRFMFunctions.setAlert('Error', 'Collection Code is mandatory');
-            isValid = false;
-        }
-        if (form.findField('code').getValue() && form.findField('code').getValue().length > 15) {
-            form.findField('code').markInvalid(['The maximum length for Collection Code field is 15']);
-            AIDRFMFunctions.setAlert('Error', 'The maximum length for Collection Code field is 15');
-            isValid = false;
-        }
-        if (!form.findField('name').getValue()) {
-            form.findField('name').markInvalid(['Collection Name is mandatory']);
-            AIDRFMFunctions.setAlert('Error', 'Collection Name is mandatory');
-            isValid = false;
-        }
-        if (!(form.findField('track').getValue() || form.findField('geo').getValue() || form.findField('follow').getValue())) {
-            AIDRFMFunctions.setAlert('Error', 'One of Keywords, Geo or Follow field is mandatory');
-            isValid = false;
-        }
-        return isValid;
     },
 
     updateCollection: function () {

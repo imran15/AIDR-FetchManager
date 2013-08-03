@@ -1,8 +1,8 @@
 Ext.require([
-    'AIDRFM.app.common.AIDRFMFunctions'
+    'AIDRFM.common.AIDRFMFunctions'
 ]);
 
-Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
+Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.collection-details-view',
     border: false,
@@ -157,6 +157,13 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
             hidden: true
         });
 
+        this.configurationsL = Ext.create('Ext.form.Label', {
+            flex: 1,
+            text: 'Configurations',
+            padding: '15 0 0 0',
+            cls: 'header-h2'
+        });
+
         this.saveButton = Ext.create('Ext.Button', {
             text: 'Save',
             margin: '0 10 0 10',
@@ -297,7 +304,9 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                         {
                             xtype: 'container',
                             layout: 'hbox',
-                            margin: '5 0 10 0',
+                            margin: '5 0 0 0',
+                            padding: '0 0 20 0',
+                            cls: 'bordered-bottom',
                             items: [
                                 this.keywordsE,
                                 {
@@ -310,63 +319,61 @@ Ext.define('AIDRFM.home.view.CollectionDetailsPanel', {
                                 }
                             ]
                         },
+                        this.configurationsL,
                         {
-                            xtype: 'fieldset',
-                            title: 'Optional',
+                            xtype: 'container',
+                            layout: 'hbox',
+                            margin: '0 0 5 0',
                             items: [
+                                this.geoE,
                                 {
-                                    xtype: 'container',
-                                    layout: 'hbox',
-                                    margin: '0 0 5 0',
-                                    items: [
-                                        this.geoE,
-                                        {
-                                            border: false,
-                                            bodyStyle: 'background:none',
-                                            html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
-                                            height: 22,
-                                            width: 22,
-                                            id: 'collectionGeoInfo'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'container',
-                                    layout: 'hbox',
-                                    margin: '5 0',
-                                    items: [
-                                        this.followE,
-                                        {
-                                            border: false,
-                                            bodyStyle: 'background:none',
-                                            html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
-                                            height: 22,
-                                            width: 22,
-                                            id: 'collectionFollowInfo'
-                                        }
-                                    ]
-                                },
-                                {
-                                    xtype: 'container',
-                                    layout: 'hbox',
-                                    margin: '5 0 0 0',
-                                    items: [
-                                        this.languageFiltersE,
-                                        {
-                                            border: false,
-                                            bodyStyle: 'background:none',
-                                            html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
-                                            height: 22,
-                                            width: 22,
-                                            id: 'collectionLangInfo'
-                                        }
-                                    ]
+                                    border: false,
+                                    bodyStyle: 'background:none',
+                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
+                                    height: 22,
+                                    width: 22,
+                                    id: 'collectionGeoInfo'
                                 }
                             ]
                         },
                         {
                             xtype: 'container',
                             layout: 'hbox',
+                            margin: '5 0',
+                            items: [
+                                this.followE,
+                                {
+                                    border: false,
+                                    bodyStyle: 'background:none',
+                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
+                                    height: 22,
+                                    width: 22,
+                                    id: 'collectionFollowInfo'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            layout: 'hbox',
+                            margin: '5 0 0 0',
+                            padding: '0 0 20 0',
+                            cls: 'bordered-bottom',
+                            items: [
+                                this.languageFiltersE,
+                                {
+                                    border: false,
+                                    bodyStyle: 'background:none',
+                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
+                                    height: 22,
+                                    width: 22,
+                                    id: 'collectionLangInfo'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            layout: 'hbox',
+                            padding: '15 0 0 0',
                             items: [
                                 this.saveButton,
                                 this.cancelButton
