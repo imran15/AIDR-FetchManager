@@ -144,7 +144,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         this.startButton = Ext.create('Ext.Button', {
             text: 'Start',
             margin: 0,
-            cls:'btn btn-blue',
+            cls:'btn btn-green',
             id: 'collectionStart',
             hidden: true
         });

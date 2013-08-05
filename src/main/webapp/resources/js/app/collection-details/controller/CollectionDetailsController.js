@@ -90,7 +90,6 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                         headers: {
                             'Accept': 'application/json'
                         },
-                        waitMsg: '...',
                         success: function (resp) {
                             var response = Ext.decode(resp.responseText);
                             var name = datailsController.DetailsComponent.currentCollection.name;
@@ -212,7 +211,6 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             headers: {
                 'Accept': 'application/json'
             },
-            waitMsg: 'Loading collection ...',
             success: function (response) {
                 var jsonData = Ext.decode(response.responseText);
                 me.updateDetailsPanel(jsonData);
@@ -258,18 +256,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
     },
 
     setStatus: function (raw) {
-        var statusText = '';
-        if (raw == 'RUNNING') {
-            statusText = "<b class='greenInfo'> RUNNING </b>";
-            this.DetailsComponent.startButton.hide();
-            this.DetailsComponent.stopButton.show();
-        } else if (raw == 'INITIALIZING') {
-            statusText = "<b class='blueInfo'> INITIALIZING </b>";
-        } else if (raw == 'STOPPED' || raw == 'FATAL-ERROR') {
-            statusText = "<b class='redInfo'>" + raw + " </b>";
-        } else {
-            statusText = "<b class='warningFont'>" + raw + " </b>";
-        }
+        var statusText = AIDRFMFunctions.getStatusWithStyle(raw);
 
         if (raw == 'RUNNING-WARNNING' || raw == 'RUNNING'){
             this.DetailsComponent.startButton.hide();
@@ -311,7 +298,6 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             headers: {
                 'Accept': 'application/json'
             },
-            waitMsg: '...',
             success: function (response) {
                 mask.hide();
                 var resp = Ext.decode(response.responseText);
@@ -353,7 +339,6 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             headers: {
                 'Accept': 'application/json'
             },
-            waitMsg: '...',
             success: function (response) {
                 mask.hide();
                 AIDRFMFunctions.setAlert("Ok", "Collection Stopped");
@@ -363,7 +348,8 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                     var data = resp.data;
                     me.updateDetailsPanel(data);
                 }
-            }});
+            }
+        });
     },
 
     updateCollection: function () {
@@ -393,7 +379,6 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             headers: {
                 'Accept': 'application/json'
             },
-            waitMsg: 'Updating Collection ...',
             success: function (response) {
                 me.DetailsComponent.tabPanel.setActiveTab(0);
                 me.loadCollection(id);
@@ -407,7 +392,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         this.updateEditPanel();
     },
 
-    refreshStatus: function (id, record) {
+    refreshStatus: function (id) {
         var me = this;
 
         Ext.Ajax.request({
@@ -419,7 +404,6 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             headers: {
                 'Accept': 'application/json'
             },
-            waitMsg: 'Refresh count status ...',
             success: function (response) {
                 var resp = Ext.decode(response.responseText);
                 if (resp.success ) {

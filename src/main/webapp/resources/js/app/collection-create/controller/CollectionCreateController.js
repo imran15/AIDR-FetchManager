@@ -161,7 +161,6 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
             headers: {
                 'Accept': 'application/json'
             },
-            waitMsg: '...',
             success: function (response) {
                 var response = Ext.decode(response.responseText);
                 if (response.data) {

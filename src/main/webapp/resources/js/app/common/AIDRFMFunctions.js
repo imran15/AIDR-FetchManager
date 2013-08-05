@@ -92,6 +92,20 @@ Ext.define('AIDRFM.common.AIDRFMFunctions', {
             return null;
         else
             return results[1];
+    },
+
+    getStatusWithStyle: function(raw) {
+        var statusText = '';
+        if (raw == 'RUNNING') {
+            statusText = "<b class='greenInfo'> RUNNING </b>";
+        } else if (raw == 'INITIALIZING') {
+            statusText = "<b class='blueInfo'> INITIALIZING </b>";
+        } else if (raw == 'STOPPED' || raw == 'FATAL-ERROR') {
+            statusText = "<b class='redInfo'>" + raw + " </b>";
+        } else {
+            statusText = "<b class='warningFont'>" + raw + " </b>";
+        }
+        return statusText;
     }
 
 });

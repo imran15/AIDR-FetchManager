@@ -76,10 +76,10 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
 
             '<div class="collection-item">',
 
-            '<button class="btn btn-green" onclick="return false">',
+            '<button id="buttonStart_{id}" class="btn btn-green {[this.isButtonStartHidden(values.status)]}" onclick="collectionController.startCollectionCheck({id}, \'{name}\')">',
             '<span>Start</span>',
             '</button>',
-            '<button class="btn btn-red hidden" onclick="return false">',
+            '<button id="buttonStop_{id}" class="btn btn-red {[this.isButtonStopHidden(values.status)]}" onclick="collectionController.stopCollection({id})">',
                 '<span>Stop</span>',
             '</button>',
 
@@ -90,9 +90,9 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
             '<div class="content">',
             '<div class="info">',
             '<div class="collection-title"><a href="collection-details?id={id}">{name}</a></div>',
-            '<div class="styled-text-14">{[this.getStatus(values.status)]}</div>',
-            '<div class="styled-text-14">Downloaded documents: {[this.getDocNumber(values.count)]}</div>',
-            '<div class="styled-text-14">Last downloaded document: {[this.getLastDoc(values.lastDocument)]}</div>',
+            '<div class="styled-text-14" id="statusField_{id}">{[this.getStatus(values.status)]}</div>',
+            '<div class="styled-text-14" id="docCountField_{id}">Downloaded documents: {[this.getDocNumber(values.count)]}</div>',
+            '<div class="styled-text-14" id="lastDocField_{id}">Last downloaded document: {[this.getLastDoc(values.lastDocument)]}</div>',
 
             '</div>',
             '</div>',
@@ -102,23 +102,27 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
             '</div>',
             {
                 getStatus: function (raw) {
-                    var statusText = '';
-                    if (raw == 'RUNNING') {
-                        statusText = "<b class='greenInfo'> RUNNING </b>";
-                    } else if (raw == 'INITIALIZING') {
-                        statusText = "<b class='blueInfo'> INITIALIZING </b>";
-                    } else if (raw == 'STOPPED' || raw == 'FATAL-ERROR') {
-                        statusText = "<b class='redInfo'>" + raw + " </b>";
-                    } else {
-                        statusText = "<b class='warningFont'>" + raw + " </b>";
-                    }
-                    return statusText;
+                    return AIDRFMFunctions.getStatusWithStyle(raw);
                 },
                 getLastDoc: function (r) {
                     return r ? r : "<span class='na-text'>N/A</span>";
                 },
                 getDocNumber: function (r) {
                     return r ? r : 0;
+                },
+                isButtonStartHidden: function (r) {
+                    if (r == 'RUNNING-WARNNING' || r == 'RUNNING'){
+                        return 'hidden';
+                    } else {
+                        return '';
+                    }
+                },
+                isButtonStopHidden: function (r) {
+                    if (r == 'RUNNING-WARNNING' || r == 'RUNNING'){
+                        return '';
+                    } else {
+                        return 'hidden';
+                    }
                 }
             }
         );

@@ -252,10 +252,6 @@ body.touch{
 	float: right;
 }
 
-.hidden{
-	visibility: hidden;
-}
-
 .trans{
 	opacity: 0;
 }
@@ -864,7 +860,7 @@ header .list .mix{
 	position: relative;
 	width: 18px;
 	height: 4px;
-	margin-bottom: 0 0 2px 0;
+	margin-bottom: 2px;
 }
 
 header .list .mix::after{
@@ -1014,7 +1010,7 @@ header .drop_down{
 	
 	header .download a{
 		color: #fff;
-	};
+	}
 
 	header .download span::after{
 		content: '';
@@ -2959,10 +2955,9 @@ footer p a:hover{
     position: relative;
     float: right;
     top: 35px;
-    right: 15px;
 }
 
-.collections-list .collection-item .btn .hidden{
+.hidden{
     display: none;
 }
 
