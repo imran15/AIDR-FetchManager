@@ -110,6 +110,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 mask.hide();
                 AIDRFMFunctions.setAlert("Ok", "Collection Stopped");
 
+                me.updateLastRefreshDate();
                 var resp = Ext.decode(response.responseText);
                 if (resp.success && resp.data) {
                     var data = resp.data;
@@ -138,6 +139,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 var resp = Ext.decode(response.responseText);
                 AIDRFMFunctions.setAlert("Ok", "Collection Started");
 
+                me.updateLastRefreshDate();
                 if (resp.success && resp.data) {
                     var data = resp.data;
                     me.updateCollectionInfo(data);
@@ -174,6 +176,10 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
 
             this.updateStartStopButtonsState(data.status, id);
         }
+    },
+
+    updateLastRefreshDate: function() {
+        this.mainComponent.collectionDescription.setText('Status as of ' + Ext.Date.format(new Date(), "Y F d h:i:s A"));
     },
 
     refreshStatus: function (id) {
@@ -238,6 +244,8 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 {
                     var response = Ext.decode(resp.responseText);
                     if (response.success) {
+
+                        me.updateLastRefreshDate();
                         if (response.data) {
                             var collectionData = response.data;
                             me.updateCollectionInfo(collectionData);
