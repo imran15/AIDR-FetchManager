@@ -157,7 +157,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             hidden: true
         });
 
-        this.configurationsL = Ext.create('Ext.form.Label', {
+        this.configurationsEditTabL = Ext.create('Ext.form.Label', {
             flex: 1,
             text: 'Configurations',
             padding: '15 0 0 0',
@@ -330,7 +330,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                 }
                             ]
                         },
-                        this.configurationsL,
+                        this.configurationsEditTabL,
                         {
                             xtype: 'container',
                             layout: 'hbox',
