@@ -228,7 +228,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
         var me = this;
 
         Ext.Ajax.request({
-            url: 'collection/getRunningCollectionStatusByUser.action',
+            url: 'collection/updateAndGetRunningCollectionStatusByUser.action',
             method: 'GET',
             headers: {
                 'Accept': 'application/json'

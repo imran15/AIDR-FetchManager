@@ -159,8 +159,18 @@ public class CollectionController extends BaseController{
 	@RequestMapping(value = "/refreshCount.action", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> refreshCount(@RequestParam Integer id) throws Exception {
-         AidrCollection collection = collectionService.status(id);
+         AidrCollection collection = collectionService.statusById(id);
          return getUIWrapper(collection,true);
 	}
+
+    @RequestMapping(value = "/updateAndGetRunningCollectionStatusByUser.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> updateAndGetRunningCollectionByUser() throws Exception {
+        UserEntity userEntity = getAuthenticatedUser();
+        if(userEntity!=null){
+            return getUIWrapper(collectionService.updateAndGetRunningCollectionStatusByUser(userEntity.getId()),true);
+        }
+        return getUIWrapper(false);
+    }
 	
 }

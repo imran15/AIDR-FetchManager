@@ -15,7 +15,8 @@ public interface CollectionService {
 	public List<AidrCollection> searchByName(String query,Integer userId) throws Exception;
 	public Boolean exist(String code) throws Exception; 
 	public AidrCollection getRunningCollectionStatusByUser(Integer userId) throws Exception; 
-	public AidrCollection start(Integer collectionId,Integer userId) throws Exception; 
+	public AidrCollection updateAndGetRunningCollectionStatusByUser(Integer userId) throws Exception;
+	public AidrCollection start(Integer collectionId,Integer userId) throws Exception;
 	public AidrCollection stop(Integer collectionId) throws Exception; 
-	public AidrCollection status(Integer collectionId) throws Exception; 
+	public AidrCollection statusById(Integer collectionId) throws Exception;
 }

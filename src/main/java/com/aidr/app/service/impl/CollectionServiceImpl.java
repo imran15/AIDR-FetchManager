@@ -95,6 +95,16 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     @Transactional(readOnly = false)
+    public AidrCollection updateAndGetRunningCollectionStatusByUser(Integer userId) throws Exception {
+        AidrCollection collection = collectionRepository.getRunningCollectionStatusByUser(userId);
+        if (collection != null){
+            return statusByCollection(collection);
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional(readOnly = false)
     public AidrCollection start(Integer collectionId, Integer userId) throws Exception {
         AidrCollection alreadyRunningCollection = collectionRepository.getRunningCollectionStatusByUser(userId);
         if (alreadyRunningCollection != null) {
@@ -190,12 +200,17 @@ public class CollectionServiceImpl implements CollectionService {
 
     @SuppressWarnings("deprecation")
     @Override
-    public AidrCollection status(Integer id) throws Exception {
+    public AidrCollection statusById(Integer id) throws Exception {
+        AidrCollection collection = this.findById(id);
+        return statusByCollection(collection);
+    }
+
+    @SuppressWarnings("deprecation")
+    public AidrCollection statusByCollection(AidrCollection collection) throws Exception {
         try {
             /**
              * Make a call to fetcher Status Rest API
              */
-            AidrCollection collection = this.findById(id);
             WebResource webResource = client.resource(fetchMainUrl + "/twitter/status?id=" + URLEncoder.encode(collection.getCode()));
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON).get(ClientResponse.class);
