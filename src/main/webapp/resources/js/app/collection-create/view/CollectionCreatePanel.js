@@ -68,7 +68,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
 
         this.geoE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Geographical regions',
-            labelWidth: 120,
+            labelWidth: 130,
             name: 'geo',
             flex: 1,
             emptyText: 'e.g., 43.43, 22.44, 89.32, 56.43'
@@ -76,7 +76,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
 
         this.followE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Follow specific users',
-            labelWidth: 120,
+            labelWidth: 130,
             name: 'follow',
             flex: 1,
             emptyText: 'e.g., 47423744, 53324456'
@@ -84,7 +84,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
 
         this.languageFiltersE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Language Filters',
-            labelWidth: 120,
+            labelWidth: 130,
             name: 'langFilters',
             flex: 1,
             emptyText: 'e.g., en, ar, ja'

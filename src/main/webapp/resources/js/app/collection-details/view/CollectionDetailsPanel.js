@@ -119,7 +119,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
 
         this.geoE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Geographical regions',
-            labelWidth: 120,
+            labelWidth: 130,
             name: 'geo',
             flex: 1,
             emptyText: 'e.g., 43.43, 22.44, 89.32, 56.43'
@@ -128,7 +128,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         this.followE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Follow specific users',
             name: 'follow',
-            labelWidth: 120,
+            labelWidth: 130,
             flex: 1,
             emptyText: 'e.g., 47423744, 53324456'
         });
@@ -136,7 +136,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         this.languageFiltersE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Language Filters',
             name: 'langFilters',
-            labelWidth: 120,
+            labelWidth: 130,
             flex: 1,
             emptyText: 'e.g., en, ar, ja'
         });
@@ -223,7 +223,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             '<div class="content">',
 
             '<div class="rightColumn">',
-            '<div>Downloaded documents:</div>',
+            '<div>Downloaded items:</div>',
             '<div>Start Date:</div>',
             '<div>End Date:</div>',
             '<div>Geographical regions:</div>',
@@ -481,7 +481,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 170,
-                                    text: 'Last downloaded document:'
+                                    text: 'Last downloaded item:'
                                 },
                                 this.lastDocL
                             ]
@@ -494,7 +494,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 170,
-                                    text: 'Downloaded documents:'
+                                    text: 'Downloaded items:'
                                 },
                                 this.docCountL
                             ]

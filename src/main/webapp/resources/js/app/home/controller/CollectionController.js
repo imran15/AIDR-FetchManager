@@ -155,8 +155,8 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
 
 
             statusField.innerHTML = AIDRFMFunctions.getStatusWithStyle(data.status);
-            docCountField.innerHTML = 'Downloaded documents: ' + docCount;
-            lastDocField.innerHTML = 'Last downloaded document: ' + lastDoc;
+            docCountField.innerHTML = 'Downloaded items: ' + docCount;
+            lastDocField.innerHTML = 'Last downloaded item: ' + lastDoc;
 
             this.updateStartStopButtonsState(data.status, id);
         }
@@ -186,7 +186,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                             docCount = data.count ? data.count : 0;
 
                         statusField.innerHTML = AIDRFMFunctions.getStatusWithStyle(data.status);
-                        docCountField.innerHTML = 'Downloaded documents: ' + docCount;
+                        docCountField.innerHTML = 'Downloaded items: ' + docCount;
 
                         me.updateStartStopButtonsState(data.status, id);
                     }
