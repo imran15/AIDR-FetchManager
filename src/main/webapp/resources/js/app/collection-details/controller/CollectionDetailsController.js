@@ -239,7 +239,12 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
         p.createdL.setText(r.createdDate);
         this.setCountOfDocuments(r.count);
-        p.lastDocL.setText(r.lastDocument ? r.lastDocument : this.na, false);
+        this.setLastDowloadedDoc(r.lastDocument);
+    },
+
+    setLastDowloadedDoc: function(raw) {
+        var p = this.DetailsComponent;
+        p.lastDocL.setText(raw ? raw : this.na, false);
     },
 
     updateEditPanel: function () {
@@ -415,6 +420,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                         me.setStartDate(data.startDate);
                         me.setEndDate(data.endDate);
                         me.setCountOfDocuments(data.count);
+                        me.setLastDowloadedDoc(data.lastDocument);
                     }
                 } else {
                     AIDRFMFunctions.setAlert("Error", "While Collection status update");

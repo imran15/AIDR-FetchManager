@@ -34,6 +34,20 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
 
         this.mainComponent = component;
         collectionController = this;
+
+        var me = this;
+
+        var isFirstRun = true;
+        Ext.TaskManager.start({
+            run: function () {
+                if (!isFirstRun) {
+                    me.refreshButtonAction();
+                }
+                isFirstRun = false;
+            },
+//            5 minutes
+            interval: 5 * 60 * 1000
+        });
     },
 
     startCollectionCheck: function(id, name) {
@@ -228,12 +242,12 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                             var collectionData = response.data;
                             me.updateCollectionInfo(collectionData);
                         } else {
-                            AIDRFMFunctions.setAlert("Error","You don't have Running Collections");
+                            AIDRFMFunctions.setAlert("Ok","You don't have Running Collections");
                         }
                     } else {
                         AIDRFMFunctions.setAlert(
                             "Error",
-                            ['Error while updating Collection .',
+                            ['Error while updating Collections.',
                                 'Please try again later or contact Support']
                         );
                     }
