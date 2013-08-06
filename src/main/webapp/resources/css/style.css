@@ -3100,7 +3100,7 @@ Overriding of the standard ExtJs styles for tab panel
 .tabPanel .x-tab-bar {
     background-color: white;
     background-image: none;
-    border-top-width: 0;
+    border-width: 0 !important;
 }
 
 .tabPanel .x-tab-bar-body {
