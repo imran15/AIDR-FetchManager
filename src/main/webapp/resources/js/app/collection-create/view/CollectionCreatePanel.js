@@ -67,7 +67,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
         });
 
         this.geoE = Ext.create('Ext.form.field.Text', {
-            fieldLabel: 'Geographical region',
+            fieldLabel: 'Geographical regions',
             labelWidth: 120,
             name: 'geo',
             flex: 1,
@@ -92,7 +92,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
 
         this.configurationsL = Ext.create('Ext.form.Label', {
             flex: 1,
-            text: 'Configurations',
+            text: 'Configurations [optional]',
             padding: '15 0 0 0',
             cls: 'header-h2'
         });

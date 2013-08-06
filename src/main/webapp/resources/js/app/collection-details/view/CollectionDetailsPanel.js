@@ -118,7 +118,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         });
 
         this.geoE = Ext.create('Ext.form.field.Text', {
-            fieldLabel: 'Geographical region',
+            fieldLabel: 'Geographical regions',
             labelWidth: 120,
             name: 'geo',
             flex: 1,
@@ -226,7 +226,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             '<div>Downloaded documents:</div>',
             '<div>Start Date:</div>',
             '<div>End Date:</div>',
-            '<div>Geographical region:</div>',
+            '<div>Geographical regions:</div>',
             '<div>Follow specific users:</div>',
             '<div>Language Filters:</div>',
             '<div>Keywords:</div>',
@@ -557,7 +557,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 170,
-                                    text: 'Geographical region:'
+                                    text: 'Geographical regions:'
                                 },
                                 this.geoL
                             ]
