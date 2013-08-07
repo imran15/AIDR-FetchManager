@@ -110,6 +110,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
 
         this.keywordsE = Ext.create('Ext.form.field.TextArea', {
             fieldLabel: 'Keywords',
+            //labelAlign: 'top',
             name: 'track',
             allowBlank: false,
             flex: 1,
@@ -453,10 +454,10 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                             layout: 'hbox',
                                             items: [
                                                 this.statusL,
-                                                {
-                                                    flex: 1,
-                                                    text: 'Status'
-                                                }
+//                                                {
+//                                                    flex: 1,
+//                                                    text: 'Status'
+//                                                }
                                             ]
                                         }
                                     ]
@@ -476,20 +477,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                         {
                             xtype: 'container',
                             defaultType: 'label',
-                            layout: 'hbox',
-                            cls: 'bordered-top',
-                            items: [
-                                {
-                                    width: 170,
-                                    text: 'Last downloaded item:'
-                                },
-                                this.lastDocL
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            defaultType: 'label',
-                            cls: 'bordered-bottom',
+                            //cls: 'bordered-top',
                             layout: 'hbox',
                             items: [
                                 {
@@ -497,6 +485,19 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                     text: 'Downloaded items:'
                                 },
                                 this.docCountL
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            defaultType: 'label',
+                            layout: 'hbox',
+                            cls: 'bordered-bottom',
+                            items: [
+                                {
+                                    width: 170,
+                                    text: 'Last downloaded item:'
+                                },
+                                this.lastDocL
                             ]
                         },
                         this.timeDurationL,
