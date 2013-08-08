@@ -186,7 +186,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                 type: 'ajax',
                 url: 'collection-log/findAllForCollection.action',
                 reader: {
-                    root: 'items',
+                    root: 'data',
                     totalProperty: 'total'
                 }
             },
@@ -453,7 +453,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                             defaultType: 'label',
                                             layout: 'hbox',
                                             items: [
-                                                this.statusL,
+                                                this.statusL
 //                                                {
 //                                                    flex: 1,
 //                                                    text: 'Status'

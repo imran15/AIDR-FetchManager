@@ -306,25 +306,27 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             success: function (response) {
                 mask.hide();
                 var resp = Ext.decode(response.responseText);
-                AIDRFMFunctions.setAlert("Ok", "Collection Started");
+                if (resp.success) {
+                    AIDRFMFunctions.setAlert("Ok", "Collection Started");
+                    if (resp.data) {
+                        var data = resp.data;
+                        me.updateDetailsPanel(data);
+                    }
 
-                if (resp.success && resp.data) {
-                    var data = resp.data;
-                    me.updateDetailsPanel(data);
+                    var ranOnce = false;
+                    var task = Ext.TaskManager.start({
+                        run: function () {
+                            if (ranOnce) {
+                                me.refreshStatus(id);
+                                Ext.TaskManager.stop(task);
+                            }
+                            ranOnce = true;
+                        },
+                        interval: 5000
+                    });
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
                 }
-
-                var ranOnce = false;
-                var task = Ext.TaskManager.start({
-                    run: function () {
-                        if (ranOnce) {
-                            me.refreshStatus(id);
-                            Ext.TaskManager.stop(task);
-                        }
-                        ranOnce = true;
-                    },
-                    interval: 5000
-                });
-
             }});
     },
 
@@ -346,12 +348,15 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             },
             success: function (response) {
                 mask.hide();
-                AIDRFMFunctions.setAlert("Ok", "Collection Stopped");
-
                 var resp = Ext.decode(response.responseText);
-                if (resp.success && resp.data) {
-                    var data = resp.data;
-                    me.updateDetailsPanel(data);
+                if (resp.success) {
+                    AIDRFMFunctions.setAlert("Ok", "Collection Stopped");
+                    if (resp.data) {
+                        var data = resp.data;
+                        me.updateDetailsPanel(data);
+                    }
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
                 }
             }
         });
@@ -423,7 +428,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                         me.setLastDowloadedDoc(data.lastDocument);
                     }
                 } else {
-                    AIDRFMFunctions.setAlert("Error", "While Collection status update");
+                    AIDRFMFunctions.setAlert("Error", resp.message);
                 }
             }
         });

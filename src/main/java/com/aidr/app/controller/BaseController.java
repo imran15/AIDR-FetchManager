@@ -16,37 +16,43 @@ public class BaseController {
 	
 	@Resource(name="userService")
 	private UserService userService;
+
+    protected <T> Map<String, Object> getUIWrapper(Boolean success) {
+        return getUIWrapper(null, success, null, null);
+    }
+
+    protected <T> Map<String, Object> getUIWrapper(List<T> entityList, Long total) {
+        return getUIWrapper(entityList, true, total, null);
+    }
+
+	protected <T> Map<String, Object> getUIWrapper(Boolean success, String message) {
+		return getUIWrapper(null, success, null, message);
+	}
+
+	protected <T> Map<String, Object> getUIWrapper(Object data, Boolean success) {
+		return getUIWrapper(data, success, null, null);
+	}
 	
-	protected <T> Map<String, Object> getUIWrapper(List<T> entityList,Boolean success) {
+	protected <T> Map<String, Object> getUIWrapper(Object data, Boolean success, Long total, String message) {
 		Map<String, Object> modelMap = new HashMap<String, Object>(4);
-		modelMap.put("total", entityList != null ? entityList.size() : 0);
-		modelMap.put("items", entityList);
+        modelMap.put("total", total);
 		modelMap.put("success", success);
-		modelMap.put("message", success ? "Successful" : "Failure");
+		modelMap.put("data", data);
+		modelMap.put("message", getMessage(success,message));
 		return modelMap;
 	}
-	
-	protected <T> Map<String, Object> getUIWrapper(List<T> entityList,Long total) {
-		Map<String, Object> modelMap = new HashMap<String, Object>(4);
-		modelMap.put("total", total);
-		modelMap.put("items", entityList);
-		modelMap.put("success", true);
-		modelMap.put("message", "Successful");
-		return modelMap;
-	}
-	
-	protected <T> Map<String, Object> getUIWrapper(Boolean success) {
-		return getUIWrapper(null,success);
-	}
-	
-	protected <T> Map<String, Object> getUIWrapper(Object object ,Boolean success) {
-		Map<String, Object> modelMap = new HashMap<String, Object>(3);
-		modelMap.put("success", success);
-		modelMap.put("data", object);
-		modelMap.put("message", success ? "Successful" : "Failure");
-		return modelMap;
-	}
-	
+
+    private String getMessage(Boolean success, String message){
+        if (message != null){
+            return message;
+        }
+        if (success != null && success){
+            return "Successful";
+        } else {
+            return "Failure";
+        }
+    }
+
 	protected UserEntity getAuthenticatedUser() throws Exception{
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication!=null){

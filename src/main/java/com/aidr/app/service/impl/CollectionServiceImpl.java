@@ -238,8 +238,9 @@ public class CollectionServiceImpl implements CollectionService {
             }
             return collection;
         } catch (Exception e) {
-            logger.error("Error while stopping Remote FetchMain Collection", e);
+            String msg = "Error while stopping Remote FetchMain Collection";
+            logger.error(msg, e);
+            throw new Exception(msg);
         }
-        return null;
     }
 }

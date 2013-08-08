@@ -23,7 +23,7 @@ Ext.define('Web.view.MasterPanel', {
                 url:'master/getAll.action',
                 reader:{
                 	type:'json',
-                	root:'items'
+                	root:'data'
                 }
             },
             autoLoad:true

@@ -143,6 +143,9 @@ public class CollectionController extends BaseController{
 		UserEntity userEntity = getAuthenticatedUser();
 		 if(userEntity!=null){
 			AidrCollection collection = collectionService.start(id,userEntity.getId());
+            if (collection == null){
+                return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+            }
 			return getUIWrapper(collection, true);
 		 }
 		return getUIWrapper(false);
@@ -152,6 +155,9 @@ public class CollectionController extends BaseController{
 	@ResponseBody
 	public Map<String,Object> stop(@RequestParam Integer id) throws Exception {
          AidrCollection collection = collectionService.stop(id);
+         if (collection == null){
+            return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+         }
          return getUIWrapper(collection,true);
 	}
 	
@@ -159,8 +165,13 @@ public class CollectionController extends BaseController{
 	@RequestMapping(value = "/refreshCount.action", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> refreshCount(@RequestParam Integer id) throws Exception {
-         AidrCollection collection = collectionService.statusById(id);
-         return getUIWrapper(collection,true);
+        AidrCollection collection = null;
+        try {
+            collection = collectionService.statusById(id);
+        } catch (Exception e) {
+            return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+        }
+        return getUIWrapper(collection,true);
 	}
 
     @RequestMapping(value = "/updateAndGetRunningCollectionStatusByUser.action", method = RequestMethod.GET)
@@ -168,7 +179,11 @@ public class CollectionController extends BaseController{
     public Map<String,Object> updateAndGetRunningCollectionByUser() throws Exception {
         UserEntity userEntity = getAuthenticatedUser();
         if(userEntity!=null){
-            return getUIWrapper(collectionService.updateAndGetRunningCollectionStatusByUser(userEntity.getId()),true);
+            try {
+                return getUIWrapper(collectionService.updateAndGetRunningCollectionStatusByUser(userEntity.getId()),true);
+            } catch (Exception e) {
+                return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+            }
         }
         return getUIWrapper(false);
     }

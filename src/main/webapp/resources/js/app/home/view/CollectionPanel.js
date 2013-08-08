@@ -63,7 +63,7 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
                 type: 'ajax',
                 url: 'collection/findAll.action',
                 reader: {
-                    root: 'items',
+                    root: 'data',
                     totalProperty: 'total'
                 }
             },

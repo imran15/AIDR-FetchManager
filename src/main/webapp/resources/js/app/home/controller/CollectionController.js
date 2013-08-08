@@ -108,13 +108,16 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
             },
             success: function (response) {
                 mask.hide();
-                AIDRFMFunctions.setAlert("Ok", "Collection Stopped");
-
-                me.updateLastRefreshDate();
                 var resp = Ext.decode(response.responseText);
-                if (resp.success && resp.data) {
-                    var data = resp.data;
-                    me.updateCollectionInfo(data);
+                if (resp.success) {
+                    AIDRFMFunctions.setAlert("Ok", "Collection Stopped");
+                    me.updateLastRefreshDate();
+                    if (resp.data) {
+                        var data = resp.data;
+                        me.updateCollectionInfo(data);
+                    }
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
                 }
             }
         });
@@ -137,26 +140,28 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
             success: function (response) {
                 mask.hide();
                 var resp = Ext.decode(response.responseText);
-                AIDRFMFunctions.setAlert("Ok", "Collection Started");
+                if (resp.success) {
+                    AIDRFMFunctions.setAlert("Ok", "Collection Started");
+                    me.updateLastRefreshDate();
+                    if (resp.data) {
+                        var data = resp.data;
+                        me.updateCollectionInfo(data);
+                    }
 
-                me.updateLastRefreshDate();
-                if (resp.success && resp.data) {
-                    var data = resp.data;
-                    me.updateCollectionInfo(data);
+                    var ranOnce = false;
+                    var task = Ext.TaskManager.start({
+                        run: function () {
+                            if (ranOnce) {
+                                me.refreshStatus(id);
+                                Ext.TaskManager.stop(task);
+                            }
+                            ranOnce = true;
+                        },
+                        interval: 5000
+                    });
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
                 }
-
-                var ranOnce = false;
-                var task = Ext.TaskManager.start({
-                    run: function () {
-                        if (ranOnce) {
-                            me.refreshStatus(id);
-                            Ext.TaskManager.stop(task);
-                        }
-                        ranOnce = true;
-                    },
-                    interval: 5000
-                });
-
             }});
     },
 
@@ -211,7 +216,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                         me.updateStartStopButtonsState(data.status, id);
                     }
                 } else {
-                    AIDRFMFunctions.setAlert("Error", "While Collection status update");
+                    AIDRFMFunctions.setAlert("Error", resp.message);
                 }
             }
         });
@@ -244,7 +249,6 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 {
                     var response = Ext.decode(resp.responseText);
                     if (response.success) {
-
                         me.updateLastRefreshDate();
                         if (response.data) {
                             var collectionData = response.data;
@@ -253,11 +257,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                             AIDRFMFunctions.setAlert("Ok","You don't have Running Collections");
                         }
                     } else {
-                        AIDRFMFunctions.setAlert(
-                            "Error",
-                            ['Error while updating Collections.',
-                                'Please try again later or contact Support']
-                        );
+                        AIDRFMFunctions.setAlert("Error", response.message);
                     }
                 }
                 catch(err)
