@@ -629,8 +629,11 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                 'tabchange': function (tabPanel, tab) {
                     var tabIndex = tabPanel.items.findIndex('id', tab.id)
                     if (tabIndex == 0){
-                        me.collectionHistoryTitle.show();
-                        me.collectionLogView.show();
+                        var collectionHistoryCount = me.collectionLogStore.count();
+                        if (collectionHistoryCount > 0) {
+                            me.collectionHistoryTitle.show();
+                            me.collectionLogView.show();
+                        }
                     } else {
                         me.collectionHistoryTitle.hide();
                         me.collectionLogView.hide();
