@@ -178,6 +178,29 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             id: 'collectionEditCancel'
         });
 
+//        TODO enabled only for started collection
+        this.enableTaggerButton = Ext.create('Ext.Button', {
+            text: 'Enable Tagger',
+            cls:'btn btn-blue',
+            id: 'enableTagger',
+            margin: '0 0 0 10'
+        });
+
+        this.crisesTypeStore = Ext.create('Ext.data.JsonStore', {
+            pageSize: 100,
+            storeId: 'crisesTypeStore',
+            fields: ['crisisTypeID', 'name'],
+            proxy: {
+                type: 'ajax',
+                url: '',
+                reader: {
+                    root: 'data',
+                    totalProperty: 'total'
+                }
+            },
+            autoLoad: false
+        });
+
         this.collectionLogStore = Ext.create('Ext.data.Store', {
             pageSize: 10,
             storeId: 'collectionLogStore',
@@ -209,6 +232,34 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                     }
                 }
             }
+        });
+
+        this.crisesTypeTpl = new Ext.XTemplate(
+            '<div class="crises-list">',
+            '<tpl for=".">',
+
+            '<div class="crises-item">',
+            '<div>{name}</div>',
+            '</div>',
+
+            '</tpl>',
+            '</div>'
+        );
+
+        this.crisesTypeView = Ext.create('Ext.view.View', {
+            store: this.crisesTypeStore,
+            tpl: this.crisesTypeTpl,
+            itemSelector: 'div.active'
+        });
+
+        this.crisesTypeWin = Ext.create('Ext.window.Window', {
+            title: 'Choose Crises Type',
+            height: 200,
+            width: 400,
+            layout: 'fit',
+            items: [
+                this.crisesTypeView
+            ]
         });
 
         this.collectionLogTpl = new Ext.XTemplate(
@@ -455,10 +506,6 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                             layout: 'hbox',
                                             items: [
                                                 this.statusL
-//                                                {
-//                                                    flex: 1,
-//                                                    text: 'Status'
-//                                                }
                                             ]
                                         }
                                     ]
@@ -470,7 +517,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                     layout: 'hbox',
                                     items: [
                                         this.startButton,
-                                        this.stopButton
+                                        this.stopButton,
+                                        this.enableTaggerButton
                                     ]
                                 }
                             ]

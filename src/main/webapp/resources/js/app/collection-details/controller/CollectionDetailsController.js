@@ -143,7 +143,13 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             "#refreshBtn": {
                 click: function (btn, e, eOpts) {
                     var id = datailsController.DetailsComponent.currentCollection.id;
-                    datailsController.refreshStatus(id);
+                    this.refreshStatus(id);
+                }
+            },
+
+            "#enableTagger": {
+                click: function (btn, e, eOpts) {
+                    this.getAllCrisisFromFatcher();
                 }
             }
 
@@ -426,6 +432,32 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                         me.setEndDate(data.endDate);
                         me.setCountOfDocuments(data.count);
                         me.setLastDowloadedDoc(data.lastDocument);
+                    }
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
+                }
+            }
+        });
+    },
+
+    getAllCrisisFromFatcher: function() {
+        var me = this;
+
+        Ext.Ajax.request({
+            url: 'tagger/getAllCrisis.action',
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success ) {
+                    var count = resp.data.length;
+                    if (count > 0) {
+                        me.DetailsComponent.crisesTypeStore.loadData(resp.data);
+                        me.DetailsComponent.crisesTypeWin.show();
+                    } else {
+                        AIDRFMFunctions.setAlert("Error", "Crises types list received from Tagger is empty");
                     }
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);
