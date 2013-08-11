@@ -2986,8 +2986,6 @@ footer p a:hover{
     color: #0080A6;
 }
 
-
-
 .btn.btn-blue, .btn.btn-green, .btn.btn-red, .btn.btn-grey {
     min-width: 64px;
     height: 25px;
@@ -3075,6 +3073,10 @@ footer p a:hover{
     font-size: 12px;
     height: 20px;
     line-height: 22px;
+}
+
+.collection-item button:hover {
+    cursor: pointer;
 }
 
 .bread-crumbs a{
