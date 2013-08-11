@@ -3234,3 +3234,8 @@ End of the tab panel styles
     width:200px;
 }
 
+.tweet{
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #000a70;
+    font-size: 14px ;
+}

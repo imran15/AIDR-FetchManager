@@ -72,7 +72,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         this.languageFiltersL = Ext.create('Ext.form.Label', {flex: 1});
         this.createdL = Ext.create('Ext.form.Label', {flex: 1});
         this.docCountL = Ext.create('Ext.form.Label', {flex: 1});
-        this.lastDocL = Ext.create('Ext.form.Label', {flex: 1});
+        this.lastDocL = Ext.create('Ext.form.Label', {flex: 1, cls:'tweet'});
 
         this.timeDurationL = Ext.create('Ext.form.Label', {
             flex: 1,
