@@ -3219,3 +3219,18 @@ End of the tab panel styles
     float:left;
     width:710px;
 }
+
+.collections-list .content .img {
+    float:left;
+    width:75px;
+}
+
+.collections-list .content .info {
+    float:left;
+    width:800px;
+}
+
+.collections-list .content .info .field-labels {
+    width:200px;
+}
+
