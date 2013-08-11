@@ -411,6 +411,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
     refreshStatus: function (id) {
         var me = this;
 
+        this.DetailsComponent.collectionLogStore.load();
         Ext.Ajax.request({
             url: 'collection/refreshCount.action',
             method: 'GET',
