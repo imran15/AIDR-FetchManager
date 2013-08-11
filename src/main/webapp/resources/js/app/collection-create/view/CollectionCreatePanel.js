@@ -61,7 +61,6 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             fieldLabel: 'Keywords',
             name: 'track',
             allowBlank: false,
-            labelAlign: 'top',
             flex: 1,
             rows: 8,
             emptyText: 'e.g., #sandy, #newyork,#joplin'
@@ -168,7 +167,6 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
                                 this.keywordsE,
                                 {
                                     border: false,
-                                    margin: '17 0 0 0',
                                     bodyStyle: 'background:none',
                                     html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
                                     height: 22,

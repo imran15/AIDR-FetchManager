@@ -110,7 +110,6 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
 
         this.keywordsE = Ext.create('Ext.form.field.TextArea', {
             fieldLabel: 'Keywords',
-            labelAlign: 'top',
             name: 'track',
             allowBlank: false,
             flex: 1,
@@ -374,7 +373,6 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                 this.keywordsE,
                                 {
                                     border: false,
-                                    margin: '17 0 0 0',
                                     bodyStyle: 'background:none',
                                     html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
                                     height: 22,
