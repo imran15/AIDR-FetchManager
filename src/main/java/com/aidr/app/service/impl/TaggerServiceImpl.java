@@ -22,8 +22,6 @@ public class TaggerServiceImpl implements TaggerService {
 
     private Logger logger = Logger.getLogger(getClass());
     @Autowired
-    private UserConnectionRepository userConnectionRepository;
-    @Autowired
     private Client client;
     @Value("${taggerMainUrl}")
     private String taggerMainUrl;
