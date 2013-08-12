@@ -41,7 +41,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             cls: 'header-h1',
             margin: '10 0 15 0',
             padding: 0,
-            text: 'Collection: ',
+            text: '',
             flex: 1
         });
 
