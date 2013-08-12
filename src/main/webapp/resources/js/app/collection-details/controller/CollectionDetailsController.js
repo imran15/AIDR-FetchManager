@@ -230,7 +230,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         var p = this.DetailsComponent;
         p.currentCollection = r;
 
-        p.collectionTitle.setText('Collection: <b>' + r.name + '</b>', false);
+        p.collectionTitle.setText('<b>' + r.name + '</b>', false);
 
         this.setStatus(r.status);
         this.setStartDate(r.startDate);
