@@ -457,8 +457,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 'Accept': 'application/json'
             },
             success: function (response) {
-                var resp = Ext.decode(response.responseText);
-                if (resp.success ) {
+                if (resp.data && resp.data.length > 0) {
                     var count = resp.data.length;
                     if (count > 0) {
                         me.DetailsComponent.crisesTypeStore.loadData(resp.data);
