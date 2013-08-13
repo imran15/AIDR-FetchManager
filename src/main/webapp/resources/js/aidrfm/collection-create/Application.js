@@ -9,7 +9,7 @@ Ext.application({
         'CollectionCreateController'
     ],
 
-    appFolder: BASE_URL + '/resources/js/app/collection-create',
+    appFolder: BASE_URL + '/resources/js/aidrfm/collection-create',
 
     launch: function () {
         Ext.QuickTips.init();

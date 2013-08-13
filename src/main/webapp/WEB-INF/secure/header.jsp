@@ -13,7 +13,8 @@
                 enabled: true,
                 disableCaching: false,
                 paths : {
-                    AIDRFM: '${pageContext.request.contextPath}/resources/js/app'
+                    AIDRFM: '${pageContext.request.contextPath}/resources/js/aidrfm',
+                    TAGGUI: '${pageContext.request.contextPath}/resources/js/taggui'
                 }
             }
         );
