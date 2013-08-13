@@ -234,28 +234,39 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         });
 
         this.crisesTypeTpl = new Ext.XTemplate(
-            '<div class="crises-list">',
+            '<div class="popup choose-crises">' +
+
+            '<tpl if="xindex == 1">' +
+                '<h2>Choose Crises Type</h2>' +
+                '<div class="crises-list">' +
+                '<ul>' +
+            '</tpl>' +
             '<tpl for=".">',
 
-            '<div class="crises-item">',
-            '<div>{name}</div>',
-            '</div>',
+                '<li class="crisesItem"><a>{name}</a></li>' +
 
             '</tpl>',
+            '<tpl if="xindex == 1">' +
+                '</ul>' +
+                '</div>' +
+            '</tpl>' +
+
             '</div>'
         );
 
         this.crisesTypeView = Ext.create('Ext.view.View', {
             store: this.crisesTypeStore,
+            id: 'crisesTypeViewId',
             tpl: this.crisesTypeTpl,
-            itemSelector: 'div.active'
+            itemSelector: 'li.crisesItem'
         });
 
         this.crisesTypeWin = Ext.create('Ext.window.Window', {
-            title: 'Choose Crises Type',
-            height: 200,
+            bodyStyle: 'background:none; background-color: white;',
+            height: 400,
             width: 400,
             layout: 'fit',
+            closeAction: 'hide',
             items: [
                 this.crisesTypeView
             ]

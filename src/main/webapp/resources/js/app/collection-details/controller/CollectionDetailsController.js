@@ -151,6 +151,12 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 click: function (btn, e, eOpts) {
                     this.getAllCrisisFromFatcher();
                 }
+            },
+
+            "#crisesTypeViewId": {
+                itemclick: function (btn, e, eOpts) {
+                    this.crisisTypeSelectHandler();
+                }
             }
 
         });
@@ -465,6 +471,11 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 }
             }
         });
+    },
+
+    crisisTypeSelectHandler: function() {
+        var me = this;
+
     }
 
 });

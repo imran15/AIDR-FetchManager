@@ -3239,3 +3239,31 @@ End of the tab panel styles
     color: #000a70;
     font-size: 14px ;
 }
+
+.popup h2 {
+    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
+    font-size: 20px;
+    color: #4c4c4c;
+    margin: 20px 30px 20px 30px;
+}
+
+.popup .crises-list {
+    margin: 20px;
+}
+.popup .crises-list li {
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+    margin-bottom: -1px;
+}
+.popup .crises-list a {
+    display: block;
+    padding: 7px 10px;
+    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
+    text-decoration: none;
+    color: #1e1e1e;
+    cursor: pointer;
+}
+.popup .crises-list a:hover {
+    color: #fff;
+    background-color: #61a4e4;
+}
