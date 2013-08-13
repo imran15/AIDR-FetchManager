@@ -39,4 +39,10 @@ public class ScreenController extends BaseController{
     public String collectionCreate(Map<String, String> model) throws Exception {
         return "collection-create";
     }
+
+    @RequestMapping("protected/tagger-home")
+    public String taggerHome(Map<String, String> model) throws Exception {
+        return "tagger/home";
+    }
+
 }
