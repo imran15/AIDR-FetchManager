@@ -22,7 +22,12 @@ time, mark, audio, video{
 	padding: 0;
 	border: 0;
 	font-size: 100%;
-	vertical-align: baseline;
+}
+
+.x-body,
+.x-form-item,
+.x-form-field{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
 }
 
 .textcenter{
@@ -54,7 +59,6 @@ time, mark, audio, video{
 
 .header-h1{
 	font-size: 30px ;
-    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
     display: block;
     -webkit-margin-before: 0.67em;
     -webkit-margin-after: 0.67em;
@@ -2962,12 +2966,10 @@ footer p a:hover{
 }
 
 .styled-text{
-    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
     font-size: 15px ;
 }
 
 .styled-text-14{
-    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
     font-size: 14px ;
 }
 
@@ -2977,7 +2979,6 @@ footer p a:hover{
 
 .collection-title a {
     font-size: 22px ;
-    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
     color: #00acee;
 }
 
@@ -3075,6 +3076,10 @@ footer p a:hover{
     line-height: 22px;
 }
 
+.btn span{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
+}
+
 .collection-item button:hover {
     cursor: pointer;
 }
@@ -3125,6 +3130,10 @@ Overriding of the standard ExtJs styles for tab panel
 .tabPanel button {
     color: #00acee;
     padding: 0 14px;
+}
+
+.tabPanel button  span{
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
 }
 
 .tabPanel .x-tab button {
@@ -3181,6 +3190,10 @@ End of the tab panel styles
 
 */
 
+.x-btn-center .x-btn-inner {
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
+}
+
 .bordered-top {
     margin-top: 10px;
     padding-top: 10px;
@@ -3194,10 +3207,8 @@ End of the tab panel styles
 }
 
 .header-h2{
-    /*font-size: 30px ;*/
     font-size: 1.3em;
     font-weight: bold;
-    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
     display: block;
     -webkit-margin-before: 0.67em;
     -webkit-margin-after: 0.67em;
@@ -3235,13 +3246,11 @@ End of the tab panel styles
 }
 
 .tweet{
-    font-family: 'Helvetica Neue', Arial, sans-serif;
-    color: #000a70;
+    font-family: 'Lucida Console', sans-serif;
     font-size: 14px ;
 }
 
 .popup h2 {
-    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
     font-size: 20px;
     color: #4c4c4c;
     margin: 20px 30px 20px 30px;
@@ -3258,7 +3267,6 @@ End of the tab panel styles
 .popup .crises-list a {
     display: block;
     padding: 7px 10px;
-    font-family: "Ubuntu", "Lucida Sans Unicode", "Lucida Grande", "Arial";
     text-decoration: none;
     color: #1e1e1e;
     cursor: pointer;
