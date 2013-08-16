@@ -85,7 +85,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                     mask.show();
 
                     Ext.Ajax.request({
-                        url: 'collection/getRunningCollectionStatusByUser.action',
+                        url: BASE_URL + '/protected/collection/getRunningCollectionStatusByUser.action',
                         method: 'GET',
                         headers: {
                             'Accept': 'application/json'
@@ -174,7 +174,9 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         this.DetailsComponent = component;
         datailsController = this;
         var me = this;
-        var id = this.DetailsComponent.currentCollectionId = AIDRFMFunctions.getQueryParam("id");
+
+        var id = COLLECTION_ID;
+        this.DetailsComponent.currentCollectionId = COLLECTION_ID;
 
         if (!id){
             AIDRFMFunctions.setAlert("Error", ["Collection not specified.", "You will be redirected to Home screen."]);
@@ -221,7 +223,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         mask.show();
 
         Ext.Ajax.request({
-            url: 'collection/findById.action',
+            url: BASE_URL + '/protected/collection/findById.action',
             method: 'GET',
             params: {
                 id: id
@@ -313,7 +315,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         var me = this;
         var id = datailsController.DetailsComponent.currentCollection.id;
         Ext.Ajax.request({
-            url: 'collection/start.action',
+            url: BASE_URL + '/protected/collection/start.action',
             method: 'GET',
             params: {
                 id: id
@@ -356,7 +358,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         mask.show();
 
         Ext.Ajax.request({
-            url: 'collection/stop.action',
+            url: BASE_URL + '/protected/collection/stop.action',
             method: 'GET',
             params: {
                 id: id
@@ -390,7 +392,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
         var form = Ext.getCmp('collectionForm').getForm();
         Ext.Ajax.request({
-            url: 'collection/update.action',
+            url: BASE_URL + '/protected/collection/update.action',
             method: 'POST',
             params: {
                 id: id,
@@ -425,7 +427,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
         this.DetailsComponent.collectionLogStore.load();
         Ext.Ajax.request({
-            url: 'collection/refreshCount.action',
+            url: BASE_URL + '/protected/collection/refreshCount.action',
             method: 'GET',
             params: {
                 id: id
@@ -460,7 +462,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         mask.show();
 
         Ext.Ajax.request({
-            url: 'tagger/getAllCrisisTypes.action',
+            url: BASE_URL + '/protected/tagger/getAllCrisisTypes.action',
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
@@ -495,7 +497,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             crisisTypeID = record.data.crisisTypeID;
 
         Ext.Ajax.request({
-            url: 'tagger/createCrises.action',
+            url: BASE_URL + '/protected/tagger/createCrises.action',
             method: 'POST',
             params: {
                 code: code,

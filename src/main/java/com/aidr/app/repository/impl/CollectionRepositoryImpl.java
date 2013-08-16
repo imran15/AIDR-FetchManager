@@ -83,4 +83,12 @@ public class CollectionRepositoryImpl extends GenericRepositoryImpl<AidrCollecti
 		  return collection;
 	}
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public AidrCollection findByCode(String code) {
+        Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(AidrCollection.class);
+        criteria.add(Restrictions.eq("code", code));
+        return (AidrCollection) criteria.uniqueResult();
+    }
+
 }

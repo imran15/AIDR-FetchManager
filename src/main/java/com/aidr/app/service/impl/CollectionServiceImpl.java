@@ -71,6 +71,12 @@ public class CollectionServiceImpl implements CollectionService {
 
     @Override
     @Transactional(readOnly = true)
+    public AidrCollection findByCode(String code) throws Exception {
+        return collectionRepository.findByCode(code);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
     public CollectionDataResponse findAll(Integer start, Integer limit, Integer userId) throws Exception {
         return collectionRepository.getPaginatedData(start, limit, userId);
     }

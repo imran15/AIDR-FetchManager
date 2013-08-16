@@ -11,7 +11,8 @@ public interface CollectionService {
 	public void delete(AidrCollection collection) throws Exception;
 	public void create(AidrCollection collection) throws Exception;
 	public AidrCollection findById(Integer id) throws Exception; 
-	public CollectionDataResponse findAll(Integer start , Integer limit,Integer userId) throws Exception; 
+	public AidrCollection findByCode(String code) throws Exception;
+	public CollectionDataResponse findAll(Integer start , Integer limit,Integer userId) throws Exception;
 	public List<AidrCollection> searchByName(String query,Integer userId) throws Exception;
 	public Boolean exist(String code) throws Exception; 
 	public AidrCollection getRunningCollectionStatusByUser(Integer userId) throws Exception; 

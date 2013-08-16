@@ -27,7 +27,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         var me = this;
 
         this.breadcrumbs = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="home">Home</a></div>',
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/home">Home</a></div>',
             margin: 0,
             padding: 0
         });
@@ -206,7 +206,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             fields: ['id', 'collectionID', 'langFilters', 'startDate', 'endDate', 'count', 'track', 'geo', 'follow'],
             proxy: {
                 type: 'ajax',
-                url: 'collection-log/findAllForCollection.action',
+                url: BASE_URL + '/protected/collection-log/findAllForCollection.action',
                 reader: {
                     root: 'data',
                     totalProperty: 'total'

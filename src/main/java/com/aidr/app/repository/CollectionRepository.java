@@ -14,4 +14,5 @@ public interface CollectionRepository extends GenericRepository<AidrCollection, 
 	public AidrCollection getRunningCollectionStatusByUser(Integer userId);
 	public AidrCollection start(Integer collectionId);
 	public AidrCollection stop(Integer collectionId);
+	public AidrCollection findByCode(String code);
 }
