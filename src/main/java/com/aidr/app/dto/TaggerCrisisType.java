@@ -2,15 +2,27 @@ package com.aidr.app.dto;
 
 public class TaggerCrisisType {
 
-    private String crisisTypeID;
+    private Integer crisisTypeID;
 
     private String name;
 
-    public String getCrisisTypeID() {
+    public TaggerCrisisType() {
+    }
+
+    public TaggerCrisisType(Integer crisisTypeID) {
+        this.crisisTypeID = crisisTypeID;
+    }
+
+    public TaggerCrisisType(Integer crisisTypeID, String name) {
+        this.crisisTypeID = crisisTypeID;
+        this.name = name;
+    }
+
+    public Integer getCrisisTypeID() {
         return crisisTypeID;
     }
 
-    public void setCrisisTypeID(String crisisTypeID) {
+    public void setCrisisTypeID(Integer crisisTypeID) {
         this.crisisTypeID = crisisTypeID;
     }
 

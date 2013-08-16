@@ -177,7 +177,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
 
             statusField.innerHTML = AIDRFMFunctions.getStatusWithStyle(data.status);
             docCountField.innerHTML = 'Downloaded items: ' + docCount;
-            lastDocField.innerHTML = 'Last downloaded item: ' + lastDoc;
+            lastDocField.innerHTML = 'Last downloaded item:&nbsp;&nbsp;&nbsp;<span class="tweet">' + lastDoc + '</span>';
 
             this.updateStartStopButtonsState(data.status, id);
         }

@@ -1,9 +1,6 @@
 package com.aidr.app.service.impl;
 
-import com.aidr.app.dto.TaggerAllCollectionsResponse;
-import com.aidr.app.dto.TaggerAllCrisesTypesResponse;
-import com.aidr.app.dto.TaggerCollection;
-import com.aidr.app.dto.TaggerCrisisType;
+import com.aidr.app.dto.*;
 import com.aidr.app.exception.AidrException;
 import com.aidr.app.service.TaggerService;
 import com.sun.jersey.api.client.Client;
@@ -27,7 +24,7 @@ public class TaggerServiceImpl implements TaggerService {
     @Value("${taggerMainUrl}")
     private String taggerMainUrl;
 
-    public List<TaggerCrisisType> getAllCrisis() throws AidrException{
+    public List<TaggerCrisisType> getAllCrisisTypes() throws AidrException{
         try {
             /**
              * Rest call to Tagger
@@ -68,6 +65,25 @@ public class TaggerServiceImpl implements TaggerService {
             }
 
             return collectionsResponse.getCollections();
+        } catch (Exception e) {
+            throw new AidrException("Error While Getting collections running for user in Tagger", e);
+        }
+    }
+
+
+    public String createNewCrises(TaggerCrisis crisis) throws AidrException {
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/crisis");
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .post(ClientResponse.class, objectMapper.writeValueAsString(crisis));
+
+            return clientResponse.getEntity(String.class);
         } catch (Exception e) {
             throw new AidrException("Error While Getting collections running for user in Tagger", e);
         }

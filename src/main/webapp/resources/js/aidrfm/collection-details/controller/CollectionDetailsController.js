@@ -149,13 +149,19 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
             "#enableTagger": {
                 click: function (btn, e, eOpts) {
-                    this.getAllCrisisFromFatcher();
+                    this.getAllCrisisTypesFromTagger();
                 }
             },
 
             "#crisesTypeViewId": {
-                itemclick: function (btn, e, eOpts) {
-                    this.crisisTypeSelectHandler();
+                itemclick: function (view, record, item, index, e, eOpts) {
+                    this.crisisTypeSelectHandler(view, record, item, index, e, eOpts);
+                }
+            },
+
+            "#crisesTypeWin": {
+                hide: function (btn, e, eOpts) {
+                    AIDRFMFunctions.getMask().hide();
                 }
             }
 
@@ -447,18 +453,21 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         });
     },
 
-    getAllCrisisFromFatcher: function() {
-        var me = this;
+    getAllCrisisTypesFromTagger: function() {
+        var me = this,
+            mask = AIDRFMFunctions.getMask();
+
+        mask.show();
 
         Ext.Ajax.request({
-            url: 'tagger/getAllCrisis.action',
+            url: 'tagger/getAllCrisisTypes.action',
             method: 'GET',
             headers: {
                 'Accept': 'application/json'
             },
             success: function (response) {
                 var resp = Ext.decode(response.responseText);
-                if (resp.data && resp.data.length > 0) {
+                if (resp.success && resp.data && resp.data.length > 0) {
                     var count = resp.data.length;
                     if (count > 0) {
                         me.DetailsComponent.crisesTypeStore.loadData(resp.data);
@@ -467,15 +476,45 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                         AIDRFMFunctions.setAlert("Error", "Crises types list received from Tagger is empty");
                     }
                 } else {
+                    mask.hide();
                     AIDRFMFunctions.setAlert("Error", resp.message);
                 }
+            },
+            failure: function () {
+                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+                mask.hide();
             }
         });
     },
 
-    crisisTypeSelectHandler: function() {
-        var me = this;
+    crisisTypeSelectHandler: function(view, record, item, index, e, eOpts) {
+        var me = this,
+            collection = this.DetailsComponent.currentCollection,
+            code = collection.code,
+            name = collection.name,
+            crisisTypeID = record.data.crisisTypeID;
 
+        Ext.Ajax.request({
+            url: 'tagger/createCrises.action',
+            method: 'POST',
+            params: {
+                code: code,
+                name: name,
+                crisisTypeID: crisisTypeID
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success ) {
+//                    TODO process the response
+                    AIDRFMFunctions.setAlert("Ok", resp.message);
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
+                }
+            }
+        });
     }
 
 });

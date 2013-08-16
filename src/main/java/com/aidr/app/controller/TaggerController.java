@@ -1,7 +1,6 @@
 package com.aidr.app.controller;
 
-import com.aidr.app.dto.TaggerCollection;
-import com.aidr.app.dto.TaggerCrisisType;
+import com.aidr.app.dto.*;
 import com.aidr.app.exception.AidrException;
 import com.aidr.app.hibernateEntities.UserEntity;
 import com.aidr.app.service.TaggerService;
@@ -35,12 +34,12 @@ public class TaggerController extends BaseController {
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 
-    @RequestMapping(value = "/getAllCrisis.action", method = {RequestMethod.GET})
+    @RequestMapping(value = "/getAllCrisisTypes.action", method = {RequestMethod.GET})
     @ResponseBody
     public Map<String, Object> getAllCrisis() {
         logger.info("Getting all Crisis from Tagger");
         try {
-            return getUIWrapper(taggerService.getAllCrisis(), true);
+            return getUIWrapper(taggerService.getAllCrisisTypes(), true);
         } catch (AidrException e) {
             logger.error(e.getMessage(), e);
             return getUIWrapper(false, e.getMessage());
@@ -59,6 +58,30 @@ public class TaggerController extends BaseController {
             logger.error(e.getMessage(), e);
             return getUIWrapper(false, e.getMessage());
         }
+    }
+
+    @RequestMapping(value = "/createCrises.action", method = {RequestMethod.POST})
+    @ResponseBody
+    public Map<String, Object> createCrises(CrisisRequest crisisRequest) {
+        logger.info("Creating new crises in Tagger");
+        try {
+            TaggerCrisis crisis = transformCrisesRequestToTaggerCrises(crisisRequest);
+            String response = taggerService.createNewCrises(crisis);
+            if ("SUCCESS".equals(response)){
+                return getUIWrapper(true);
+            } else {
+                return getUIWrapper(false, response);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
+    }
+
+    private TaggerCrisis transformCrisesRequestToTaggerCrises (CrisisRequest request) throws Exception{
+        TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
+        TaggerUser taggerUser = new TaggerUser(getAuthenticatedUser().getId());
+        return new TaggerCrisis(request.getCode(), request.getName(), crisisType, taggerUser);
     }
 
 }

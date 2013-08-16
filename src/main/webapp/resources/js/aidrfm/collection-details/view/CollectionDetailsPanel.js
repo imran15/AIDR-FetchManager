@@ -266,6 +266,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             height: 400,
             width: 400,
             layout: 'fit',
+            id: 'crisesTypeWin',
             closeAction: 'hide',
             items: [
                 this.crisesTypeView

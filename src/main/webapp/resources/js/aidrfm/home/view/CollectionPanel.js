@@ -93,7 +93,7 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
             '<div class="collection-title"><a href="collection-details?id={id}">{name}</a></div>',
             '<div class="styled-text-14" id="statusField_{id}">{[this.getStatus(values.status)]}</div>',
             '<div class="styled-text-14" id="docCountField_{id}">Downloaded items:&nbsp;&nbsp;&nbsp;{[this.getDocNumber(values.count)]}</div>',
-            '<div class="styled-text-14" id="lastDocField_{id}">Last downloaded item:&nbsp;&nbsp;&nbsp;<span class="tweet">{[this.getLastDoc(values.lastDocument)]}</span></div>',
+            '<div class="styled-text-14" id="lastDocField_{id}">Last downloaded item:&nbsp;&nbsp;&nbsp;{[this.getLastDoc(values.lastDocument)]}</div>',
             '</div>',
 
             '</div>',
@@ -106,7 +106,7 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
                     return AIDRFMFunctions.getStatusWithStyle(raw);
                 },
                 getLastDoc: function (r) {
-                    return r ? r : "<span class='na-text'>N/A</span>";
+                    return r ? '<span class="tweet">' + r + '</span>' : "<span class='na-text'>N/A</span>";
                 },
                 getDocNumber: function (r) {
                     return r ? r : 0;
