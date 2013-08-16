@@ -72,7 +72,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                         Ext.MessageBox.confirm('Confirm', 'The collection <b>' + collectionName + '</b> is already running. ' +
                             'Do you want to stop <b>' + collectionName + '</b>  and start <b>' + name + ' </b>?', function (buttonId) {
                             if (buttonId === 'yes') {
-                                me.refreshStatus(collectionData.id);
+                                me.refreshButtonAction();
                                 me.startCollection(id);
                             }
                         });
@@ -152,7 +152,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                     var task = Ext.TaskManager.start({
                         run: function () {
                             if (ranOnce) {
-                                me.refreshStatus(id);
+                                me.refreshButtonAction();
                                 Ext.TaskManager.stop(task);
                             }
                             ranOnce = true;
@@ -176,7 +176,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
 
 
             statusField.innerHTML = AIDRFMFunctions.getStatusWithStyle(data.status);
-            docCountField.innerHTML = 'Downloaded items: ' + docCount;
+            docCountField.innerHTML = 'Downloaded items:&nbsp;&nbsp;&nbsp' + docCount;
             lastDocField.innerHTML = 'Last downloaded item:&nbsp;&nbsp;&nbsp;<span class="tweet">' + lastDoc + '</span>';
 
             this.updateStartStopButtonsState(data.status, id);
@@ -185,41 +185,6 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
 
     updateLastRefreshDate: function() {
         this.mainComponent.collectionDescription.setText('Status as of ' + Ext.Date.format(new Date(), "Y F d h:i:s A"));
-    },
-
-    refreshStatus: function (id) {
-        var me = this;
-
-        Ext.Ajax.request({
-            url: 'collection/refreshCount.action',
-            method: 'GET',
-            params: {
-                id: id
-            },
-            headers: {
-                'Accept': 'application/json'
-            },
-            success: function (response) {
-                var resp = Ext.decode(response.responseText);
-                if (resp.success ) {
-                    AIDRFMFunctions.setAlert("Ok", "Collection status was updated");
-                    if (resp.data) {
-                        var data = resp.data;
-
-                        var statusField = document.getElementById("statusField_" + id),
-                            docCountField = document.getElementById("docCountField_" + id),
-                            docCount = data.count ? data.count : 0;
-
-                        statusField.innerHTML = AIDRFMFunctions.getStatusWithStyle(data.status);
-                        docCountField.innerHTML = 'Downloaded items: ' + docCount;
-
-                        me.updateStartStopButtonsState(data.status, id);
-                    }
-                } else {
-                    AIDRFMFunctions.setAlert("Error", resp.message);
-                }
-            }
-        });
     },
 
     updateStartStopButtonsState: function(status, id) {
@@ -236,42 +201,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
     },
 
     refreshButtonAction: function() {
-        var me = this;
-
-        Ext.Ajax.request({
-            url: 'collection/updateAndGetRunningCollectionStatusByUser.action',
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json'
-            },
-            success: function (resp) {
-                try
-                {
-                    var response = Ext.decode(resp.responseText);
-                    if (response.success) {
-                        me.updateLastRefreshDate();
-                        if (response.data) {
-                            var collectionData = response.data;
-                            me.updateCollectionInfo(collectionData);
-                        } else {
-                            AIDRFMFunctions.setAlert("Ok","You don't have Running Collections");
-                        }
-                    } else {
-                        AIDRFMFunctions.setAlert("Error", response.message);
-                    }
-                }
-                catch(err)
-                {
-                    /*
-                     * if decode fail
-                     * so user is not authenticated,
-                     * redirecting to "home page" (which will redirect to "connect to twitter page" )
-                     *
-                     */
-                    document.location.href = BASE_URL + '/protected/home'
-                }
-            }
-        });
+        this.mainComponent.collectionStore.load();
     }
 
 });

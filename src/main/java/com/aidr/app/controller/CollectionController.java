@@ -104,7 +104,14 @@ public class CollectionController extends BaseController{
 		limit = (limit != null) ? limit :50;
 		UserEntity userEntity = getAuthenticatedUser();
 		if(userEntity!=null){
-			CollectionDataResponse dataResponse = collectionService.findAll(start,limit,userEntity.getId());
+            Integer userId = userEntity.getId();
+//            Call update from Fetcher and then get list with updated items
+            try {
+                collectionService.updateAndGetRunningCollectionStatusByUser(userId);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            CollectionDataResponse dataResponse = collectionService.findAll(start, limit, userId);
 			return getUIWrapper(dataResponse.getData(),dataResponse.getTotal());
 		}
 		return getUIWrapper(false);
