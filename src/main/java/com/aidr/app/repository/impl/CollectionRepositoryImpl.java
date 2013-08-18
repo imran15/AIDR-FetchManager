@@ -63,6 +63,14 @@ public class CollectionRepositoryImpl extends GenericRepositoryImpl<AidrCollecti
 	}
 
 	@Override
+	public AidrCollection getInitializingCollectionStatusByUser(Integer userId) {
+		Criteria criteria = getHibernateTemplate().getSessionFactory().getCurrentSession().createCriteria(AidrCollection.class);
+                criteria.add(Restrictions.eq("user.id", userId));
+		criteria.add(Restrictions.eq("status", CollectionStatus.INITIALIZING));
+		return (AidrCollection) criteria.uniqueResult();
+	}
+
+	@Override
 	public AidrCollection start(Integer collectionId) {
 		  AidrCollection collection =	this.findById(collectionId);
 		  Calendar now = Calendar.getInstance();

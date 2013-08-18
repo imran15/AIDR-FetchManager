@@ -157,7 +157,8 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
         this.collectionView = Ext.create('Ext.view.View', {
             store: this.collectionStore,
             tpl: this.collectionTpl,
-            itemSelector: 'div.active'
+            itemSelector: 'div.active',
+            loadMask: false
         });
 
         this.items = [
