@@ -324,7 +324,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             hidden: true,
             store: this.collectionLogStore,
             tpl: this.collectionLogTpl,
-            itemSelector: 'div.active'
+            itemSelector: 'div.active',
+            loadMask: false
         });
 
         this.editForm = {
