@@ -21,8 +21,6 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
     initComponent: function () {
         var me = this;
 
-        this.isFirstLoad = true;
-
         this.collectionTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
             text: 'My Collections',
@@ -74,13 +72,6 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
                 load: function (store, records, successful, operation, eOpts) {
                     if (successful) {
                         collectionController.updateLastRefreshDate();
-
-                        if (!me.isFirstLoad) {
-                            AIDRFMFunctions.setAlert("Ok","Collections list updated successful");
-                        } else {
-                            me.isFirstLoad = false;
-                        }
-
                     } else {
                         /*
                          * user is not authenticated,

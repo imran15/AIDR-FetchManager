@@ -164,8 +164,8 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
             success: function (response) {
                 var response = Ext.decode(response.responseText);
                 if (response.data) {
-                    AIDRFMFunctions.setAlert('Error', 'Collection Code already exist .Please select another code');
-                    code.markInvalid("Collection Code already exist .Please select another code");
+                    AIDRFMFunctions.setAlert('Error', 'Collection Code already exist. Please select another code');
+                    code.markInvalid("Collection Code already exist. Please select another code");
                 } else {
                     me.saveCollection();
                 }

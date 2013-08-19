@@ -110,7 +110,6 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 mask.hide();
                 var resp = Ext.decode(response.responseText);
                 if (resp.success) {
-                    AIDRFMFunctions.setAlert("Ok", "Collection Stopped");
                     me.updateLastRefreshDate();
                     if (resp.data) {
                         var data = resp.data;
@@ -141,7 +140,6 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 mask.hide();
                 var resp = Ext.decode(response.responseText);
                 if (resp.success) {
-                    AIDRFMFunctions.setAlert("Ok", "Collection Started");
                     me.updateLastRefreshDate();
                     if (resp.data) {
                         var data = resp.data;
