@@ -234,6 +234,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             success: function (response) {
                 var jsonData = Ext.decode(response.responseText);
                 me.updateDetailsPanel(jsonData);
+                me.updateDownloadPanel(jsonData.code);
                 me.updateEditPanel();
                 mask.hide();
             }
@@ -260,6 +261,14 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         p.createdL.setText(r.createdDate);
         this.setCountOfDocuments(r.count);
         this.setLastDowloadedDoc(r.lastDocument);
+    },
+
+    updateDownloadPanel: function (code) {
+        var downloadTabText = '<div class="styled-text">You can read the collected tweets from:<br><br>' +
+            '<b>1.</b>&nbsp;&nbsp;File /var/data/aidr/persister/' + code + '.json on server scd1.qcri.org<br>' +
+            '<b>2.</b>&nbsp;&nbsp;Redis queue FetcherChannel.' + code + ' on host scd1.qcri.org port 6379<br></div>';
+
+        this.DetailsComponent.downloadText.setText(downloadTabText, false);
     },
 
     setLastDowloadedDoc: function(raw) {

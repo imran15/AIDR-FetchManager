@@ -654,6 +654,13 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             ]
         });
 
+        this.downloadText = Ext.create('Ext.form.Label', {
+            flex: 1,
+            html: '<div class="styled-text">You can read the collected tweets from:<br><br>' +
+                '<b>1.</b>&nbsp;&nbsp;File /var/data/aidr/persister/syria_civil_war.json on server scd1.qcri.org<br>' +
+                '<b>2.</b>&nbsp;&nbsp;Redis queue FetcherChannel.syria_civil_war on host scd1.qcri.org port 6379<br></div>'
+        });
+
         this.tabPanel = Ext.create('Ext.tab.Panel', {
             cls: 'tabPanel',
             width: '100%',
@@ -679,9 +686,9 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                 {
                     title: 'Download',
                     padding: '10 0 0 0',
-                    html: '<div class="styled-text">You can read the collected tweets from:<br><br>' +
-                        '<b>1.</b>&nbsp;&nbsp;File /var/data/aidr/persister/syria_civil_war.json on server scd1.qcri.org<br>' +
-                        '<b>2.</b>&nbsp;&nbsp;Redis queue FetcherChannel.syria_civil_war on host scd1.qcri.org port 6379<br></div>'
+                    items: [
+                        this.downloadText
+                    ]
                 }
             ],
             listeners: {
