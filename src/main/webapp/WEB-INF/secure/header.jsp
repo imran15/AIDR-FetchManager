@@ -8,9 +8,9 @@
 
     <link rel="shortcut icon" type="image/ico" href="${pageContext.request.contextPath}/resources/img/favicon.ico" />
 
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/Extjs/extjs-4.1/resources/css/ext-all.css"/>
+    <script type="text/javascript" src="/Extjs/extjs-4.1/ext-all.js"></script>
+    <link rel="stylesheet" type="text/css" href="/Extjs/extjs-4.1/resources/css/ext-all.css"/>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/Extjs/extjs-4.1/ext-all.js"></script>
     <script>
         Ext.Loader.setConfig({
                 enabled: true,
