@@ -177,12 +177,12 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             id: 'collectionEditCancel'
         });
 
-//        TODO enabled only for started collection
         this.enableTaggerButton = Ext.create('Ext.Button', {
             text: 'Enable Tagger',
             cls:'btn btn-blue',
             id: 'enableTagger',
-            margin: '0 0 0 10'
+            margin: '0 0 0 10',
+            disabled: true
         });
 
         this.crisesTypeStore = Ext.create('Ext.data.JsonStore', {

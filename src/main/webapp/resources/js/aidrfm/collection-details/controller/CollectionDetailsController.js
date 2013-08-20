@@ -294,9 +294,11 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
         if (raw == 'RUNNING-WARNNING' || raw == 'RUNNING'){
             this.DetailsComponent.startButton.hide();
+            this.DetailsComponent.enableTaggerButton.enable();
             this.DetailsComponent.stopButton.show();
         } else {
             this.DetailsComponent.startButton.show();
+            this.DetailsComponent.enableTaggerButton.disable();
             this.DetailsComponent.stopButton.hide();
         }
 
@@ -514,9 +516,8 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             },
             success: function (response) {
                 var resp = Ext.decode(response.responseText);
-                if (resp.success ) {
-//                    TODO process the response
-                    AIDRFMFunctions.setAlert("Ok", resp.message);
+                if (resp.success) {
+                    document.location.href = BASE_URL + '/protected/tagger-home';
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);
                 }

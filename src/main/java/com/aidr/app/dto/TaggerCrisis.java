@@ -1,5 +1,7 @@
 package com.aidr.app.dto;
 
+import java.util.List;
+
 public class TaggerCrisis {
 
     private String code;
@@ -9,6 +11,10 @@ public class TaggerCrisis {
     private TaggerCrisisType crisisType;
 
     private TaggerUser users;
+
+    private Integer crisisID;
+
+    private List<TaggerModelFamilyCollection> modelFamilyCollection;
 
     public TaggerCrisis() {
     }
@@ -50,6 +56,22 @@ public class TaggerCrisis {
 
     public void setUsers(TaggerUser users) {
         this.users = users;
+    }
+
+    public Integer getCrisisID() {
+        return crisisID;
+    }
+
+    public void setCrisisID(Integer crisisID) {
+        this.crisisID = crisisID;
+    }
+
+    public List<TaggerModelFamilyCollection> getModelFamilyCollection() {
+        return modelFamilyCollection;
+    }
+
+    public void setModelFamilyCollection(List<TaggerModelFamilyCollection> modelFamilyCollection) {
+        this.modelFamilyCollection = modelFamilyCollection;
     }
 
 }

@@ -46,14 +46,14 @@ public class TaggerController extends BaseController {
         }
     }
 
-    @RequestMapping(value = "/getAllRunningInCollectorForUser.action", method = {RequestMethod.GET})
+    @RequestMapping(value = "/getCrisesByUserId.action", method = {RequestMethod.GET})
     @ResponseBody
-    public Map<String, Object> getAllRunningInCollectorForUser() {
+    public Map<String, Object> getCrisesByUserId() {
         logger.info("Getting collections running in the collector by User");
         try {
             UserEntity user = getAuthenticatedUser();
-            List<TaggerCollection> collections = taggerService.getAllRunningInCollectorForUser(user.getId());
-            return getUIWrapper(collections, true);
+            List<TaggerCrisis> crisises = taggerService.getCrisesByUserId(user.getId());
+            return getUIWrapper(crisises, true);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return getUIWrapper(false, e.getMessage());
@@ -65,7 +65,7 @@ public class TaggerController extends BaseController {
     public Map<String, Object> createCrises(CrisisRequest crisisRequest) {
         logger.info("Creating new crises in Tagger");
         try {
-            TaggerCrisis crisis = transformCrisesRequestToTaggerCrises(crisisRequest);
+            TaggerCrisisRequest crisis = transformCrisesRequestToTaggerCrises(crisisRequest);
             String response = taggerService.createNewCrises(crisis);
             if ("SUCCESS".equals(response)){
                 return getUIWrapper(true);
@@ -78,10 +78,10 @@ public class TaggerController extends BaseController {
         }
     }
 
-    private TaggerCrisis transformCrisesRequestToTaggerCrises (CrisisRequest request) throws Exception{
+    private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
-        TaggerUser taggerUser = new TaggerUser(getAuthenticatedUser().getId());
-        return new TaggerCrisis(request.getCode(), request.getName(), crisisType, taggerUser);
+        TaggerUserRequest taggerUser = new TaggerUserRequest(getAuthenticatedUser().getId());
+        return new TaggerCrisisRequest(request.getCode(), request.getName(), crisisType, taggerUser);
     }
 
 }

@@ -47,31 +47,31 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    public List<TaggerCollection> getAllRunningInCollectorForUser(Integer userId) throws AidrException{
+    public List<TaggerCrisis> getCrisesByUserId(Integer userId) throws AidrException{
         try {
             /**
              * Rest call to Tagger
              */
-            WebResource webResource = client.resource(taggerMainUrl + "/collection/" + userId);
+            WebResource webResource = client.resource(taggerMainUrl + "/crisis?userID=" + userId);
             ObjectMapper objectMapper = new ObjectMapper();
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .get(ClientResponse.class);
             String jsonResponse = clientResponse.getEntity(String.class);
 
-            TaggerAllCollectionsResponse collectionsResponse = objectMapper.readValue(jsonResponse, TaggerAllCollectionsResponse.class);
-            if (collectionsResponse.getCollections() != null) {
-                logger.info("Tagger returned " + collectionsResponse.getCollections().size() + " collections for user");
+            TaggerAllCrisesResponse taggerAllCrisesResponse = objectMapper.readValue(jsonResponse, TaggerAllCrisesResponse.class);
+            if (taggerAllCrisesResponse.getCrisises() != null) {
+                logger.info("Tagger returned " + taggerAllCrisesResponse.getCrisises().size() + " crisis for user");
             }
 
-            return collectionsResponse.getCollections();
+            return taggerAllCrisesResponse.getCrisises();
         } catch (Exception e) {
-            throw new AidrException("Error While Getting collections running for user in Tagger", e);
+            throw new AidrException("Error While Getting all crisis for user in Tagger", e);
         }
     }
 
 
-    public String createNewCrises(TaggerCrisis crisis) throws AidrException {
+    public String createNewCrises(TaggerCrisisRequest crisis) throws AidrException {
         try {
             /**
              * Rest call to Tagger
