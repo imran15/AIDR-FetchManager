@@ -75,7 +75,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
 
             '<div class="info">',
             '<div class="collection-title"><a href="{[this.getEncodedCode(values.code)]}/tagger-collection-details">{name}</a></div>',
-            '<div class="styled-text-14 div-top-padding" id="statusField_{crisisID}">{[this.getAttributes(values.modelFamilyCollection)]}</div>',
+            '<div class="styled-text-14 div-top-padding" id="statusField_{crisisID}">{[this.getAttributes(values.modelFamilyCollection, values.code)]}</div>',
             '</div>',
 
             '</div>',
@@ -84,10 +84,10 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
             '</tpl>',
             '</div>',
             {
-                getAttributes: function (raw) {
+                getAttributes: function (attr, code) {
                     var result = '';
-                    if (raw && raw.length > 0) {
-                        Ext.Array.each(raw, function(r, index) {
+                    if (attr && attr.length > 0) {
+                        Ext.Array.each(attr, function(r, index) {
                             if (index == 1){
                                 result = 'Attributes being predicted:&nbsp;&nbsp;';
                             }
@@ -98,7 +98,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
                         });
                         return result.substring(0, result.length - 2);
                     } else {
-                        return '<a href="predict-new-attribute">Predict a new attribute >></a>';
+                        return '<a href="' + this.getEncodedCode(code) + '/predict-new-attribute">Predict a new attribute >></a>';
                     }
                 },
                 getEncodedCode: function(code) {

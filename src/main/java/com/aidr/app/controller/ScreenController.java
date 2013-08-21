@@ -55,4 +55,31 @@ public class ScreenController extends BaseController{
         return "tagger/home";
     }
 
+    @RequestMapping("protected/{code}/tagger-collection-details")
+    public ModelAndView taggerCollectionDetails(@PathVariable(value="code") String code) throws Exception {
+//        TODO check what is correct service
+        AidrCollection collection = collectionService.findByCode(code);
+        ModelAndView model = new ModelAndView("tagger/tagger-collection-details");
+        model.addObject("id", collection.getId());
+        return model;
+    }
+
+    @RequestMapping("protected/{code}/predict-new-attribute")
+    public ModelAndView predictNewAttribute(@PathVariable(value="code") String code) throws Exception {
+//        TODO check what is correct service
+        AidrCollection collection = collectionService.findByCode(code);
+        ModelAndView model = new ModelAndView("tagger/predict-new-attribute");
+        model.addObject("id", collection.getId());
+        return model;
+    }
+
+    @RequestMapping("protected/{code}/attribute-details")
+    public ModelAndView attributeDetails(@PathVariable(value="code") String code) throws Exception {
+//        TODO check what is correct service
+        AidrCollection collection = collectionService.findByCode(code);
+        ModelAndView model = new ModelAndView("tagger/attribute-details");
+        model.addObject("id", collection.getId());
+        return model;
+    }
+
 }
