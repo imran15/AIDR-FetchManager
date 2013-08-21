@@ -100,11 +100,11 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
             '<div class="content">',
 
             '<div class="img">',
-            '<a href="{[this.getDocNumber(values.code)]}/collection-details"><img alt="Collection image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70"></a>',
+            '<a href="{[this.getEncodedCode(values.code)]}/collection-details"><img alt="Collection image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70"></a>',
             '</div>',
 
             '<div class="info">',
-            '<div class="collection-title"><a href="{[this.getDocNumber(values.code)]}/collection-details">{name}</a></div>',
+            '<div class="collection-title"><a href="{[this.getEncodedCode(values.code)]}/collection-details">{name}</a></div>',
             '<div class="styled-text-14" id="statusField_{id}">{[this.getStatus(values.status)]}</div>',
             '<div class="styled-text-14" id="docCountField_{id}">Downloaded items:&nbsp;&nbsp;&nbsp;{[this.getDocNumber(values.count)]}</div>',
             '<div class="styled-text-14" id="lastDocField_{id}">Last downloaded item:&nbsp;&nbsp;&nbsp;{[this.getLastDoc(values.lastDocument)]}</div>',
