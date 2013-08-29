@@ -48,7 +48,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
         this.pageDescription = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
-            text: 'Displaying: only attributes that your collection does not already have.',
+            text: 'Displaying: only attributes that your crises does not already have.',
             flex: 1
         });
 
