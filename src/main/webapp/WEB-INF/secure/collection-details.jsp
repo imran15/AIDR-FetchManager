@@ -4,6 +4,7 @@
 
   <script type="text/javascript">
       COLLECTION_ID = ${id};
+      CRISES_EXIST = ${crisesExist};
   </script>
 
 </body>

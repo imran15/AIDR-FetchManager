@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.aidr.app.hibernateEntities.AidrCollection;
 import com.aidr.app.service.CollectionService;
+import com.aidr.app.service.TaggerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +17,8 @@ public class ScreenController extends BaseController{
 
     @Autowired
     private CollectionService collectionService;
+    @Autowired
+    private TaggerService taggerService;
 
 	@RequestMapping("protected/home")
 	public String home(Map<String, String> model) throws Exception {
@@ -40,8 +43,10 @@ public class ScreenController extends BaseController{
     @RequestMapping("protected/{code}/collection-details")
     public ModelAndView collectionDetails(@PathVariable(value="code") String code) throws Exception {
         AidrCollection collection = collectionService.findByCode(code);
+        boolean crisesExist = taggerService.isCrisesExist(code);
         ModelAndView model = new ModelAndView("collection-details");
         model.addObject("id", collection.getId());
+        model.addObject("crisesExist", crisesExist);
         return model;
     }
 
@@ -70,6 +75,7 @@ public class ScreenController extends BaseController{
         AidrCollection collection = collectionService.findByCode(code);
         ModelAndView model = new ModelAndView("tagger/predict-new-attribute");
         model.addObject("id", collection.getId());
+        model.addObject("name", collection.getName());
         return model;
     }
 

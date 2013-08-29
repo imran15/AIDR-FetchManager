@@ -89,4 +89,48 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
+    public List<TaggerCrisesAttribute> getAttributesForCrises(Integer crisisID) throws AidrException{
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/attribute/crisis/all?exceptCrisis=" + crisisID);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerCrisisAttributesResponse crisisAttributesResponse = objectMapper.readValue(jsonResponse, TaggerCrisisAttributesResponse.class);
+            if (crisisAttributesResponse.getCrisisAttributes() != null) {
+                logger.info("Tagger returned " + crisisAttributesResponse.getCrisisAttributes().size() + " attributes available for crises with ID " + crisisID);
+            }
+
+            return crisisAttributesResponse.getCrisisAttributes();
+        } catch (Exception e) {
+            throw new AidrException("Error While Getting All Crisis from Tagger", e);
+        }
+    }
+
+    public boolean isCrisesExist(String code) throws AidrException{
+        try {
+            WebResource webResource = client.resource(taggerMainUrl + "/crisis/code/" + code);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerCrisisExist crisisExist = objectMapper.readValue(jsonResponse, TaggerCrisisExist.class);
+            if (crisisExist.getExists() != null && crisisExist.getExists()) {
+                logger.info("Crises with the code " + code + " already exist in Tagger.");
+                return crisisExist.getExists();
+            } else {
+                return false;
+            }
+        } catch (Exception e) {
+            throw new AidrException("Error While Getting All Crisis from Tagger", e);
+        }
+    }
+
 }

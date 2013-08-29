@@ -185,6 +185,14 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             disabled: true
         });
 
+        this.gotoTaggerButton = Ext.create('Ext.Button', {
+            text: 'Go To Tagger',
+            cls:'btn btn-blue',
+            id: 'goToTagger',
+            margin: '0 0 0 10',
+            hidden: true
+        });
+
         this.crisesTypeStore = Ext.create('Ext.data.JsonStore', {
             pageSize: 100,
             storeId: 'crisesTypeStore',
@@ -529,7 +537,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                     items: [
                                         this.startButton,
                                         this.stopButton,
-                                        this.enableTaggerButton
+                                        this.enableTaggerButton,
+                                        this.gotoTaggerButton
                                     ]
                                 }
                             ]

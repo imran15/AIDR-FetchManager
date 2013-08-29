@@ -4,6 +4,7 @@
 
   <script type="text/javascript">
       COLLECTION_ID = ${id};
+      COLLECTION_NAME = "${name}";
   </script>
 
 </body>

@@ -36,7 +36,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
         this.taggerDescription = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
-            text: 'Tagger is enabled on the following collections:',
+            text: 'Tagger is enabled on the following crises:',
             flex: 1
         });
 
