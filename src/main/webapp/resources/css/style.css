@@ -2942,14 +2942,16 @@ footer p a:hover{
     margin-bottom : 5px;
 }
 
-.collections-list .collection-item {
+.collections-list .collection-item,
+.attribute-list .attribute-item {
     overflow: hidden;
     padding-bottom: 10px;
     padding-top: 10px;
     border-bottom: 1px #e3e1e1 solid;
 }
 
-.collections-list .collection-item .img {
+.collections-list .collection-item .img,
+.attribute-list .attribute-item .img {
     float: left;
     padding: 3px;
     margin: 0 8px 0 0;
@@ -2959,6 +2961,12 @@ footer p a:hover{
     position: relative;
     float: right;
     top: 35px;
+}
+
+.attribute-list .attribute-item .btn{
+    position: relative;
+    float: right;
+    top: 25px;
 }
 
 .hidden{
@@ -3080,7 +3088,8 @@ footer p a:hover{
     font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
 }
 
-.collection-item button:hover {
+.collection-item button:hover,
+.attribute-item button:hover {
     cursor: pointer;
 }
 
@@ -3220,28 +3229,33 @@ End of the tab panel styles
     border-width: 0;
 }
 
-.collections-list .content .rightColumn {
+.collections-list .content .rightColumn,
+.attribute-list .content .rightColumn {
     line-height: 1.5;
     float:left;
     width:160px;
 }
-.collections-list .content .leftColumn {
+.collections-list .content .leftColumn,
+.attribute-list .content .leftColumn {
     line-height: 1.5;
     float:left;
     width:710px;
 }
 
-.collections-list .content .img {
+.collections-list .content .img,
+.attribute-list .content .img {
     float:left;
     width:75px;
 }
 
-.collections-list .content .info {
+.collections-list .content .info,
+.attribute-list .content .info {
     float:left;
     width:800px;
 }
 
-.collections-list .content .info .field-labels {
+.collections-list .content .info .field-labels,
+.attribute-list .content .info .field-labels {
     width:200px;
 }
 
@@ -3278,4 +3292,14 @@ End of the tab panel styles
 
 .div-top-padding {
     padding-top: 10px;
+}
+
+.attributes-title {
+    font-size: 20px;
+    color: #4c4c4c;
+    border-bottom: 1px #e3e1e1 solid;
+}
+
+.attributes-title .inner{
+    margin: 20px 0 20px 0;
 }

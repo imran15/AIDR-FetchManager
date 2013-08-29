@@ -79,12 +79,12 @@ public class ScreenController extends BaseController{
         return model;
     }
 
-    @RequestMapping("protected/{code}/attribute-details")
-    public ModelAndView attributeDetails(@PathVariable(value="code") String code) throws Exception {
+    @RequestMapping("protected/{id}/attribute-details")
+    public ModelAndView attributeDetails(@PathVariable(value="id") Integer id) throws Exception {
 //        TODO check what is correct service
-        AidrCollection collection = collectionService.findByCode(code);
+//        AidrCollection collection = collectionService.findByCode(id);
         ModelAndView model = new ModelAndView("tagger/attribute-details");
-        model.addObject("id", collection.getId());
+//        model.addObject("id", collection.getId());
         return model;
     }
 

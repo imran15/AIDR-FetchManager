@@ -27,6 +27,18 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
             padding: 0
         });
 
+        this.newCustomAttribute = Ext.create('Ext.container.Container', {
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/new-custom-attribute">Create new custom attribute >></a></div>',
+            margin: 0,
+            padding: '30 0 0 0'
+        });
+
+        this.emptySpace = Ext.create('Ext.container.Container', {
+            html: '',
+            margin: 0,
+            padding: '30 0 0 0'
+        });
+
         this.pageTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
             text: 'Predict a new attribute in "' + COLLECTION_NAME + '"',
@@ -76,45 +88,73 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
         });
 
         this.standardAttributesTpl = new Ext.XTemplate(
-            '<div class="popup choose-crises">' +
+            '<div class="attribute-list">',
 
-                '<tpl if="xindex == 1">' +
-                '<h2>Standard attributes</h2>' +
-                '<div class="crises-list">' +
-                '<ul>' +
-                '</tpl>' +
-                '<tpl for=".">',
+            '<tpl for=".">',
 
-            '<li class="crisesItem"><a>{name}</a></li>' +
-
-                '</tpl>',
             '<tpl if="xindex == 1">' +
-                '</ul>' +
-                '</div>' +
-                '</tpl>' +
+            '<div class="attributes-title"><div class="inner"><h2>Standard attributes</h2></div></div>' +
+            '</tpl>' +
 
-                '</div>'
+            '<div class="attribute-item">',
+
+            '<button id="buttonAddAttribute_{nominalAttributeID}" class="btn btn-blue" onclick="predictNewAttributeController.addAttributeToCrises({nominalAttributeID})">',
+            '<span>Add</span>',
+            '</button>',
+
+            '<div class="content">',
+
+            '<div class="img">',
+            '<a href="' + BASE_URL + '/protected/{nominalAttributeID}/attribute-details"><img alt="Attribute image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70"></a>',
+            '</div>',
+
+            '<div class="info">',
+            '<div class="collection-title"><a href="' + BASE_URL +  '/protected/{nominalAttributeID}/attribute-details">{name}</a></div>',
+            '<div class="styled-text-14" id="docCountField_{id}">Description:&nbsp;&nbsp;&nbsp;{description}</div>',
+            '<div class="styled-text-14" id="lastDocField_{id}">Values:&nbsp;&nbsp;&nbsp;</div>',
+            '</div>',
+
+            '</div>',
+            '</div>',
+
+            '</tpl>',
+
+            '</div>'
         );
 
         this.customAttributesTpl = new Ext.XTemplate(
-            '<div class="popup choose-crises">' +
+            '<div class="collections-list">',
 
-                '<tpl if="xindex == 1">' +
-                '<h2>Custom attributes</h2>' +
-                '<div class="crises-list">' +
-                '<ul>' +
-                '</tpl>' +
-                '<tpl for=".">',
+            '<tpl for=".">',
 
-            '<li class="crisesItem"><a>{name}</a></li>' +
-
-                '</tpl>',
             '<tpl if="xindex == 1">' +
-                '</ul>' +
-                '</div>' +
-                '</tpl>' +
+            '<div class="attributes-title"><div class="inner"><h2>Custom attributes</h2></div></div>' +
+            '</tpl>' +
 
-                '</div>'
+            '<div class="collection-item">',
+
+            '<button id="buttonAddAttribute_{nominalAttributeID}" class="btn btn-blue" onclick="predictNewAttributeController.addAttributeToCrises({nominalAttributeID})">',
+            '<span>Add</span>',
+            '</button>',
+
+            '<div class="content">',
+
+            '<div class="img">',
+            '<a href="' + BASE_URL + '/protected/{nominalAttributeID}/attribute-details"><img alt="Attribute image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70"></a>',
+            '</div>',
+
+            '<div class="info">',
+            '<div class="collection-title"><a href="' + BASE_URL +  '/protected/{nominalAttributeID}/attribute-details">{name}</a></div>',
+            '<div class="styled-text-14" id="docCountField_{id}">Description:&nbsp;&nbsp;&nbsp;{description}</div>',
+            '<div class="styled-text-14" id="lastDocField_{id}">Values:&nbsp;&nbsp;&nbsp;</div>',
+            '</div>',
+
+            '</div>',
+            '</div>',
+
+            '</tpl>',
+
+            '</div>'
         );
 
         this.standardAttributesView = Ext.create('Ext.view.View', {
@@ -155,7 +195,9 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
                 html: '<div class="horisontalLine"></div>'
             },
             this.standardAttributesView,
-            this.customAttributesView
+            this.emptySpace,
+            this.customAttributesView,
+            this.newCustomAttribute
         ];
 
         this.callParent(arguments);

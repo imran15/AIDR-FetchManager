@@ -21,7 +21,7 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
         AIDRFMFunctions.initMessageContainer();
 
         this.mainComponent = component;
-        taggerCollectionDetailsController = this;
+        predictNewAttributeController = this;
 
         var me = this;
 
@@ -58,6 +58,13 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
                                 }
                             }
                         });
+
+                        if (standard.length > 0 && custom.length > 0){
+                            me.mainComponent.emptySpace.show();
+                        } else {
+                            me.mainComponent.emptySpace.hide();
+                        }
+
                         me.mainComponent.standardAttributesStore.loadData(standard);
                         me.mainComponent.customAttributesStore.loadData(custom);
                     }
@@ -69,6 +76,11 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
                 AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
             }
         });
+    },
+
+    addAttributeToCrises: function(id) {
+        var me = this;
+        alert("From add attribute for crises");
     }
 
 });
