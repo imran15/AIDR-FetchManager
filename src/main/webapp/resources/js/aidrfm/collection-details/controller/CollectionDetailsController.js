@@ -153,6 +153,12 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 }
             },
 
+            "#goToTagger": {
+                click: function (btn, e, eOpts) {
+                    this.goToTagger();
+                }
+            },
+
             "#crisesTypeViewId": {
                 itemclick: function (view, record, item, index, e, eOpts) {
                     this.crisisTypeSelectHandler(view, record, item, index, e, eOpts);
@@ -174,6 +180,11 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         this.DetailsComponent = component;
         datailsController = this;
         var me = this;
+
+        if (CRISES_EXIST) {
+            this.DetailsComponent.gotoTaggerButton.show();
+            this.DetailsComponent.enableTaggerButton.hide();
+        }
 
         var id = COLLECTION_ID;
         this.DetailsComponent.currentCollectionId = COLLECTION_ID;
@@ -523,6 +534,10 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 }
             }
         });
+    },
+
+    goToTagger: function() {
+        document.location.href = BASE_URL + '/protected/tagger-home';
     }
 
 });

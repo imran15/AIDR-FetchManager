@@ -27,16 +27,16 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
             padding: 0
         });
 
-        this.taggerTitle = Ext.create('Ext.form.Label', {
+        this.pageTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
-            text: 'Tagger',
+            text: 'Predict a new attribute in "' + COLLECTION_NAME + '"',
             flex: 1
         });
 
-        this.taggerDescription = Ext.create('Ext.form.Label', {
+        this.pageDescription = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
-            text: 'Predict a new attribute in',
+            text: 'Displaying: only attributes that your collection does not already have.',
             flex: 1
         });
 
@@ -45,74 +45,91 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
             html: '<div class="horisontalLine"></div>'
         });
 
-//        this.crisesStore = Ext.create('Ext.data.JsonStore', {
-//            pageSize: 10,
-//            storeId: 'crisesStore',
-//            fields: ['crisisID', 'code', 'name', 'crisisType', 'users', 'modelFamilyCollection'],
-//            proxy: {
-//                type: 'ajax',
-//                url: 'tagger/getCrisesByUserId.action',
-//                reader: {
-//                    root: 'data',
-//                    totalProperty: 'total'
-//                }
-//            },
-//            autoLoad: true
-//        });
-//
-//        this.crisesTpl = new Ext.XTemplate(
-//            '<div class="collections-list">',
-//            '<tpl for=".">',
-//
-//            '<div class="collection-item">',
-//
-//
-//            '<div class="content">',
-//
-//            '<div class="img">',
-//            '<a href="{[this.getEncodedCode(values.code)]}/tagger-collection-details"><img alt="Collection image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70"></a>',
-//            '</div>',
-//
-//            '<div class="info">',
-//            '<div class="collection-title"><a href="{[this.getEncodedCode(values.code)]}/tagger-collection-details">{name}</a></div>',
-//            '<div class="styled-text-14 div-top-padding" id="statusField_{crisisID}">{[this.getAttributes(values.modelFamilyCollection)]}</div>',
-//            '</div>',
-//
-//            '</div>',
-//            '</div>',
-//
-//            '</tpl>',
-//            '</div>',
-//            {
-//                getAttributes: function (raw) {
-//                    var result = '';
-//                    if (raw && raw.length > 0) {
-//                        Ext.Array.each(raw, function(r, index) {
-//                            if (index == 1){
-//                                result = 'Attributes being predicted:&nbsp;&nbsp;';
-//                            }
-//                            var nominalAttribute = r.nominalAttribute;
-//                            if (nominalAttribute && nominalAttribute.name) {
-//                                result = result + nominalAttribute.name + ', ';
-//                            }
-//                        });
-//                        return result.substring(0, result.length - 2);
-//                    } else {
-//                        return '<a href="predict-new-attribute">Predict a new attribute >></a>';
-//                    }
-//                },
-//                getEncodedCode: function(code) {
-//                    return encodeURI(code);
-//                }
-//            }
-//        );
-//
-//        this.crisesView = Ext.create('Ext.view.View', {
-//            store: this.crisesStore,
-//            tpl: this.crisesTpl,
-//            itemSelector: 'div.active',
-//            loadMask: false
-//        });
+        this.standardAttributesStore = Ext.create('Ext.data.JsonStore', {
+            pageSize: 100,
+            storeId: 'standardAttributesStore',
+            fields: ['code', 'description', 'name', 'nominalAttributeID'],
+            proxy: {
+                type: 'ajax',
+                url: '',
+                reader: {
+                    root: 'data',
+                    totalProperty: 'total'
+                }
+            },
+            autoLoad: false
+        });
+
+        this.customAttributesStore = Ext.create('Ext.data.JsonStore', {
+            pageSize: 100,
+            storeId: 'customAttributesStore',
+            fields: ['code', 'description', 'name', 'nominalAttributeID'],
+            proxy: {
+                type: 'ajax',
+                url: '',
+                reader: {
+                    root: 'data',
+                    totalProperty: 'total'
+                }
+            },
+            autoLoad: false
+        });
+
+        this.standardAttributesTpl = new Ext.XTemplate(
+            '<div class="popup choose-crises">' +
+
+                '<tpl if="xindex == 1">' +
+                '<h2>Standard attributes</h2>' +
+                '<div class="crises-list">' +
+                '<ul>' +
+                '</tpl>' +
+                '<tpl for=".">',
+
+            '<li class="crisesItem"><a>{name}</a></li>' +
+
+                '</tpl>',
+            '<tpl if="xindex == 1">' +
+                '</ul>' +
+                '</div>' +
+                '</tpl>' +
+
+                '</div>'
+        );
+
+        this.customAttributesTpl = new Ext.XTemplate(
+            '<div class="popup choose-crises">' +
+
+                '<tpl if="xindex == 1">' +
+                '<h2>Custom attributes</h2>' +
+                '<div class="crises-list">' +
+                '<ul>' +
+                '</tpl>' +
+                '<tpl for=".">',
+
+            '<li class="crisesItem"><a>{name}</a></li>' +
+
+                '</tpl>',
+            '<tpl if="xindex == 1">' +
+                '</ul>' +
+                '</div>' +
+                '</tpl>' +
+
+                '</div>'
+        );
+
+        this.standardAttributesView = Ext.create('Ext.view.View', {
+            store: this.standardAttributesStore,
+            id: 'standardAttributesViewId',
+            tpl: this.standardAttributesTpl,
+            itemSelector: 'li.crisesItem'
+        });
+
+        this.customAttributesView = Ext.create('Ext.view.View', {
+            store: this.customAttributesStore,
+            id: 'customAttributesViewId',
+            tpl: this.customAttributesTpl,
+            itemSelector: 'li.crisesItem'
+        });
 
         this.items = [
             this.breadcrumbs,
@@ -128,17 +145,17 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
                     align: 'stretch'
                 },
                 items: [
-                    this.taggerTitle,
-                    this.taggerDescription
+                    this.pageTitle,
+                    this.pageDescription
                 ]
             },
             {
                 xtype: 'container',
                 width: '100%',
                 html: '<div class="horisontalLine"></div>'
-            }
-//            ,
-//            this.crisesView
+            },
+            this.standardAttributesView,
+            this.customAttributesView
         ];
 
         this.callParent(arguments);

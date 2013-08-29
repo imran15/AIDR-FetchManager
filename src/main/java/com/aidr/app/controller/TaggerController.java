@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -73,6 +70,18 @@ public class TaggerController extends BaseController {
                 return getUIWrapper(false, response);
             }
         } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/getAttributesForCrises.action", method = {RequestMethod.GET})
+    @ResponseBody
+    public Map<String, Object> getAttributesForCrises(Integer id) {
+        logger.info("Getting Attributes For Crises");
+        try {
+            return getUIWrapper(taggerService.getAttributesForCrises(id), true);
+        } catch (AidrException e) {
             logger.error(e.getMessage(), e);
             return getUIWrapper(false, e.getMessage());
         }

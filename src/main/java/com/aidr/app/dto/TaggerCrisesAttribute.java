@@ -1,8 +1,6 @@
 package com.aidr.app.dto;
 
-import java.util.List;
-
-public class TaggerAttribute {
+public class TaggerCrisesAttribute {
 
     private String code;
 
@@ -12,9 +10,7 @@ public class TaggerAttribute {
 
     private Integer nominalAttributeID;
 
-    private TaggerUser users;
-
-    private List<TaggerLabel> nominalLabelCollection;
+    private Integer userID;
 
     public String getCode() {
         return code;
@@ -48,20 +44,11 @@ public class TaggerAttribute {
         this.nominalAttributeID = nominalAttributeID;
     }
 
-    public TaggerUser getUsers() {
-        return users;
+    public Integer getUserID() {
+        return userID;
     }
 
-    public void setUsers(TaggerUser users) {
-        this.users = users;
+    public void setUserID(Integer userID) {
+        this.userID = userID;
     }
-
-    public List<TaggerLabel> getNominalLabelCollection() {
-        return nominalLabelCollection;
-    }
-
-    public void setNominalLabelCollection(List<TaggerLabel> nominalLabelCollection) {
-        this.nominalLabelCollection = nominalLabelCollection;
-    }
-
 }
