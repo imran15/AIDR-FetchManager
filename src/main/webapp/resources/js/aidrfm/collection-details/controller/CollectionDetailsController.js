@@ -149,13 +149,15 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
             "#enableTagger": {
                 click: function (btn, e, eOpts) {
-                    this.getAllCrisisTypesFromTagger();
+                    AIDRFMFunctions.setAlert("Ok", "Will be implemented later");
+//                    this.getAllCrisisTypesFromTagger();
                 }
             },
 
             "#goToTagger": {
                 click: function (btn, e, eOpts) {
-                    this.goToTagger();
+                    AIDRFMFunctions.setAlert("Ok", "Will be implemented later");
+//                    this.goToTagger();
                 }
             },
 
