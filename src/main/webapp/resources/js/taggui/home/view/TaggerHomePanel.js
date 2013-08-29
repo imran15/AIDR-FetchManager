@@ -54,10 +54,22 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
                 url: 'tagger/getCrisesByUserId.action',
                 reader: {
                     root: 'data',
-                    totalProperty: 'total'
+                    totalProperty: 'total',
+                    messageProperty: 'message'
                 }
             },
-            autoLoad: true
+            autoLoad: true,
+            listeners: {
+                load: function (store, records, successful, operation, eOpts) {
+                    var proxy = store.getProxy(),
+                        reader = proxy.getReader(),
+                        raw = reader.rawData,
+                        msg = reader.getMessage(raw);
+                    if (!successful) {
+                        AIDRFMFunctions.setAlert("Error", msg);
+                    }
+                }
+            }
         });
 
         this.crisesTpl = new Ext.XTemplate(
