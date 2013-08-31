@@ -17,4 +17,7 @@ public interface TaggerService {
 
     public boolean isCrisesExist(String code) throws AidrException;
 
+    public Integer isUserExistsByUsername(String userName) throws AidrException;
+
+    public Integer addNewUser(TaggerUser taggerUser) throws AidrException;
 }

@@ -62,4 +62,13 @@ public class BaseController {
 		}
 	}
 
+	protected String getAuthenticatedUserName() throws Exception{
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		if(authentication != null){
+			return authentication.getName();
+		}else{
+			throw new Exception("No user logged in ");
+		}
+	}
+
 }

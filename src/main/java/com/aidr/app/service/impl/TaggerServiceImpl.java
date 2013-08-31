@@ -8,6 +8,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import org.apache.log4j.Logger;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -43,7 +44,7 @@ public class TaggerServiceImpl implements TaggerService {
 
             return crisesTypesResponse.getCrisisTypes();
         } catch (Exception e) {
-            throw new AidrException("Error While Getting All Crisis from Tagger", e);
+            throw new AidrException("Error while getting all crisis from Tagger", e);
         }
     }
 
@@ -66,7 +67,7 @@ public class TaggerServiceImpl implements TaggerService {
 
             return taggerAllCrisesResponse.getCrisises();
         } catch (Exception e) {
-            throw new AidrException("Error While Getting all crisis for user in Tagger", e);
+            throw new AidrException("Error while getting all crisis for user in Tagger", e);
         }
     }
 
@@ -85,7 +86,7 @@ public class TaggerServiceImpl implements TaggerService {
 
             return clientResponse.getEntity(String.class);
         } catch (Exception e) {
-            throw new AidrException("Error While Getting collections running for user in Tagger", e);
+            throw new AidrException("Error while creating new crises in Tagger", e);
         }
     }
 
@@ -108,7 +109,7 @@ public class TaggerServiceImpl implements TaggerService {
 
             return crisisAttributesResponse.getCrisisAttributes();
         } catch (Exception e) {
-            throw new AidrException("Error While Getting All Crisis from Tagger", e);
+            throw new AidrException("Error while getting all attributes for crisis from Tagger", e);
         }
     }
 
@@ -129,7 +130,59 @@ public class TaggerServiceImpl implements TaggerService {
                 return false;
             }
         } catch (Exception e) {
-            throw new AidrException("Error While Getting All Crisis from Tagger", e);
+            throw new AidrException("Error while checking if crisis exist in Tagger", e);
+        }
+    }
+
+
+    public Integer isUserExistsByUsername(String userName) throws AidrException {
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/user/" + userName);
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+
+            String jsonResponse = clientResponse.getEntity(String.class);
+            TaggerUser taggerUser = objectMapper.readValue(jsonResponse, TaggerUser.class);
+            if (taggerUser != null && taggerUser.getUserID() != null) {
+                logger.info("User with the user name " + userName + " already exist in Tagger and has ID: " + taggerUser.getUserID());
+                return taggerUser.getUserID();
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new AidrException("Error while checking if user exist in Tagger", e);
+        }
+    }
+
+    public Integer addNewUser(TaggerUser taggerUser) throws AidrException {
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/user");
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .post(ClientResponse.class, objectMapper.writeValueAsString(taggerUser));
+
+            String jsonResponse = clientResponse.getEntity(String.class);
+            TaggerUser createdUser = objectMapper.readValue(jsonResponse, TaggerUser.class);
+            if (createdUser != null && createdUser.getUserID() != null) {
+                logger.info("User with ID " + createdUser.getUserID() + " was created in Tagger");
+                return createdUser.getUserID();
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new AidrException("Error while adding new user to Tagger", e);
         }
     }
 

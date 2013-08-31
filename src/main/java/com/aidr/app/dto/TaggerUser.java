@@ -15,6 +15,11 @@ public class TaggerUser {
         this.userID = userID;
     }
 
+    public TaggerUser(String name, String role) {
+        this.name = name;
+        this.role = role;
+    }
+
     public Integer getUserID() {
         return userID;
     }

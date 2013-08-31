@@ -62,7 +62,14 @@ public class TaggerController extends BaseController {
     public Map<String, Object> createCrises(CrisisRequest crisisRequest) {
         logger.info("Creating new crises in Tagger");
         try {
-            TaggerCrisisRequest crisis = transformCrisesRequestToTaggerCrises(crisisRequest);
+            String userName = getAuthenticatedUserName();
+            Integer taggerUserId = taggerService.isUserExistsByUsername(userName);
+            if (taggerUserId == null) {
+                TaggerUser taggerUser = new TaggerUser(userName, "normal");
+                taggerUserId = taggerService.addNewUser(taggerUser);
+            }
+
+            TaggerCrisisRequest crisis = transformCrisesRequestToTaggerCrises(crisisRequest, taggerUserId);
             String response = taggerService.createNewCrises(crisis);
             if ("SUCCESS".equals(response)){
                 return getUIWrapper(true);
@@ -87,9 +94,9 @@ public class TaggerController extends BaseController {
         }
     }
 
-    private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request) throws Exception{
+    private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
-        TaggerUserRequest taggerUser = new TaggerUserRequest(getAuthenticatedUser().getId());
+        TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);
         return new TaggerCrisisRequest(request.getCode(), request.getName(), crisisType, taggerUser);
     }
 
