@@ -46,11 +46,15 @@ public class TaggerController extends BaseController {
     @RequestMapping(value = "/getCrisesByUserId.action", method = {RequestMethod.GET})
     @ResponseBody
     public Map<String, Object> getCrisesByUserId() {
-        logger.info("Getting collections running in the collector by User");
+        logger.info("Getting crises from Tagger by User");
         try {
-            UserEntity user = getAuthenticatedUser();
-            List<TaggerCrisis> crisises = taggerService.getCrisesByUserId(user.getId());
-            return getUIWrapper(crisises, true);
+            String userName = getAuthenticatedUserName();
+            Integer taggerUserId = taggerService.isUserExistsByUsername(userName);
+            if (taggerUserId != null) {
+                return getUIWrapper(taggerService.getCrisesByUserId(taggerUserId), true);
+            } else {
+                return getUIWrapper(false, "Error while getting all crisis for user in Tagger");
+            }
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return getUIWrapper(false, e.getMessage());
