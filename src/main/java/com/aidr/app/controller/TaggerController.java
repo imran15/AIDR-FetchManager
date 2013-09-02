@@ -98,10 +98,34 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/addAttributeToCrisis.action", method = {RequestMethod.GET})
+    @ResponseBody
+    public Map<String, Object> addAttributeToCrisis(Integer crisesId, Integer attributeId) {
+        logger.info("Add Attribute To Crises");
+        try {
+            TaggerModelFamily modelFamily = transformCrisesIdAndAttributeIdToTaggerModelFamily(crisesId, attributeId);
+            Integer modelFamilyId = taggerService.addAttributeToCrisis(modelFamily);
+            if (modelFamilyId != null) {
+                return getUIWrapper(modelFamilyId, true);
+            } else {
+                return getUIWrapper("Error while adding attribute to crises", false);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);
         return new TaggerCrisisRequest(request.getCode(), request.getName(), crisisType, taggerUser);
+    }
+
+    private TaggerModelFamily transformCrisesIdAndAttributeIdToTaggerModelFamily (Integer crisesId, Integer attributeId) throws Exception{
+        TaggerCrisis crisis = new TaggerCrisis(crisesId);
+        TaggerAttribute nominalAttribute = new TaggerAttribute(attributeId);
+        return new TaggerModelFamily(crisis, nominalAttribute, false);
     }
 
 }

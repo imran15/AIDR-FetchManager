@@ -100,7 +100,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
                     var result = '';
                     if (attr && attr.length > 0) {
                         Ext.Array.each(attr, function(r, index) {
-                            if (index == 1){
+                            if (index == 0){
                                 result = 'Attributes being predicted:&nbsp;&nbsp;';
                             }
                             var nominalAttribute = r.nominalAttribute;

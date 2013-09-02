@@ -35,7 +35,7 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
             url: BASE_URL + '/protected/tagger/getAttributesForCrises.action',
             method: 'GET',
             params: {
-                id: COLLECTION_ID
+                id: CRISIS_ID
             },
             headers: {
                 'Accept': 'application/json'
@@ -80,7 +80,30 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
 
     addAttributeToCrises: function(id) {
         var me = this;
-        alert("From add attribute for crises");
+
+        Ext.Ajax.request({
+            url: BASE_URL + '/protected/tagger/addAttributeToCrisis.action',
+            method: 'GET',
+            params: {
+                crisesId: CRISIS_ID,
+                attributeId: id
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success && resp.data) {
+                    debugger;
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
+                }
+            },
+            failure: function () {
+                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+            }
+        });
+
     }
 
 });

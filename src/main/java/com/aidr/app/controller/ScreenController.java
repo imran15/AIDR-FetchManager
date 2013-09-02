@@ -2,6 +2,8 @@ package com.aidr.app.controller;
 
 import java.util.Map;
 
+import com.aidr.app.dto.TaggerCrisis;
+import com.aidr.app.dto.TaggerCrisisExist;
 import com.aidr.app.hibernateEntities.AidrCollection;
 import com.aidr.app.service.CollectionService;
 import com.aidr.app.service.TaggerService;
@@ -43,7 +45,13 @@ public class ScreenController extends BaseController{
     @RequestMapping("protected/{code}/collection-details")
     public ModelAndView collectionDetails(@PathVariable(value="code") String code) throws Exception {
         AidrCollection collection = collectionService.findByCode(code);
-        boolean crisesExist = taggerService.isCrisesExist(code);
+
+        TaggerCrisisExist taggerCrisisExist = taggerService.isCrisesExist(code);
+        boolean crisesExist = false;
+        if (taggerCrisisExist != null && taggerCrisisExist.getCrisisId() != null && taggerCrisisExist.getCrisisId() != 0){
+            crisesExist = true;
+        }
+
         ModelAndView model = new ModelAndView("collection-details");
         model.addObject("id", collection.getId());
         model.addObject("crisesExist", crisesExist);
@@ -71,10 +79,18 @@ public class ScreenController extends BaseController{
 
     @RequestMapping("protected/{code}/predict-new-attribute")
     public ModelAndView predictNewAttribute(@PathVariable(value="code") String code) throws Exception {
-//        TODO check what is correct service
+
+//      TODO change this to getCrisesBy code from Tagger
         AidrCollection collection = collectionService.findByCode(code);
+        TaggerCrisisExist taggerCrisisExist = taggerService.isCrisesExist(code);
+
+        Integer crisisId = 0;
+        if (taggerCrisisExist != null && taggerCrisisExist.getCrisisId() != null && taggerCrisisExist.getCrisisId() != 0){
+            crisisId = taggerCrisisExist.getCrisisId();
+        }
+
         ModelAndView model = new ModelAndView("tagger/predict-new-attribute");
-        model.addObject("id", collection.getId());
+        model.addObject("crisisId", crisisId);
         model.addObject("name", collection.getName());
         return model;
     }

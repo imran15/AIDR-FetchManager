@@ -16,6 +16,13 @@ public class TaggerAttribute {
 
     private List<TaggerLabel> nominalLabelCollection;
 
+    public TaggerAttribute() {
+    }
+
+    public TaggerAttribute(Integer nominalAttributeID) {
+        this.nominalAttributeID = nominalAttributeID;
+    }
+
     public String getCode() {
         return code;
     }

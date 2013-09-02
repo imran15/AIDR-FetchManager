@@ -113,7 +113,7 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    public boolean isCrisesExist(String code) throws AidrException{
+    public TaggerCrisisExist isCrisesExist(String code) throws AidrException{
         try {
             WebResource webResource = client.resource(taggerMainUrl + "/crisis/code/" + code);
             ObjectMapper objectMapper = new ObjectMapper();
@@ -123,11 +123,11 @@ public class TaggerServiceImpl implements TaggerService {
             String jsonResponse = clientResponse.getEntity(String.class);
 
             TaggerCrisisExist crisisExist = objectMapper.readValue(jsonResponse, TaggerCrisisExist.class);
-            if (crisisExist.getExists() != null && crisisExist.getExists()) {
+            if (crisisExist.getCrisisId() != null) {
                 logger.info("Crises with the code " + code + " already exist in Tagger.");
-                return crisisExist.getExists();
+                return crisisExist;
             } else {
-                return false;
+                return null;
             }
         } catch (Exception e) {
             throw new AidrException("Error while checking if crisis exist in Tagger", e);
@@ -183,6 +183,32 @@ public class TaggerServiceImpl implements TaggerService {
             }
         } catch (Exception e) {
             throw new AidrException("Error while adding new user to Tagger", e);
+        }
+    }
+
+    public Integer addAttributeToCrisis(TaggerModelFamily modelFamily) throws AidrException {
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/modelfamily");
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .post(ClientResponse.class, objectMapper.writeValueAsString(modelFamily));
+
+            String jsonResponse = clientResponse.getEntity(String.class);
+            TaggerModelFamily createdModelFamily = objectMapper.readValue(jsonResponse, TaggerModelFamily.class);
+            if (createdModelFamily != null && createdModelFamily.getModelFamilyID() != null) {
+                logger.info("Attribute was added to crises");
+                return createdModelFamily.getModelFamilyID();
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new AidrException("Error while adding attribute to crises", e);
         }
     }
 

@@ -15,9 +15,11 @@ public interface TaggerService {
 
     public List<TaggerCrisesAttribute> getAttributesForCrises(Integer crisisID) throws AidrException;
 
-    public boolean isCrisesExist(String code) throws AidrException;
+    public TaggerCrisisExist isCrisesExist(String code) throws AidrException;
 
     public Integer isUserExistsByUsername(String userName) throws AidrException;
 
     public Integer addNewUser(TaggerUser taggerUser) throws AidrException;
+
+    public Integer addAttributeToCrisis(TaggerModelFamily modelFamily) throws AidrException;
 }

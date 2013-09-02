@@ -19,6 +19,10 @@ public class TaggerCrisis {
     public TaggerCrisis() {
     }
 
+    public TaggerCrisis(Integer crisisID) {
+        this.crisisID = crisisID;
+    }
+
     public TaggerCrisis(String code, String name, TaggerCrisisType crisisType, TaggerUser users) {
         this.code = code;
         this.name = name;
