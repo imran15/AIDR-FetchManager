@@ -94,7 +94,7 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
             success: function (response) {
                 var resp = Ext.decode(response.responseText);
                 if (resp.success && resp.data) {
-                    debugger;
+                    me.getAttributesForCrises();
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);
                 }
