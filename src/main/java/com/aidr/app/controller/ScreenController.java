@@ -70,28 +70,42 @@ public class ScreenController extends BaseController{
 
     @RequestMapping("protected/{code}/tagger-collection-details")
     public ModelAndView taggerCollectionDetails(@PathVariable(value="code") String code) throws Exception {
-//        TODO check what is correct service
-        AidrCollection collection = collectionService.findByCode(code);
+        TaggerCrisis crisis = taggerService.getCrisesByCode(code);
+
+        Integer crisisId = 0;
+        String crisisName = "";
+        String crisisType = "";
+        if (crisis != null && crisis.getCrisisID() != null && crisis.getName() != null){
+            crisisId = crisis.getCrisisID();
+            crisisName = crisis.getName();
+            if (crisis.getCrisisType() != null && crisis.getCrisisType().getName() != null){
+                crisisType = crisis.getCrisisType().getName();
+            }
+        }
+
         ModelAndView model = new ModelAndView("tagger/tagger-collection-details");
-        model.addObject("id", collection.getId());
+        model.addObject("crisisId", crisisId);
+        model.addObject("name", crisisName);
+        model.addObject("crisisType", crisisType);
+        model.addObject("code", code);
         return model;
     }
 
     @RequestMapping("protected/{code}/predict-new-attribute")
     public ModelAndView predictNewAttribute(@PathVariable(value="code") String code) throws Exception {
 
-//      TODO change this to getCrisesBy code from Tagger
-        AidrCollection collection = collectionService.findByCode(code);
-        TaggerCrisisExist taggerCrisisExist = taggerService.isCrisesExist(code);
+        TaggerCrisis crisis = taggerService.getCrisesByCode(code);
 
         Integer crisisId = 0;
-        if (taggerCrisisExist != null && taggerCrisisExist.getCrisisId() != null && taggerCrisisExist.getCrisisId() != 0){
-            crisisId = taggerCrisisExist.getCrisisId();
+        String crisisName = "";
+        if (crisis != null && crisis.getCrisisID() != null && crisis.getName() != null){
+            crisisId = crisis.getCrisisID();
+            crisisName = crisis.getName();
         }
 
         ModelAndView model = new ModelAndView("tagger/predict-new-attribute");
         model.addObject("crisisId", crisisId);
-        model.addObject("name", collection.getName());
+        model.addObject("name", crisisName);
         return model;
     }
 

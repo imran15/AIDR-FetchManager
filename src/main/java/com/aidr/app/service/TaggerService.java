@@ -22,4 +22,6 @@ public interface TaggerService {
     public Integer addNewUser(TaggerUser taggerUser) throws AidrException;
 
     public Integer addAttributeToCrisis(TaggerModelFamily modelFamily) throws AidrException;
+
+    public TaggerCrisis getCrisesByCode(String code) throws AidrException;
 }

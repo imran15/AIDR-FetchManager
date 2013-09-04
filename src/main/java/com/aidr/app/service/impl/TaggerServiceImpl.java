@@ -212,4 +212,27 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
+    public TaggerCrisis getCrisesByCode(String code) throws AidrException{
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/crisis/by-code/" + code);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerCrisis crisis = objectMapper.readValue(jsonResponse, TaggerCrisis.class);
+            if (crisis != null) {
+                logger.info("Tagger returned crisis with code" + crisis.getCode());
+            }
+
+            return crisis;
+        } catch (Exception e) {
+            throw new AidrException("Error while getting crisis by code from Tagger", e);
+        }
+    }
+
 }
