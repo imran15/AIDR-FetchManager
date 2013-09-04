@@ -11,6 +11,18 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
 
             'tagger-collection-details-view': {
                 beforerender: this.beforeRenderView
+            },
+
+            "#crisisDelete": {
+                click: function (btn, e, eOpts) {
+                    this.crisisDelete();
+                }
+            },
+
+            "#crisisSave": {
+                click: function (btn, e, eOpts) {
+                    this.crisisSave();
+                }
             }
 
         });
@@ -24,6 +36,14 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
         taggerCollectionDetailsController = this;
 
         var me = this;
+    },
+
+    crisisDelete: function () {
+        AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');
+    },
+
+    crisisSave: function () {
+        AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');
     }
 
 });

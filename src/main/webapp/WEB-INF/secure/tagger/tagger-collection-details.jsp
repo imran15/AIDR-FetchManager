@@ -5,7 +5,7 @@
   <script type="text/javascript">
       CRISIS_ID = ${crisisId};
       CRISIS_NAME = "${name}";
-      CRISIS_TYPE = "${crisisType}";
+      CRISIS_TYPE_ID = ${crisisTypeId};
       CRISIS_CODE = "${code}";
   </script>
 

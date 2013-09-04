@@ -74,19 +74,19 @@ public class ScreenController extends BaseController{
 
         Integer crisisId = 0;
         String crisisName = "";
-        String crisisType = "";
+        Integer crisisTypeId = 0;
         if (crisis != null && crisis.getCrisisID() != null && crisis.getName() != null){
             crisisId = crisis.getCrisisID();
             crisisName = crisis.getName();
-            if (crisis.getCrisisType() != null && crisis.getCrisisType().getName() != null){
-                crisisType = crisis.getCrisisType().getName();
+            if (crisis.getCrisisType() != null && crisis.getCrisisType().getCrisisTypeID() != null){
+                crisisTypeId = crisis.getCrisisType().getCrisisTypeID();
             }
         }
 
         ModelAndView model = new ModelAndView("tagger/tagger-collection-details");
         model.addObject("crisisId", crisisId);
         model.addObject("name", crisisName);
-        model.addObject("crisisType", crisisType);
+        model.addObject("crisisTypeId", crisisTypeId);
         model.addObject("code", code);
         return model;
     }
