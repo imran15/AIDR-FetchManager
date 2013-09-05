@@ -235,4 +235,27 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
+    public TaggerCrisis updateCode(TaggerCrisis crisis) throws AidrException{
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/crisis");
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .put(ClientResponse.class, objectMapper.writeValueAsString(crisis));
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerCrisis updatedCrisis = objectMapper.readValue(jsonResponse, TaggerCrisis.class);
+            if (updatedCrisis != null) {
+                logger.info("Crisis with id " + updatedCrisis.getCrisisID() + " was updated in Tagger");
+            }
+
+            return crisis;
+        } catch (Exception e) {
+            throw new AidrException("Error while getting crisis by code from Tagger", e);
+        }
+    }
+
 }

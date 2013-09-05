@@ -43,7 +43,33 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
     },
 
     crisisSave: function () {
-        AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');
+        var me = this;
+
+        var crisisTypeId = me.mainComponent.crysisTypesCombo.getValue();
+        var crisisTypeName = me.mainComponent.crisisTypesStore.findRecord("crisisTypeID", crisisTypeId).data.name;
+
+        Ext.Ajax.request({
+            url: BASE_URL + '/protected/tagger/updateCrisis.action',
+            method: 'POST',
+            params: {
+                crisisID: CRISIS_ID,
+                crisisTypeID: crisisTypeId,
+                crisisTypeName: crisisTypeName
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (resp) {
+                var response = Ext.decode(resp.responseText);
+                if (response.success) {
+                    me.mainComponent.saveButton.hide();
+                    CRISIS_TYPE_ID = crisisTypeId;
+                } else {
+                    AIDRFMFunctions.setAlert("Error", 'Error while saving crisis.');
+                }
+            }
+        });
+
     }
 
 });

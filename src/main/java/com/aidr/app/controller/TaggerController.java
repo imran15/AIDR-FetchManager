@@ -116,6 +116,20 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/updateCrisis.action", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> update(UpdateCrisisDTO dto) throws Exception {
+        logger.info("Updating Crisis in Tagger having id " + dto.getCrisisID());
+        TaggerCrisis crisis = transformCrisisDTOToCrisis(dto);
+        try{
+            TaggerCrisis updatedCrisis = taggerService.updateCode(crisis);
+            return getUIWrapper(updatedCrisis != null);
+        }catch(Exception e){
+            logger.error("Error while Updating Crisis in Tagger", e);
+            return getUIWrapper(false);
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);
@@ -126,6 +140,15 @@ public class TaggerController extends BaseController {
         TaggerCrisis crisis = new TaggerCrisis(crisesId);
         TaggerAttribute nominalAttribute = new TaggerAttribute(attributeId);
         return new TaggerModelFamily(crisis, nominalAttribute, false);
+    }
+
+    private TaggerCrisis transformCrisisDTOToCrisis (UpdateCrisisDTO dto) throws Exception{
+        TaggerCrisis crisis = new TaggerCrisis(dto.getCrisisID());
+        if (dto.getCrisisTypeID() != null && dto.getCrisisTypeName() != null) {
+            TaggerCrisisType crisisType = new TaggerCrisisType(dto.getCrisisTypeID(), dto.getCrisisTypeName());
+            crisis.setCrisisType(crisisType);
+        }
+        return crisis;
     }
 
 }
