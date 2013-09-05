@@ -47,7 +47,12 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         this.predictNewAttribute = Ext.create('Ext.container.Container', {
             html: '<div class="bread-crumbs"><a href="' + BASE_URL + "/protected/" + encodeURI(CRISIS_CODE) + '/predict-new-attribute">Predict a new attribute >></a></div>',
             margin: 0,
-            padding: '30 0 0 0'
+            flex:1
+        });
+
+        this.aucHint = Ext.create('Ext.container.Container', {
+            html: '<span class="redInfo">*</span>If AUC is low, it is recommended that you add more training examples.',
+            margin: 0
         });
 
         this.crisisTypesStore = Ext.create('Ext.data.Store', {
@@ -68,6 +73,92 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     me.crysisTypesCombo.setValue(CRISIS_TYPE_ID);
                 }
             }
+        });
+
+        this.crisisModelsStore = Ext.create('Ext.data.Store', {
+            pageSize: 30,
+            storeId: 'crisisModelsStore',
+            fields: ['attribute', 'auc', 'classifiedDocuments', 'modelID', 'status', 'trainingExamples'],
+            proxy: {
+                type: 'ajax',
+                url: BASE_URL + '/protected/tagger/getModelsForCrisis.action',
+                reader: {
+                    root: 'data',
+                    totalProperty: 'total'
+                }
+            },
+            autoLoad: true,
+            listeners: {
+                beforeload: function (s) {
+                    s.getProxy().extraParams = {
+                        id: CRISIS_ID
+                    }
+                }
+            }
+        });
+
+        this.crisisModelsTpl = new Ext.XTemplate(
+            '<div class="collections-list">',
+            '<tpl for=".">',
+
+            '<div class="collection-item">',
+
+            '<div class="img">',
+            '<img alt="Collection History image" height="70" src="/AIDRFetchManager/resources/img/twitter_icon2.png" width="70">',
+            '</div>',
+
+            '<div class="content">',
+
+            '<div class="rightColumn">',
+            '<div>Attribute:</div>',
+            '<div>Status:</div>',
+            '<div>Training examples:</div>',
+            '<div>Classified elements:</div>',
+            '<div>AUC<span class="redInfo">*</span>:</div>',
+            '<div>Operations:</div>',
+            '</div>',
+
+            '<div class="leftColumn">',
+            '<div>{[this.getField(values.attribute)]}</div>',
+            '<div>{[this.getField(values.status)]}</div>',
+            '<div>{[this.getNumber(values.trainingExamples)]}</div>',
+            '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
+            '<div>{[this.getAucNumber(values.auc)]}</div>',
+            '<div><a href="#">Manage training examples >></a></div>',
+
+            '</div>',
+
+            '</div>',
+            '</div>',
+
+            '</tpl>',
+            '</div>',
+            {
+                getField: function (r) {
+                    return r ? r : "<span class='na-text'>Not specified</span>";
+                },
+                getNumber: function (r) {
+                    return r ? r : 0;
+                },
+                getAucNumber: function (r) {
+                    if (r){
+                        if (r < 0.6){
+                            return '<span class="redInfo">' + r + '</span>';
+                        } else if (r <= 0.8){
+                            return '<span class="warningFont">' + r + '</span>';
+                        }
+                        return '<span class="greenInfo">' + r + '</span>';
+                    }
+                    return '<span class="redInfo">0.0</span>';
+                }
+            }
+        );
+
+        this.crisisModelsView = Ext.create('Ext.view.View', {
+            store: this.crisisModelsStore,
+            tpl: this.crisisModelsTpl,
+            itemSelector: 'div.active',
+            loadMask: false
         });
 
         this.crysisTypesCombo = Ext.create('Ext.form.ComboBox', {
@@ -289,7 +380,6 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             },
             {
                 xtype: 'container',
-                defaultType: 'label',
                 layout: 'hbox',
                 items: [
                     this.rightBlock,
@@ -297,7 +387,16 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                 ]
             },
             this.modelsTitle,
-            this.predictNewAttribute
+            this.crisisModelsView,
+            {
+                xtype: 'container',
+                layout: 'hbox',
+                padding: '25 0 0 0',
+                items: [
+                    this.predictNewAttribute,
+                    this.aucHint
+                ]
+            }
         ];
 
         this.callParent(arguments);

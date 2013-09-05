@@ -258,4 +258,26 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
+    public List<TaggerModel> getModelsForCrisis(Integer crisisID) throws AidrException{
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/model/crisis/" + crisisID);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerCrisisModelsResponse crisisModelsResponse = objectMapper.readValue(jsonResponse, TaggerCrisisModelsResponse.class);
+            if (crisisModelsResponse.getModelWrapper() != null) {
+                logger.info("Tagger returned " + crisisModelsResponse.getModelWrapper().size() + " models for crises with ID " + crisisID);
+                return crisisModelsResponse.getModelWrapper();
+            }
+            return null;
+        } catch (Exception e) {
+            throw new AidrException("Error while getting all models for crisis from Tagger", e);
+        }
+    }
 }

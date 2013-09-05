@@ -26,4 +26,6 @@ public interface TaggerService {
     public TaggerCrisis getCrisesByCode(String code) throws AidrException;
 
     public TaggerCrisis updateCode(TaggerCrisis crisis) throws AidrException;
+
+    public List<TaggerModel> getModelsForCrisis(Integer crisisID) throws AidrException;
 }
