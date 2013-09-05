@@ -50,6 +50,10 @@ public class TaggerController extends BaseController {
         try {
             String userName = getAuthenticatedUserName();
             Integer taggerUserId = taggerService.isUserExistsByUsername(userName);
+            if (taggerUserId == null) {
+                TaggerUser taggerUser = new TaggerUser(userName, "normal");
+                taggerUserId = taggerService.addNewUser(taggerUser);
+            }
             if (taggerUserId != null) {
                 return getUIWrapper(taggerService.getCrisesByUserId(taggerUserId), true);
             } else {
