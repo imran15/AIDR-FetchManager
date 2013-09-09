@@ -82,7 +82,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
             '<div class="content">',
 
             '<div class="img">',
-            '<a href="{[this.getEncodedCode(values.code)]}/tagger-collection-details"><img alt="Collection image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70"></a>',
+            '<a href="{[this.getEncodedCode(values.code)]}/tagger-collection-details"><img alt="Collection image" src="/AIDRFetchManager/resources/img/AIDR/AIDR_EMBLEM_CMYK_COLOUR_HR.jpg" width="70"></a>',
             '</div>',
 
             '<div class="info">',
