@@ -1,9 +1,11 @@
 package com.aidr.app.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import com.aidr.app.dto.TaggerCrisis;
 import com.aidr.app.dto.TaggerCrisisExist;
+import com.aidr.app.dto.TaggerModel;
 import com.aidr.app.hibernateEntities.AidrCollection;
 import com.aidr.app.service.CollectionService;
 import com.aidr.app.service.TaggerService;
@@ -119,20 +121,30 @@ public class ScreenController extends BaseController{
     }
 
     @RequestMapping("protected/{code}/{id}/model-details")
-    public ModelAndView modelDetails(@PathVariable(value="code") String code, @PathVariable(value="id") Integer attributeId) throws Exception {
+    public ModelAndView modelDetails(@PathVariable(value="code") String code, @PathVariable(value="id") Integer modelId) throws Exception {
 
         TaggerCrisis crisis = taggerService.getCrisesByCode(code);
 
         Integer crisisId = 0;
         String crisisName = "";
+        String modelName = "";
         if (crisis != null && crisis.getCrisisID() != null && crisis.getName() != null){
             crisisId = crisis.getCrisisID();
             crisisName = crisis.getName();
         }
 
+        List<TaggerModel> modelsForCrisis = taggerService.getModelsForCrisis(crisisId);
+        for (TaggerModel model : modelsForCrisis) {
+            if (modelId.equals(model.getModelID())){
+                modelName = model.getAttribute();
+            }
+        }
+
         ModelAndView model = new ModelAndView("tagger/model-details");
         model.addObject("crisisId", crisisId);
         model.addObject("crisisName", crisisName);
+        model.addObject("modelName", modelName);
+        model.addObject("modelId", modelId);
         return model;
     }
 
