@@ -83,7 +83,7 @@ Ext.define('TAGGUI.model-details.controller.ModelDetailsController', {
                         });
 
                         var totalModel = {};
-                        totalModel.value = '',
+                        totalModel.value = '';
                         totalModel.classifiedDocumentCount = totalMessages + ' total';
                         totalModel.labelAuc = (totalAUC / count).toFixed(2) + ' avg';
                         totalModel.labelPrecision = (totalPrecision / count).toFixed(2) + ' avg';
