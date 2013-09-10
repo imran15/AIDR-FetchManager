@@ -146,6 +146,18 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/getAllLabelsForModel.action", method = {RequestMethod.GET})
+    @ResponseBody
+    public Map<String, Object> getAllLabelsForModel(Integer id) {
+        logger.info("Getting All Labels For Model");
+        try {
+            return getUIWrapper(taggerService.getAllLabelsForModel(id), true);
+        } catch (AidrException e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);

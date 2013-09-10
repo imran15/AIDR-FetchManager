@@ -280,4 +280,27 @@ public class TaggerServiceImpl implements TaggerService {
             throw new AidrException("Error while getting all models for crisis from Tagger", e);
         }
     }
+
+    public List<TaggerModelNominalLabel> getAllLabelsForModel(Integer modelID) throws AidrException{
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/modelNominalLabel/" + modelID);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerModelLabelsResponse modelLabelsResponse = objectMapper.readValue(jsonResponse, TaggerModelLabelsResponse.class);
+            if (modelLabelsResponse.getModelNominalLabels() != null) {
+                logger.info("Tagger returned " + modelLabelsResponse.getModelNominalLabels().size() + " labels for model with ID " + modelID);
+            }
+
+            return modelLabelsResponse.getModelNominalLabels();
+        } catch (Exception e) {
+            throw new AidrException("Error while getting all labels for model from Tagger", e);
+        }
+    }
 }

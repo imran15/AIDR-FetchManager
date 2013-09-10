@@ -28,4 +28,6 @@ public interface TaggerService {
     public TaggerCrisis updateCode(TaggerCrisis crisis) throws AidrException;
 
     public List<TaggerModel> getModelsForCrisis(Integer crisisID) throws AidrException;
+
+    public List<TaggerModelNominalLabel> getAllLabelsForModel(Integer modelID) throws AidrException;
 }
