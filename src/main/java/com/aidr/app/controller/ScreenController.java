@@ -108,6 +108,7 @@ public class ScreenController extends BaseController{
         ModelAndView model = new ModelAndView("tagger/predict-new-attribute");
         model.addObject("crisisId", crisisId);
         model.addObject("name", crisisName);
+        model.addObject("code", code);
         return model;
     }
 
@@ -145,6 +146,15 @@ public class ScreenController extends BaseController{
         model.addObject("crisisName", crisisName);
         model.addObject("modelName", modelName);
         model.addObject("modelId", modelId);
+        return model;
+    }
+
+    @RequestMapping("protected/{code}/new-custom-attribute")
+    public ModelAndView newCustomAttribute(@PathVariable(value="code") String code) throws Exception {
+
+        ModelAndView model = new ModelAndView("tagger/new-custom-attribute");
+        model.addObject("code", code);
+
         return model;
     }
 

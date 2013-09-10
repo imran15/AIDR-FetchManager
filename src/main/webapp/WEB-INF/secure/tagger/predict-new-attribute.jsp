@@ -4,6 +4,7 @@
 
   <script type="text/javascript">
       CRISIS_ID = ${crisisId};
+      CRISIS_CODE = "${code}";
       COLLECTION_NAME = "${name}";
   </script>
 
