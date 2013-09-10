@@ -110,7 +110,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '<div class="content">',
 
             '<div class="rightColumn">',
-            '<div class="styled-text-17">Attribute:</div>',
+            '<div class="styled-text-17">Model:</div>',
             '<div>Status:</div>',
             '<div>Training examples:</div>',
             '<div>Classified elements:</div>',
@@ -143,11 +143,11 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                 getAucNumber: function (r) {
                     if (r){
                         if (r < 0.6){
-                            return '<span class="redInfo">' + r + '</span>';
+                            return '<span class="redInfo">' + r.toFixed(2) + '</span>';
                         } else if (r <= 0.8){
-                            return '<span class="warningFont">' + r + '</span>';
+                            return '<span class="warningFont">' + r.toFixed(2) + '</span>';
                         }
-                        return '<span class="greenInfo">' + r + '</span>';
+                        return '<span class="greenInfo">' + r.toFixed(2) + '</span>';
                     }
                     return '<span class="redInfo">0.0</span>';
                 }
