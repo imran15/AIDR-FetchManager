@@ -10,6 +10,14 @@ public class TaggerLabel {
 
     private String description;
 
+    public TaggerLabel() {
+    }
+
+    public TaggerLabel(String name, Integer nominalLabelID) {
+        this.name = name;
+        this.nominalLabelID = nominalLabelID;
+    }
+
     public Integer getNominalLabelID() {
         return nominalLabelID;
     }

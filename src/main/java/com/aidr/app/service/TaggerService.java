@@ -3,6 +3,7 @@ package com.aidr.app.service;
 import com.aidr.app.dto.*;
 import com.aidr.app.exception.AidrException;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface TaggerService {
@@ -13,7 +14,7 @@ public interface TaggerService {
 
     public String createNewCrises(TaggerCrisisRequest crisis) throws AidrException;
 
-    public List<TaggerCrisesAttribute> getAttributesForCrises(Integer crisisID) throws AidrException;
+    public Collection<TaggerAttribute> getAttributesForCrises(Integer crisisID) throws AidrException;
 
     public TaggerCrisisExist isCrisesExist(String code) throws AidrException;
 

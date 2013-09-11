@@ -23,6 +23,16 @@ public class TaggerAttribute {
         this.nominalAttributeID = nominalAttributeID;
     }
 
+    public TaggerAttribute(String code, String description, String name, Integer nominalAttributeID,
+                           TaggerUser users, List<TaggerLabel> nominalLabelCollection) {
+        this.code = code;
+        this.description = description;
+        this.name = name;
+        this.nominalAttributeID = nominalAttributeID;
+        this.users = users;
+        this.nominalLabelCollection = nominalLabelCollection;
+    }
+
     public String getCode() {
         return code;
     }

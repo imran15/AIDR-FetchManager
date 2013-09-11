@@ -60,7 +60,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
         this.standardAttributesStore = Ext.create('Ext.data.JsonStore', {
             pageSize: 100,
             storeId: 'standardAttributesStore',
-            fields: ['code', 'description', 'name', 'nominalAttributeID'],
+            fields: ['code', 'description', 'name', 'nominalAttributeID', 'nominalLabelCollection'],
             proxy: {
                 type: 'ajax',
                 url: '',
@@ -75,7 +75,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
         this.customAttributesStore = Ext.create('Ext.data.JsonStore', {
             pageSize: 100,
             storeId: 'customAttributesStore',
-            fields: ['code', 'description', 'name', 'nominalAttributeID'],
+            fields: ['code', 'description', 'name', 'nominalAttributeID', 'nominalLabelCollection'],
             proxy: {
                 type: 'ajax',
                 url: '',
@@ -111,7 +111,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
             '<div class="info">',
             '<div class="collection-title"><a href="' + BASE_URL +  '/protected/{nominalAttributeID}/attribute-details">{name}</a></div>',
             '<div class="styled-text-14" id="docCountField_{id}">Description:&nbsp;&nbsp;&nbsp;{description}</div>',
-            '<div class="styled-text-14" id="lastDocField_{id}">Values:&nbsp;&nbsp;&nbsp;</div>',
+            '<div class="styled-text-14" id="lastDocField_{id}">Values:&nbsp;&nbsp;&nbsp;{[this.getLabels(values.nominalLabelCollection)]}</div>',
             '</div>',
 
             '</div>',
@@ -119,7 +119,22 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
 
             '</tpl>',
 
-            '</div>'
+            '</div>',
+            {
+                getLabels: function (lables) {
+                    var result = '';
+                    if (lables && lables.length > 0) {
+                        debugger;
+                        Ext.Array.each(lables, function(r, index) {
+                            if (r.name) {
+                                result = result + r.name + ', ';
+                            }
+                        });
+                        return result.substring(0, result.length - 2);
+                    }
+                    return result;
+                }
+            }
         );
 
         this.customAttributesTpl = new Ext.XTemplate(
@@ -146,7 +161,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
             '<div class="info">',
             '<div class="collection-title"><a href="' + BASE_URL +  '/protected/{nominalAttributeID}/attribute-details">{name}</a></div>',
             '<div class="styled-text-14" id="docCountField_{id}">Description:&nbsp;&nbsp;&nbsp;{description}</div>',
-            '<div class="styled-text-14" id="lastDocField_{id}">Values:&nbsp;&nbsp;&nbsp;</div>',
+            '<div class="styled-text-14" id="lastDocField_{id}">Values:&nbsp;&nbsp;&nbsp;{[this.getLabels(values.nominalLabelCollection)]}</div>',
             '</div>',
 
             '</div>',
@@ -154,7 +169,22 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
 
             '</tpl>',
 
-            '</div>'
+            '</div>',
+            {
+                getLabels: function (lables) {
+                    var result = '';
+                    if (lables && lables.length > 0) {
+                        debugger;
+                        Ext.Array.each(lables, function(r, index) {
+                            if (r.name) {
+                                result = result + r.name + ', ';
+                            }
+                        });
+                        return result.substring(0, result.length - 2);
+                    }
+                    return result;
+                }
+            }
         );
 
         this.standardAttributesView = Ext.create('Ext.view.View', {

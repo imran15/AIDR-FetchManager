@@ -6,6 +6,10 @@ public class TaggerCrisesAttribute {
 
     private String description;
 
+    private String labelName;
+
+    private Integer labelID;
+
     private String name;
 
     private Integer nominalAttributeID;
@@ -50,5 +54,21 @@ public class TaggerCrisesAttribute {
 
     public void setUserID(Integer userID) {
         this.userID = userID;
+    }
+
+    public String getLabelName() {
+        return labelName;
+    }
+
+    public void setLabelName(String labelName) {
+        this.labelName = labelName;
+    }
+
+    public Integer getLabelID() {
+        return labelID;
+    }
+
+    public void setLabelID(Integer labelID) {
+        this.labelID = labelID;
     }
 }

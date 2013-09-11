@@ -14,7 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.ws.rs.core.MediaType;
-import java.util.List;
+import java.util.*;
 
 @Service("taggerService")
 public class TaggerServiceImpl implements TaggerService {
@@ -90,7 +90,7 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    public List<TaggerCrisesAttribute> getAttributesForCrises(Integer crisisID) throws AidrException{
+    public Collection<TaggerAttribute> getAttributesForCrises(Integer crisisID) throws AidrException{
         try {
             /**
              * Rest call to Tagger
@@ -107,7 +107,7 @@ public class TaggerServiceImpl implements TaggerService {
                 logger.info("Tagger returned " + crisisAttributesResponse.getCrisisAttributes().size() + " attributes available for crises with ID " + crisisID);
             }
 
-            return crisisAttributesResponse.getCrisisAttributes();
+            return convertTaggerCrisesAttributeToDTO(crisisAttributesResponse.getCrisisAttributes());
         } catch (Exception e) {
             throw new AidrException("Error while getting all attributes for crisis from Tagger", e);
         }
@@ -303,4 +303,25 @@ public class TaggerServiceImpl implements TaggerService {
             throw new AidrException("Error while getting all labels for model from Tagger", e);
         }
     }
+
+    private Collection<TaggerAttribute> convertTaggerCrisesAttributeToDTO (List<TaggerCrisesAttribute> attributes) {
+        Map<Integer, TaggerAttribute> result = new HashMap<Integer, TaggerAttribute>();
+        for (TaggerCrisesAttribute a : attributes) {
+            if(!result.containsKey(a.getNominalAttributeID())){
+                TaggerUser user = new TaggerUser(a.getUserID());
+                List<TaggerLabel> labels = new ArrayList<TaggerLabel>();
+                TaggerLabel label = new TaggerLabel(a.getLabelName(), a.getLabelID());
+                labels.add(label);
+                TaggerAttribute taggerAttribute = new TaggerAttribute(a.getCode(), a.getDescription(), a.getName(), a.getNominalAttributeID(), user, labels);
+                result.put(a.getNominalAttributeID(), taggerAttribute);
+            } else {
+                TaggerAttribute taggerAttribute = result.get(a.getNominalAttributeID());
+                List<TaggerLabel> labels = taggerAttribute.getNominalLabelCollection();
+                TaggerLabel label = new TaggerLabel(a.getLabelName(), a.getLabelID());
+                labels.add(label);
+            }
+        }
+        return result.values();
+    }
+
 }

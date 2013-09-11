@@ -48,12 +48,12 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
                         var standard = [],
                             custom = [];
                         Ext.Array.each(resp.data, function(r, index) {
-                            if (r.userID) {
-                                if (r.userID == 1) {
-                                    delete r.userID;
+                            if (r.users && r.users.userID) {
+                                if (r.users.userID == 1) {
+                                    delete r.users;
                                     standard.push(r);
                                 } else {
-                                    delete r.userID;
+                                    delete r.users;
                                     custom.push(r);
                                 }
                             }
