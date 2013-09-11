@@ -124,7 +124,6 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
                 getLabels: function (lables) {
                     var result = '';
                     if (lables && lables.length > 0) {
-                        debugger;
                         Ext.Array.each(lables, function(r, index) {
                             if (r.name) {
                                 result = result + r.name + ', ';
@@ -174,7 +173,6 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
                 getLabels: function (lables) {
                     var result = '';
                     if (lables && lables.length > 0) {
-                        debugger;
                         Ext.Array.each(lables, function(r, index) {
                             if (r.name) {
                                 result = result + r.name + ', ';
