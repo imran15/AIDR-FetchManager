@@ -45,6 +45,12 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
             html: '<div class="horisontalLine"></div>'
         });
 
+        this.manageYourCollections = Ext.create('Ext.container.Container', {
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/home">Manage your collections >></a></div>',
+            margin: 0,
+            padding: '45 0 0 0'
+        });
+
         this.crisesStore = Ext.create('Ext.data.JsonStore', {
             pageSize: 10,
             storeId: 'crisesStore',
@@ -149,7 +155,8 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
                 width: '100%',
                 html: '<div class="horisontalLine"></div>'
             },
-            this.crisesView
+            this.crisesView,
+            this.manageYourCollections
         ];
 
         this.callParent(arguments);
