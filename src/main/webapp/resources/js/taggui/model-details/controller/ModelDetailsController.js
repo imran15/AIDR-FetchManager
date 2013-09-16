@@ -47,12 +47,17 @@ Ext.define('TAGGUI.model-details.controller.ModelDetailsController', {
                     if (count > 0) {
                         var models = [],
                             totalMessages = 0,
+                            totalExamples = 0,
                             totalAUC = 0,
                             totalPrecision = 0,
-                            totalRecall = 0;
+                            totalRecall = 0,
+                            status = '';
                         Ext.Array.each(resp.data, function(r, index) {
                             if (r.classifiedDocumentCount && r.classifiedDocumentCount > 0) {
                                 totalMessages += r.classifiedDocumentCount;
+                            }
+                            if (r.trainingDocuments && r.trainingDocuments > 0) {
+                                totalExamples += r.trainingDocuments;
                             }
                             if (r.labelAuc && r.labelAuc > 0) {
                                 totalAUC += r.labelAuc;
@@ -62,6 +67,9 @@ Ext.define('TAGGUI.model-details.controller.ModelDetailsController', {
                             }
                             if (r.labelRecall && r.labelRecall > 0) {
                                 totalRecall += r.labelRecall;
+                            }
+                            if (r.modelStatus) {
+                                status = r.modelStatus;
                             }
                         });
 
@@ -75,7 +83,13 @@ Ext.define('TAGGUI.model-details.controller.ModelDetailsController', {
                                 var classifiedMessagesPercentage = ((r.classifiedDocumentCount * 100) / totalMessages).toFixed(2)
                                 classifiedMessages = r.classifiedDocumentCount + ' (' + classifiedMessagesPercentage + '%)';
                             }
+                            var trainingDocuments = '0 (0%)';
+                            if (r.trainingDocuments){
+                                var trainingDocumentsPercentage = ((r.trainingDocuments * 100) / totalExamples).toFixed(2)
+                                trainingDocuments = r.trainingDocuments + ' (' + trainingDocumentsPercentage + '%)';
+                            }
                             model.classifiedDocumentCount = classifiedMessages;
+                            model.trainingDocumentsCount = trainingDocuments;
                             model.labelAuc = r.labelAuc;
                             model.labelPrecision = r.labelPrecision;
                             model.labelRecall = r.labelRecall;
@@ -85,13 +99,16 @@ Ext.define('TAGGUI.model-details.controller.ModelDetailsController', {
                         var totalModel = {};
                         totalModel.value = '';
                         totalModel.classifiedDocumentCount = totalMessages + ' total';
+                        totalModel.trainingDocumentsCount = totalExamples + ' total';
                         totalModel.labelAuc = (totalAUC / count).toFixed(2) + ' avg';
                         totalModel.labelPrecision = (totalPrecision / count).toFixed(2) + ' avg';
                         totalModel.labelRecall = (totalRecall / count).toFixed(2) + ' avg';
                         models.push(totalModel);
 
-                        me.mainComponent.modelDetails.setText('Has classified <b>' + totalMessages
-                            + '</b> messages.&nbsp;<a href="#">Manage training examples >></a>', false);
+                        me.mainComponent.modelDetails.setText('Status: <b>' + status + '</b>.&nbsp;' +
+                            'Has classified <b>' + totalMessages + '</b> messages.&nbsp;' +
+                            'Trained on <b>' + totalExamples + '</b> training examples.&nbsp;' +
+                            '<a href="#">Manage training examples >></a>', false);
                         me.mainComponent.modelLabelsStore.loadData(models);
                     }
                 } else {

@@ -58,7 +58,7 @@ Ext.define('TAGGUI.model-details.view.ModelDetailsPanel', {
         this.modelLabelsStore = Ext.create('Ext.data.JsonStore', {
             pageSize: 100,
             storeId: 'modelLabelsStore',
-            fields: ['value', 'classifiedDocumentCount', 'labelAuc', 'labelPrecision', 'labelRecall'],
+            fields: ['value', 'classifiedDocumentCount', 'labelAuc', 'labelPrecision', 'labelRecall', 'trainingDocumentsCount'],
             proxy: {
                 type: 'ajax',
                 url: '',
@@ -111,7 +111,7 @@ Ext.define('TAGGUI.model-details.view.ModelDetailsPanel', {
                 '<div class="styled-text-17">&nbsp;</div>',
             '</tpl>',
 
-            '<div>0 (0%)</div>',
+            '<div>{[this.getNumber(values.trainingDocumentsCount)]}</div>',
             '<div>{[this.getNumber(values.classifiedDocumentCount)]}</div>',
             '<div>{[this.getNumber(values.labelPrecision)]}</div>',
             '<div>{[this.getNumber(values.labelRecall)]}</div>',

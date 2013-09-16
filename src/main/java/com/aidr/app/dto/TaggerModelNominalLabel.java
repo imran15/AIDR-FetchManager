@@ -14,6 +14,10 @@ public class TaggerModelNominalLabel {
 
     private TaggerModelNominalLabelPK modelNominalLabelPK;
 
+    private int trainingDocuments;
+
+    private String modelStatus;
+
     public Double getLabelPrecision() {
         return labelPrecision;
     }
@@ -60,5 +64,21 @@ public class TaggerModelNominalLabel {
 
     public void setModelNominalLabelPK(TaggerModelNominalLabelPK modelNominalLabelPK) {
         this.modelNominalLabelPK = modelNominalLabelPK;
+    }
+
+    public int getTrainingDocuments() {
+        return trainingDocuments;
+    }
+
+    public void setTrainingDocuments(int trainingDocuments) {
+        this.trainingDocuments = trainingDocuments;
+    }
+
+    public String getModelStatus() {
+        return modelStatus;
+    }
+
+    public void setModelStatus(String modelStatus) {
+        this.modelStatus = modelStatus;
     }
 }

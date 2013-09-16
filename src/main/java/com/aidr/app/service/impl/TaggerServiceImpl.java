@@ -294,11 +294,11 @@ public class TaggerServiceImpl implements TaggerService {
             String jsonResponse = clientResponse.getEntity(String.class);
 
             TaggerModelLabelsResponse modelLabelsResponse = objectMapper.readValue(jsonResponse, TaggerModelLabelsResponse.class);
-            if (modelLabelsResponse.getModelNominalLabels() != null) {
-                logger.info("Tagger returned " + modelLabelsResponse.getModelNominalLabels().size() + " labels for model with ID " + modelID);
+            if (modelLabelsResponse.getModelNominalLabelsDTO() != null) {
+                logger.info("Tagger returned " + modelLabelsResponse.getModelNominalLabelsDTO().size() + " labels for model with ID " + modelID);
             }
 
-            return modelLabelsResponse.getModelNominalLabels();
+            return modelLabelsResponse.getModelNominalLabelsDTO();
         } catch (Exception e) {
             throw new AidrException("Error while getting all labels for model from Tagger", e);
         }

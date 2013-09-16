@@ -4,14 +4,13 @@ import java.util.List;
 
 public class TaggerModelLabelsResponse {
 
-    private List<TaggerModelNominalLabel> modelNominalLabels;
+    private List<TaggerModelNominalLabel> modelNominalLabelsDTO;
 
-    public List<TaggerModelNominalLabel> getModelNominalLabels() {
-        return modelNominalLabels;
+    public List<TaggerModelNominalLabel> getModelNominalLabelsDTO() {
+        return modelNominalLabelsDTO;
     }
 
-    public void setModelNominalLabels(List<TaggerModelNominalLabel> modelNominalLabels) {
-        this.modelNominalLabels = modelNominalLabels;
+    public void setModelNominalLabelsDTO(List<TaggerModelNominalLabel> modelNominalLabelsDTO) {
+        this.modelNominalLabelsDTO = modelNominalLabelsDTO;
     }
-
 }
