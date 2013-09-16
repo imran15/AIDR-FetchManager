@@ -3107,6 +3107,10 @@ footer p a:hover{
     font-size: 15px;
 }
 
+.bread-crumbs span{
+    font-size: 15px;
+}
+
 /*
 
 Overriding of the standard ExtJs styles for tab panel

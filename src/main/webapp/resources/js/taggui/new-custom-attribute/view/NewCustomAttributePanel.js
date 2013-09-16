@@ -22,7 +22,8 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
         var me = this;
 
         this.breadcrumbs = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/tagger-home">Tagger</a></div>',
+            html: '<div class="bread-crumbs"><a href="#">AIDR</a><span>&nbsp;>&nbsp;</span>' +
+                '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;New Custom Attribute</span></div>',
             margin: 0,
             padding: 0
         });

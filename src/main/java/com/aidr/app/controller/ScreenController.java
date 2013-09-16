@@ -146,6 +146,7 @@ public class ScreenController extends BaseController{
         model.addObject("crisisName", crisisName);
         model.addObject("modelName", modelName);
         model.addObject("modelId", modelId);
+        model.addObject("code", code);
         return model;
     }
 

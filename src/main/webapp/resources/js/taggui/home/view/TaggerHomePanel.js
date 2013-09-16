@@ -22,7 +22,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
         var me = this;
 
         this.breadcrumbs = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/tagger-home">Tagger</a></div>',
+            html: '<div class="bread-crumbs"><a href="#">AIDR</a><span>&nbsp;>&nbsp;</span><a href="' + BASE_URL + '/protected/tagger-home">Tagger</a></div>',
             margin: 0,
             padding: 0
         });
