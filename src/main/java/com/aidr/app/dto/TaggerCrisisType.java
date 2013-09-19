@@ -6,6 +6,8 @@ public class TaggerCrisisType {
 
     private String name;
 
+    private int numberOfCrisisAssociated;
+
     public TaggerCrisisType() {
     }
 
@@ -34,4 +36,11 @@ public class TaggerCrisisType {
         this.name = name;
     }
 
+    public int getNumberOfCrisisAssociated() {
+        return numberOfCrisisAssociated;
+    }
+
+    public void setNumberOfCrisisAssociated(int numberOfCrisisAssociated) {
+        this.numberOfCrisisAssociated = numberOfCrisisAssociated;
+    }
 }
