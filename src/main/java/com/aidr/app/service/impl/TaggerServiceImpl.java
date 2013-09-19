@@ -281,6 +281,79 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
+    public TaggerAttribute createNewAttribute(TaggerAttribute attribute) throws AidrException {
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/attribute");
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .post(ClientResponse.class, objectMapper.writeValueAsString(attribute));
+
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerAttribute response = objectMapper.readValue(jsonResponse, TaggerAttribute.class);
+            if (response != null) {
+                logger.info("Attribute with ID " + response.getNominalAttributeID() + " was created in Tagger");
+                return response;
+            }
+            return null;
+        } catch (Exception e) {
+            throw new AidrException("Error while creating new attribute in Tagger", e);
+        }
+    }
+
+    public TaggerLabel createNewLabel(TaggerLabelRequest label) throws AidrException {
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/label");
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .post(ClientResponse.class, objectMapper.writeValueAsString(label));
+
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerLabel response = objectMapper.readValue(jsonResponse, TaggerLabel.class);
+            if (response != null) {
+                logger.info("Label with ID " + response.getNominalLabelID() + " was created in Tagger");
+                return response;
+            }
+            return null;
+        } catch (Exception e) {
+            throw new AidrException("Error while creating new label in Tagger", e);
+        }
+    }
+
+    public TaggerAttribute attributeExists(String code) throws AidrException{
+        try {
+            WebResource webResource = client.resource(taggerMainUrl + "/attribute/code/" + code);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerAttribute attribute = objectMapper.readValue(jsonResponse, TaggerAttribute.class);
+            if (attribute != null) {
+                logger.info("Attribute with the code " + code + " already exist in Tagger.");
+                return attribute;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new AidrException("Error while checking if attribute exist in Tagger", e);
+        }
+    }
+
     public List<TaggerModelNominalLabel> getAllLabelsForModel(Integer modelID) throws AidrException{
         try {
             /**

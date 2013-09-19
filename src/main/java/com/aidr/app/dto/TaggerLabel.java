@@ -10,12 +10,21 @@ public class TaggerLabel {
 
     private String description;
 
+    private TaggerAttribute nominalAttribute;
+
     public TaggerLabel() {
     }
 
     public TaggerLabel(String name, Integer nominalLabelID) {
         this.name = name;
         this.nominalLabelID = nominalLabelID;
+    }
+
+    public TaggerLabel(String name, String nominalLabelCode, String description, TaggerAttribute nominalAttribute) {
+        this.name = name;
+        this.nominalLabelCode = nominalLabelCode;
+        this.description = description;
+        this.nominalAttribute = nominalAttribute;
     }
 
     public Integer getNominalLabelID() {
@@ -48,5 +57,13 @@ public class TaggerLabel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public TaggerAttribute getNominalAttribute() {
+        return nominalAttribute;
+    }
+
+    public void setNominalAttribute(TaggerAttribute nominalAttribute) {
+        this.nominalAttribute = nominalAttribute;
     }
 }

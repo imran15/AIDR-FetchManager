@@ -58,7 +58,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             emptyText: 'Enter name for Attribute'
         });
 
-        this.DescriptionE = Ext.create('Ext.form.field.Text', {
+        this.descriptionE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Description',
             name: 'description',
             allowBlank: true,
@@ -226,7 +226,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
                             padding: '0 0 20 0',
                             cls: 'bordered-bottom',
                             items: [
-                                this.DescriptionE,
+                                this.descriptionE,
                                 {
                                     border: false,
                                     bodyStyle: 'background:none',

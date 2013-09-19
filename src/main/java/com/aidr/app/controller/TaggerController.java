@@ -158,6 +158,57 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/createAttribute.action", method = {RequestMethod.POST})
+    @ResponseBody
+    public Map<String, Object> createAttribute(TaggerAttribute attribute) {
+        logger.info("Creating new attribute in Tagger");
+        try {
+            String userName = getAuthenticatedUserName();
+            Integer taggerUserId = taggerService.isUserExistsByUsername(userName);
+            TaggerUser taggerUser = new TaggerUser(taggerUserId);
+            attribute.setUsers(taggerUser);
+
+            TaggerAttribute response = taggerService.createNewAttribute(attribute);
+            if (response != null){
+                return getUIWrapper(response, true);
+            } else {
+                return getUIWrapper(false, "Error while creating new attribute in Tagger");
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/createLabel.action", method = {RequestMethod.POST})
+    @ResponseBody
+    public Map<String, Object> createLabel(TaggerLabelRequest labelRequest) {
+        logger.info("Creating new label in Tagger");
+        try {
+            TaggerLabel response = taggerService.createNewLabel(labelRequest);
+            if (response != null){
+                return getUIWrapper(response, true);
+            } else {
+                return getUIWrapper(false, "Error while creating new label in Tagger");
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/attribute-exists.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> attributeExists(@RequestParam String code) throws Exception {
+
+        TaggerAttribute attribute = taggerService.attributeExists(code);
+        if (attribute != null && attribute.getNominalAttributeID() != null && attribute.getNominalAttributeID() != 0){
+            return getUIWrapper(true, true);
+        } else {
+            return getUIWrapper(false, true);
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);
