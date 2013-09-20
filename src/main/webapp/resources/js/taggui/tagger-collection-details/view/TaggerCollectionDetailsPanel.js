@@ -125,7 +125,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '<div>{[this.getNumber(values.trainingExamples)]}</div>',
             '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
             '<div>{[this.getAucNumber(values.auc)]}</div>',
-            '<div><a href="#">Manage training examples >></a></div>',
+            '<div><a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/{modelID}/training-data">Manage training examples >></a></div>',
 
             '</div>',
 
