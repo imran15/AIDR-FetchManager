@@ -209,6 +209,20 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/getTrainingDataByModelIdAndCrisisId.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> getTrainingDataByModelIdAndCrisisId(@RequestParam Integer start, @RequestParam Integer limit, @RequestParam Integer modelId, @RequestParam Integer crisisId) throws Exception {
+        if (modelId == null || crisisId == null ) {
+            logger.error("Error while Getting training data for Crisis and Model. Model ID or Crisis ID is empty");
+            return getUIWrapper(false);
+        }
+        start = (start != null) ? start : 0;
+        limit = (limit != null) ? limit : 20;
+//        TODO change to correct model
+        TaggerAttribute response = taggerService.getTrainingDataByModelIdAndCrisisId(modelId, crisisId, start, limit);
+        return getUIWrapper(response, true);
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);

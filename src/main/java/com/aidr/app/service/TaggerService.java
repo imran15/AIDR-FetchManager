@@ -37,4 +37,6 @@ public interface TaggerService {
     public TaggerLabel createNewLabel(TaggerLabelRequest label) throws AidrException;
 
     public TaggerAttribute attributeExists(String code) throws AidrException;
+
+    public TaggerAttribute getTrainingDataByModelIdAndCrisisId(Integer modelId, Integer crisisId, Integer start, Integer limit) throws AidrException;
 }

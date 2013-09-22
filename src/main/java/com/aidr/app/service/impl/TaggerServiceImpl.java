@@ -354,6 +354,26 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
+    public TaggerAttribute getTrainingDataByModelIdAndCrisisId(Integer modelId, Integer crisisId, Integer start, Integer limit) throws AidrException{
+        try {
+            WebResource webResource = client.resource(taggerMainUrl + "/misc/getTrainingData?crisisID=" + crisisId + "&modelFamilyID=" + modelId + "&fromRecord=" + start +"&limit=" + limit);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerAttribute attribute = objectMapper.readValue(jsonResponse, TaggerAttribute.class);
+            if (attribute != null) {
+                return attribute;
+            } else {
+                return null;
+            }
+        } catch (Exception e) {
+            throw new AidrException("Error while Getting training data for Crisis and Model.", e);
+        }
+    }
+
     public List<TaggerModelNominalLabel> getAllLabelsForModel(Integer modelID) throws AidrException{
         try {
             /**
