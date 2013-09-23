@@ -25,8 +25,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
             html: '<div class="bread-crumbs">' +
                 '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;</span>' +
                 '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + CRISIS_NAME + '</a><span>&nbsp;>&nbsp;</span>' +
-//                TODO link to model details or to the attribute details?
-                '<a href="#">' + MODEL_NAME + '</a><span>&nbsp;>&nbsp;Training data</span></div>',
+                '<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/model-details">' + MODEL_NAME + '</a><span>&nbsp;>&nbsp;Training data</span></div>',
             margin: 0,
             padding: 0
         });
