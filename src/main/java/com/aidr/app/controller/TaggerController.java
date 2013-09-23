@@ -218,9 +218,12 @@ public class TaggerController extends BaseController {
         }
         start = (start != null) ? start : 0;
         limit = (limit != null) ? limit : 20;
-//        TODO change to correct model
-        TaggerAttribute response = taggerService.getTrainingDataByModelIdAndCrisisId(modelId, crisisId, start, limit);
-        return getUIWrapper(response, true);
+        List<TrainingDataDTO> response = taggerService.getTrainingDataByModelIdAndCrisisId(modelId, crisisId, start, limit);
+        Long total = 0l;
+        if (response != null) {
+            total = Long.valueOf(response.size());
+        }
+        return getUIWrapper(response, true, total, null);
     }
 
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{

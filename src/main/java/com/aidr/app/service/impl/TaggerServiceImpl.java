@@ -354,18 +354,20 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    public TaggerAttribute getTrainingDataByModelIdAndCrisisId(Integer modelId, Integer crisisId, Integer start, Integer limit) throws AidrException{
+    public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelId, Integer crisisId, Integer start, Integer limit) throws AidrException{
         try {
-            WebResource webResource = client.resource(taggerMainUrl + "/misc/getTrainingData?crisisID=" + crisisId + "&modelFamilyID=" + modelId + "&fromRecord=" + start +"&limit=" + limit);
+            WebResource webResource = client.resource(taggerMainUrl + "/misc/getTrainingData?crisisID=" + crisisId + "&modelID=" + modelId + "&fromRecord=" + start +"&limit=" + limit);
             ObjectMapper objectMapper = new ObjectMapper();
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .get(ClientResponse.class);
             String jsonResponse = clientResponse.getEntity(String.class);
 
-            TaggerAttribute attribute = objectMapper.readValue(jsonResponse, TaggerAttribute.class);
-            if (attribute != null) {
-                return attribute;
+            TrainingDataRequest trainingDataRequest = objectMapper.readValue(jsonResponse, TrainingDataRequest.class);
+            if (trainingDataRequest.getTrainingData() != null) {
+                logger.info("Tagger returned " + trainingDataRequest.getTrainingData().size() + " training data records for crises with ID: "
+                        + crisisId + " and model with ID: " + modelId);
+                return trainingDataRequest.getTrainingData();
             } else {
                 return null;
             }

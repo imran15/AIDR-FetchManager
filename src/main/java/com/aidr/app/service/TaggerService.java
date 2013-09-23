@@ -38,5 +38,5 @@ public interface TaggerService {
 
     public TaggerAttribute attributeExists(String code) throws AidrException;
 
-    public TaggerAttribute getTrainingDataByModelIdAndCrisisId(Integer modelId, Integer crisisId, Integer start, Integer limit) throws AidrException;
+    public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelId, Integer crisisId, Integer start, Integer limit) throws AidrException;
 }
