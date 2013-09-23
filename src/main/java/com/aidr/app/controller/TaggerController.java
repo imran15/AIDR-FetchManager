@@ -2,7 +2,6 @@ package com.aidr.app.controller;
 
 import com.aidr.app.dto.*;
 import com.aidr.app.exception.AidrException;
-import com.aidr.app.hibernateEntities.UserEntity;
 import com.aidr.app.service.TaggerService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -218,19 +217,18 @@ public class TaggerController extends BaseController {
         }
         start = (start != null) ? start : 0;
         limit = (limit != null) ? limit : 20;
-        List<TrainingDataDTO> response = null;
+        List<TrainingDataDTO> response;
         try {
             response = taggerService.getTrainingDataByModelIdAndCrisisId(modelId, crisisId, start, limit);
         } catch (AidrException e) {
             logger.error(e.getMessage(), e);
             return getUIWrapper(false, e.getMessage());
         }
-//        TODO get proper total value
-        Long total = 0l;
+        Integer total = 0;
         if (response != null) {
-            total = Long.valueOf(response.size());
+            total = response.get(0).getTotalRows();
         }
-        return getUIWrapper(response, true, total, null);
+        return getUIWrapper(response, true, Long.valueOf(total), null);
     }
 
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
