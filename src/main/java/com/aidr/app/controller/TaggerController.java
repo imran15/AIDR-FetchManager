@@ -219,6 +219,7 @@ public class TaggerController extends BaseController {
         start = (start != null) ? start : 0;
         limit = (limit != null) ? limit : 20;
         List<TrainingDataDTO> response = taggerService.getTrainingDataByModelIdAndCrisisId(modelId, crisisId, start, limit);
+//        TODO get proper total value
         Long total = 0l;
         if (response != null) {
             total = Long.valueOf(response.size());

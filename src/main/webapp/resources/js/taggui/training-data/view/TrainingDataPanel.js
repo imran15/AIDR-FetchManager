@@ -63,8 +63,8 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
 
         this.trainingDataStore = Ext.create('Ext.data.JsonStore', {
             pageSize: 20,
-            storeId: 'crisesStore',
-            fields: ['crisisID', 'code', 'name', 'crisisType', 'users', 'modelFamilyCollection'],
+            storeId: 'trainingDataStore',
+            fields: ['labelID', 'labelName', 'labeledTime', 'labelerID', 'labelerName', 'tweetJSON'],
             proxy: {
                 type: 'ajax',
                 url: BASE_URL + '/protected/tagger/getTrainingDataByModelIdAndCrisisId.action',
@@ -90,23 +90,39 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
 
             '<div class="collection-item">',
 
+            '<div class="img">',
+                '<img alt="Collection History image" src="/AIDRFetchManager/resources/img/AIDR/AIDR_EMBLEM_CMYK_COLOUR_HR.jpg" width="70">',
+            '</div>',
 
             '<div class="content">',
 
-            '<div class="img">',
-            '<a href="{[this.getEncodedCode(values.code)]}/tagger-collection-details"><img alt="Collection image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70"></a>',
+            '<div class="rightColumn">',
+            '<div class="styled-text-17">Value:</div>',
+            '<div>Text:</div>',
+            '<div>Labeler:</div>',
             '</div>',
 
-            '<div class="info">',
-            '<div class="collection-title"><a href="{[this.getEncodedCode(values.code)]}/tagger-collection-details">{name}</a></div>',
-            '<div class="styled-text-14 div-top-padding" id="statusField_{crisisID}">{[this.getAttributes(values.modelFamilyCollection)]}</div>',
+            '<div class="leftColumn">',
+            '<div class="styled-text-17">{[this.getField(values.labelName)]}</div>',
+//            TODO change to correct tweet text
+//            '<div>{[this.getField(values.tweetJSON)]}</div>',
+            '<div>{[this.getField("")]}</div>',
+            '<div>{[this.getField(values.labelerName)]}</div>',
             '</div>',
 
             '</div>',
             '</div>',
 
             '</tpl>',
-            '</div>'
+            '</div>',
+            {
+                getField: function (r) {
+                    return r ? r : "<span class='na-text'>Not specified</span>";
+                },
+                getNumber: function (r) {
+                    return r ? r : 0;
+                }
+            }
         );
 
         this.trainingDataView = Ext.create('Ext.view.View', {
@@ -114,6 +130,13 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
             tpl: this.trainingDataTpl,
             itemSelector: 'div.active',
             loadMask: false
+        });
+
+        this.trainingDataPaging = Ext.create('Ext.toolbar.Paging', {
+            store:'trainingDataStore',
+            displayInfo:true,
+            displayMsg:'Training Data records {0} - {1} of {2}',
+            emptyMsg:'No Training Data records to display'
         });
 
         this.items = [
@@ -141,6 +164,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
                 html: '<div class="horisontalLine"></div>'
             },
             this.trainingDataView,
+            this.trainingDataPaging,
             {
                 xtype: 'container',
                 layout: 'hbox',
