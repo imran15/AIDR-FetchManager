@@ -11,6 +11,7 @@ public class TrainingDataDTO {
     private Integer labelerID;
     private String labelerName;
     private Date labeledTime;
+    private Integer totalRows;
 
     /**
      * @return the labelID
@@ -94,5 +95,13 @@ public class TrainingDataDTO {
      */
     public void setLabeledTime(Date labeledTime) {
         this.labeledTime = labeledTime;
+    }
+
+    public Integer getTotalRows() {
+        return totalRows;
+    }
+
+    public void setTotalRows(Integer totalRows) {
+        this.totalRows = totalRows;
     }
 }

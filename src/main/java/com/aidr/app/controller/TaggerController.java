@@ -218,7 +218,13 @@ public class TaggerController extends BaseController {
         }
         start = (start != null) ? start : 0;
         limit = (limit != null) ? limit : 20;
-        List<TrainingDataDTO> response = taggerService.getTrainingDataByModelIdAndCrisisId(modelId, crisisId, start, limit);
+        List<TrainingDataDTO> response = null;
+        try {
+            response = taggerService.getTrainingDataByModelIdAndCrisisId(modelId, crisisId, start, limit);
+        } catch (AidrException e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
 //        TODO get proper total value
         Long total = 0l;
         if (response != null) {
