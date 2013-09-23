@@ -22,7 +22,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
         var me = this;
 
         this.breadcrumbs = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="#">AIDR</a><span>&nbsp;>&nbsp;</span>' +
+            html: '<div class="bread-crumbs">' +
                 '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;</span>' +
                 '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + COLLECTION_NAME + '</a><span>&nbsp;>&nbsp;Predict a new attribute</span></div>',
             margin: 0,
