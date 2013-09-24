@@ -86,7 +86,8 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
             method: 'GET',
             params: {
                 crisesId: CRISIS_ID,
-                attributeId: id
+                attributeId: id,
+                isActive: true
             },
             headers: {
                 'Accept': 'application/json'
