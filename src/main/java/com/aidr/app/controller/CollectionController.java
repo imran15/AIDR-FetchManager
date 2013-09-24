@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.aidr.app.hibernateEntities.AidrCollectionLog;
+import com.aidr.app.service.CollectionLogService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -32,8 +34,10 @@ public class CollectionController extends BaseController{
 	
 	@Autowired
 	private CollectionService collectionService;
-	
-	
+
+    @Autowired
+    private CollectionLogService collectionLogService;
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
@@ -74,14 +78,43 @@ public class CollectionController extends BaseController{
 	@RequestMapping(value = "/update.action", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> update( AidrCollection collection) throws Exception {
-		logger.info("Updating AidrCollection into Database having id "+collection.getId());
+        Integer collectionId = collection.getId();
+		logger.info("Updating AidrCollection into Database having id " + collectionId);
 		try{
-			AidrCollection dbCollection = collectionService.findById(collection.getId());
-            collection.setStartDate(dbCollection.getStartDate());
-            collection.setUser(dbCollection.getUser());
-            collection.setCreatedDate(dbCollection.getCreatedDate());
-            collectionService.update(collection);
-			return getUIWrapper(true);  
+            CollectionStatus status = collection.getStatus();
+            if (CollectionStatus.RUNNING_WARNING.equals(status) || CollectionStatus.RUNNING.equals(status)) {
+                AidrCollection dbCollection = collectionService.findById(collectionId);
+//              stop collection
+                collectionService.stopAidrFetcher(dbCollection);
+
+//              save current state of the collection to collectionLog
+                AidrCollectionLog collectionLog = new AidrCollectionLog();
+                collectionLog.setCount(dbCollection.getCount());
+                collectionLog.setEndDate(dbCollection.getEndDate());
+                collectionLog.setFollow(dbCollection.getFollow());
+                collectionLog.setGeo(dbCollection.getGeo());
+                collectionLog.setLangFilters(dbCollection.getLangFilters());
+                collectionLog.setStartDate(dbCollection.getStartDate());
+                collectionLog.setTrack(dbCollection.getTrack());
+                collectionLog.setCollectionID(collectionId);
+                collectionLogService.create(collectionLog);
+
+//              set some fields from old collection and update collection
+                collection.setStartDate(dbCollection.getStartDate());
+                collection.setUser(dbCollection.getUser());
+                collection.setCreatedDate(dbCollection.getCreatedDate());
+                collectionService.update(collection);
+
+//              start collection
+                collectionService.startFetcher(collectionService.prepareFetcherRequest(collection), collection);
+            } else {
+                AidrCollection dbCollection = collectionService.findById(collection.getId());
+                collection.setStartDate(dbCollection.getStartDate());
+                collection.setUser(dbCollection.getUser());
+                collection.setCreatedDate(dbCollection.getCreatedDate());
+                collectionService.update(collection);
+            }
+			return getUIWrapper(true);
 		}catch(Exception e){
 			logger.error("Error while Updating AidrCollection  Info into database", e);
 			return getUIWrapper(false); 
@@ -147,15 +180,19 @@ public class CollectionController extends BaseController{
 	@RequestMapping(value = "/start.action", method = RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> start(@RequestParam Integer id) throws Exception {
-		UserEntity userEntity = getAuthenticatedUser();
-		 if(userEntity!=null){
-			AidrCollection collection = collectionService.start(id,userEntity.getId());
-            if (collection == null){
-                return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+        try {
+            UserEntity userEntity = getAuthenticatedUser();
+            if (userEntity != null) {
+                AidrCollection collection = collectionService.start(id, userEntity.getId());
+                if (collection == null) {
+                    return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+                }
+                return getUIWrapper(collection, true);
             }
-			return getUIWrapper(collection, true);
-		 }
-		return getUIWrapper(false);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return getUIWrapper(false);
 	}
 	
 	@RequestMapping(value = "/stop.action", method = RequestMethod.GET)

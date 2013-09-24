@@ -129,7 +129,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             '#collectionUpdate': {
                 click: function (btn, e, eOpts) {
                     if (AIDRFMFunctions.mandatoryFieldsEntered()) {
-                        datailsController.updateCollection();
+                        datailsController.beforeUpdateCollection();
                     }
                 }
             },
@@ -402,7 +402,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         });
     },
 
-    updateCollection: function () {
+    updateCollection: function (running) {
         var me = this;
 
         var id = datailsController.DetailsComponent.currentCollection.id;
@@ -432,6 +432,20 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             success: function (response) {
                 me.DetailsComponent.tabPanel.setActiveTab(0);
                 me.loadCollection(id);
+                me.DetailsComponent.collectionLogStore.load();
+                if (running){
+                    var ranOnce = false;
+                    var task = Ext.TaskManager.start({
+                        run: function () {
+                            if (ranOnce) {
+                                me.refreshStatus(id);
+                                Ext.TaskManager.stop(task);
+                            }
+                            ranOnce = true;
+                        },
+                        interval: 5000
+                    });
+                }
             }
         });
     },
@@ -460,6 +474,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                     if (resp.data) {
                         var data = resp.data;
 
+                        me.DetailsComponent.currentCollection.status = data.status;
                         me.setStatus(data.status);
                         me.setStartDate(data.startDate);
                         me.setEndDate(data.endDate);
@@ -538,6 +553,15 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
     goToTagger: function() {
         document.location.href = BASE_URL + '/protected/tagger-home';
+    },
+
+    beforeUpdateCollection: function() {
+        var status = this.DetailsComponent.currentCollection.status;
+        if (status == 'RUNNING-WARNNING' || status == 'RUNNING') {
+            this.updateCollection(true);
+        } else {
+            this.updateCollection(false);
+        }
     }
 
 });

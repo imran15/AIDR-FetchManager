@@ -3,6 +3,7 @@ package com.aidr.app.service;
 import java.util.List;
 
 import com.aidr.app.dto.CollectionDataResponse;
+import com.aidr.app.dto.FetcherRequestDTO;
 import com.aidr.app.hibernateEntities.AidrCollection;
 
 public interface CollectionService {
@@ -20,4 +21,7 @@ public interface CollectionService {
 	public AidrCollection start(Integer collectionId,Integer userId) throws Exception;
 	public AidrCollection stop(Integer collectionId) throws Exception; 
 	public AidrCollection statusById(Integer collectionId) throws Exception;
+	public AidrCollection stopAidrFetcher(AidrCollection collection) throws Exception;
+    public AidrCollection startFetcher(FetcherRequestDTO fetcherRequest, AidrCollection aidrCollection) throws Exception;
+    public FetcherRequestDTO prepareFetcherRequest(AidrCollection dbCollection);
 }
