@@ -328,11 +328,11 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
     },
 
     setCountOfDocuments: function (raw) {
-        this.DetailsComponent.docCountL.setText(raw ? raw : 0);
+        this.DetailsComponent.docCountL.setText(raw ? Ext.util.Format.number(raw,'0,000') : 0);
     },
 
     setTotalCountOfDocuments: function (raw) {
-        this.DetailsComponent.totalDocCountL.setText(raw ? raw : 0);
+        this.DetailsComponent.totalDocCountL.setText(raw ? Ext.util.Format.number(raw,'0,000') : 0);
     },
 
     startCollection: function () {

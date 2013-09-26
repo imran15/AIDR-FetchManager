@@ -330,7 +330,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                     return r ? r : "<span class='na-text'>Not specified</span>";
                 },
                 getDocNumber: function (r) {
-                    return r ? r : 0;
+                    return r ? Ext.util.Format.number(r,'0,000') : 0;
                 }
             }
         );

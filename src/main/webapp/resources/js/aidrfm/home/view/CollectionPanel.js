@@ -123,7 +123,7 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
                     return r ? '<span class="tweet">' + r + '</span>' : "<span class='na-text'>N/A</span>";
                 },
                 getDocNumber: function (r) {
-                    return r ? r : 0;
+                    return r ? Ext.util.Format.number(r,'0,000') : 0;
                 },
                 isButtonStartHidden: function (r) {
                     if (r == 'RUNNING-WARNNING' || r == 'RUNNING'){

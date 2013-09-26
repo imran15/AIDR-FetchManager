@@ -169,7 +169,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
             var statusField = document.getElementById("statusField_" + id),
                 docCountField = document.getElementById("docCountField_" + id),
                 lastDocField = document.getElementById("lastDocField_" + id),
-                docCount = data.count ? data.count : 0,
+                docCount = data.count ? Ext.util.Format.number(data.count,'0,000') : 0,
                 lastDoc = data.lastDocument ? data.lastDocument : "<span class='na-text'>N/A</span>";
 
 
