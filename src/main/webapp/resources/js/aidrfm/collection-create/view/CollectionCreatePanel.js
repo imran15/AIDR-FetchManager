@@ -74,6 +74,12 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             emptyText: 'e.g., 43.43, 22.44, 89.32, 56.43'
         });
 
+        this.geoDescription = Ext.create('Ext.form.Label', {
+            flex: 1,
+            html: '<span class="redInfo">*</span> <a href="http://boundingbox.klokantech.com/">boundingbox.klokantech.com</a> ("Copy/paste CSV format of a boundingbox")',
+            padding: '2 0 2 135'
+        });
+
         this.followE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Follow specific users',
             labelWidth: 130,
@@ -193,6 +199,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
                                 }
                             ]
                         },
+                        this.geoDescription,
                         {
                             xtype: 'container',
                             layout: 'hbox',
