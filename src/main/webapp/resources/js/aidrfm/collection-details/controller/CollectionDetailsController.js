@@ -271,6 +271,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
         p.createdL.setText(r.createdDate);
         this.setCountOfDocuments(r.count);
+        this.setTotalCountOfDocuments(r.totalCount);
         this.setLastDowloadedDoc(r.lastDocument);
     },
 
@@ -328,6 +329,10 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
     setCountOfDocuments: function (raw) {
         this.DetailsComponent.docCountL.setText(raw ? raw : 0);
+    },
+
+    setTotalCountOfDocuments: function (raw) {
+        this.DetailsComponent.totalDocCountL.setText(raw ? raw : 0);
     },
 
     startCollection: function () {
@@ -479,6 +484,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                         me.setStartDate(data.startDate);
                         me.setEndDate(data.endDate);
                         me.setCountOfDocuments(data.count);
+                        me.setTotalCountOfDocuments(data.totalCount);
                         me.setLastDowloadedDoc(data.lastDocument);
                     }
                 } else {

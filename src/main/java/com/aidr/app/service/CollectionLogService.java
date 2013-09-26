@@ -17,4 +17,6 @@ public interface CollectionLogService {
 
     public CollectionLogDataResponse findAllForCollection(Integer start, Integer limit, Integer collectionId) throws Exception;
 
+    public Integer countTotalDownloadedItemsForCollection(Integer collectionId) throws Exception;
+
 }

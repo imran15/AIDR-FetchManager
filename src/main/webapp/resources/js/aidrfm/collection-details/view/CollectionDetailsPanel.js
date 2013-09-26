@@ -72,6 +72,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         this.languageFiltersL = Ext.create('Ext.form.Label', {flex: 1});
         this.createdL = Ext.create('Ext.form.Label', {flex: 1});
         this.docCountL = Ext.create('Ext.form.Label', {flex: 1});
+        this.totalDocCountL = Ext.create('Ext.form.Label', {flex: 1});
         this.lastDocL = Ext.create('Ext.form.Label', {flex: 1, cls:'tweet'});
 
         this.timeDurationL = Ext.create('Ext.form.Label', {
@@ -553,14 +554,25 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                         {
                             xtype: 'container',
                             defaultType: 'label',
-                            //cls: 'bordered-top',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 170,
-                                    text: 'Downloaded items:'
+                                    width: 220,
+                                    text: 'Downloaded items (Since last start):'
                                 },
                                 this.docCountL
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            defaultType: 'label',
+                            layout: 'hbox',
+                            items: [
+                                {
+                                    width: 220,
+                                    text: 'Total downloaded items:'
+                                },
+                                this.totalDocCountL
                             ]
                         },
                         {
@@ -570,7 +582,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             cls: 'bordered-bottom',
                             items: [
                                 {
-                                    width: 170,
+                                    width: 220,
                                     text: 'Last downloaded item:'
                                 },
                                 this.lastDocL
@@ -583,7 +595,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 170,
+                                    width: 220,
                                     text: 'Created on:'
                                 },
                                 this.createdL
@@ -595,7 +607,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 170,
+                                    width: 220,
                                     text: 'Last Started On:'
                                 },
                                 this.lastStartedL
@@ -608,7 +620,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 170,
+                                    width: 220,
                                     text: 'Last Stopped On:'
                                 },
                                 this.lastStoppedL
@@ -621,7 +633,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 170,
+                                    width: 220,
                                     text: 'Keywords:'
                                 },
                                 this.keywordsL
@@ -633,7 +645,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 170,
+                                    width: 220,
                                     text: 'Geographical regions:'
                                 },
                                 this.geoL
@@ -645,7 +657,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 170,
+                                    width: 220,
                                     text: 'Follow specific users:'
                                 },
                                 this.followL
@@ -658,7 +670,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 170,
+                                    width: 220,
                                     text: 'Language Filters:'
                                 },
                                 this.languageFiltersL

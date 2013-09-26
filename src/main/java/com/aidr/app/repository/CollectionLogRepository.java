@@ -12,4 +12,6 @@ public interface CollectionLogRepository extends GenericRepository<AidrCollectio
     public CollectionLogDataResponse getPaginatedData(Integer start, Integer limit);
 
     public CollectionLogDataResponse getPaginatedDataForCollection(Integer start, Integer limit, Integer collectionId);
+
+    public Integer countTotalDownloadedItemsForCollection(Integer collectionId);
 }

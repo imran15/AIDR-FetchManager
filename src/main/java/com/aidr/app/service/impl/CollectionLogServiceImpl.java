@@ -53,4 +53,10 @@ public class CollectionLogServiceImpl implements CollectionLogService {
         return collectionLogRepository.getPaginatedDataForCollection(start, limit, collectionId);
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public Integer countTotalDownloadedItemsForCollection(Integer collectionId) throws Exception {
+        return collectionLogRepository.countTotalDownloadedItemsForCollection(collectionId);
+    }
+
 }

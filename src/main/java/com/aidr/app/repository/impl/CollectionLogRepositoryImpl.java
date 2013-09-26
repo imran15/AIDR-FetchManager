@@ -4,12 +4,18 @@ import com.aidr.app.dto.CollectionLogDataResponse;
 import com.aidr.app.hibernateEntities.AidrCollectionLog;
 import com.aidr.app.repository.CollectionLogRepository;
 import org.hibernate.Criteria;
+import org.hibernate.HibernateException;
+import org.hibernate.SQLQuery;
+import org.hibernate.Session;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.springframework.orm.hibernate3.HibernateCallback;
 import org.springframework.stereotype.Repository;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.List;
 
@@ -52,6 +58,22 @@ public class CollectionLogRepositoryImpl extends GenericRepositoryImpl<AidrColle
         criteria.addOrder(Order.desc("startDate"));
 
         return new CollectionLogDataResponse((List<AidrCollectionLog>) criteria.list(), count);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Integer countTotalDownloadedItemsForCollection(final Integer collectionId) {
+        return (Integer) getHibernateTemplate().execute(new HibernateCallback<Object>() {
+            @Override
+            public Object doInHibernate(Session session) throws HibernateException, SQLException {
+                String sql = " select sum(c.count) from AIDR_COLLECTION_LOG c where c.collectionID = :collectionId ";
+                SQLQuery sqlQuery = session.createSQLQuery(sql);
+                sqlQuery.setParameter("collectionId", collectionId);
+                BigDecimal total = (BigDecimal) sqlQuery.uniqueResult();
+                return total != null ? total.intValue() : 0;
+            }
+        });
+
     }
 
 }

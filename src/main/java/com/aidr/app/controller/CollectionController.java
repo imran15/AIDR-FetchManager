@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.aidr.app.dto.AidrCollectionTotalDTO;
 import com.aidr.app.hibernateEntities.AidrCollectionLog;
 import com.aidr.app.service.CollectionLogService;
 import org.apache.log4j.Logger;
@@ -123,11 +124,15 @@ public class CollectionController extends BaseController{
 	
 	@RequestMapping(value = "/findById.action", method = RequestMethod.GET)
 	@ResponseBody
-	public AidrCollection findById(Integer id) throws Exception {
+	public AidrCollectionTotalDTO findById(Integer id) throws Exception {
 		logger.info("Fetch AidrCollection for Id  "+id);
-                AidrCollection collection = collectionService.findById(id);
-                System.out.println("-----------Collection :" + collection.getLangFilters());
-		return collection;
+        AidrCollection collection = collectionService.findById(id);
+        AidrCollectionTotalDTO dto = convertAidrCollectionToDTO(collection);
+        if (dto != null) {
+            Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id) + dto.getCount();
+            dto.setTotalCount(totalCount);
+        }
+        return dto;
 	}
 	
 	@RequestMapping(value = "/findAll.action", method = RequestMethod.GET)
@@ -184,10 +189,14 @@ public class CollectionController extends BaseController{
             UserEntity userEntity = getAuthenticatedUser();
             if (userEntity != null) {
                 AidrCollection collection = collectionService.start(id, userEntity.getId());
-                if (collection == null) {
+                AidrCollectionTotalDTO dto = convertAidrCollectionToDTO(collection);
+                if (dto != null) {
+                    Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id) + dto.getCount();
+                    dto.setTotalCount(totalCount);
+                } else {
                     return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
                 }
-                return getUIWrapper(collection, true);
+                return getUIWrapper(dto, true);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -199,10 +208,14 @@ public class CollectionController extends BaseController{
 	@ResponseBody
 	public Map<String,Object> stop(@RequestParam Integer id) throws Exception {
          AidrCollection collection = collectionService.stop(id);
-         if (collection == null){
-            return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+         AidrCollectionTotalDTO dto = convertAidrCollectionToDTO(collection);
+         if (dto != null) {
+             Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id) + dto.getCount();
+             dto.setTotalCount(totalCount);
+         } else {
+             return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
          }
-         return getUIWrapper(collection,true);
+         return getUIWrapper(dto, true);
 	}
 	
 	
@@ -210,12 +223,21 @@ public class CollectionController extends BaseController{
 	@ResponseBody
 	public Map<String,Object> refreshCount(@RequestParam Integer id) throws Exception {
         AidrCollection collection = null;
+        AidrCollectionTotalDTO dto = null;
         try {
             collection = collectionService.statusById(id);
+            dto = convertAidrCollectionToDTO(collection);
+            if (dto != null) {
+                Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id) + dto.getCount();
+                dto.setTotalCount(totalCount);
+            } else {
+                return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+            }
         } catch (Exception e) {
+            e.printStackTrace();
             return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
         }
-        return getUIWrapper(collection,true);
+        return getUIWrapper(dto,true);
 	}
 
     @RequestMapping(value = "/updateAndGetRunningCollectionStatusByUser.action", method = RequestMethod.GET)
@@ -226,10 +248,41 @@ public class CollectionController extends BaseController{
             try {
                 return getUIWrapper(collectionService.updateAndGetRunningCollectionStatusByUser(userEntity.getId()),true);
             } catch (Exception e) {
+                e.printStackTrace();
                 return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
             }
         }
         return getUIWrapper(false);
+    }
+
+    private AidrCollectionTotalDTO convertAidrCollectionToDTO(AidrCollection collection){
+        if (collection == null){
+            return null;
+        }
+
+        AidrCollectionTotalDTO dto = new AidrCollectionTotalDTO();
+
+        dto.setId(collection.getId());
+        dto.setCode(collection.getCode());
+        dto.setName(collection.getName());
+        dto.setTarget(collection.getTarget());
+        dto.setUser(collection.getUser());
+        if (collection.getCount() != null) {
+            dto.setCount(collection.getCount());
+        } else {
+            dto.setCount(0);
+        }
+        dto.setStatus(collection.getStatus());
+        dto.setTrack(collection.getTrack());
+        dto.setFollow(collection.getFollow());
+        dto.setGeo(collection.getGeo());
+        dto.setLangFilters(collection.getLangFilters());
+        dto.setStartDate(collection.getStartDate());
+        dto.setEndDate(collection.getEndDate());
+        dto.setCreatedDate(collection.getCreatedDate());
+        dto.setLastDocument(collection.getLastDocument());
+
+        return dto;
     }
 	
 }
