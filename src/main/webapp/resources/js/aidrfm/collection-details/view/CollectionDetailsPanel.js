@@ -92,7 +92,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             fieldLabel: 'Code',
             name: 'code',
             allowBlank: false,
-            flex: 1,
+            width: 370,
             emptyText: 'e.g., Sandy2012 or EQJapan2011',
             maxLength: 15,
             maxLengthText: 'The maximum length for this field is 15 ',
@@ -101,7 +101,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         });
 
         this.nameE = Ext.create('Ext.form.field.Text', {
-            flex: 1,
+            width: 370,
             fieldLabel: 'Name',
             name: 'name',
             allowBlank: false,
