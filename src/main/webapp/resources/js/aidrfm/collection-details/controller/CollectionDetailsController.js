@@ -304,7 +304,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
     setStatus: function (raw) {
         var statusText = AIDRFMFunctions.getStatusWithStyle(raw);
 
-        if (raw == 'RUNNING-WARNNING' || raw == 'RUNNING'){
+        if (raw == 'RUNNING-WARNNING' || raw == 'RUNNING' || raw == 'INITIALIZING'){
             this.DetailsComponent.startButton.hide();
             this.DetailsComponent.enableTaggerButton.enable();
             this.DetailsComponent.stopButton.show();

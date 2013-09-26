@@ -126,14 +126,14 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
                     return r ? Ext.util.Format.number(r,'0,000') : 0;
                 },
                 isButtonStartHidden: function (r) {
-                    if (r == 'RUNNING-WARNNING' || r == 'RUNNING'){
+                    if (r == 'RUNNING-WARNNING' || r == 'RUNNING' || r == 'INITIALIZING'){
                         return 'hidden';
                     } else {
                         return '';
                     }
                 },
                 isButtonStopHidden: function (r) {
-                    if (r == 'RUNNING-WARNNING' || r == 'RUNNING'){
+                    if (r == 'RUNNING-WARNNING' || r == 'RUNNING' || r == 'INITIALIZING'){
                         return '';
                     } else {
                         return 'hidden';

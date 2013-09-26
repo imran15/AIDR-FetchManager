@@ -189,7 +189,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
         var buttonStart = document.getElementById("buttonStart_" + id),
             buttonStop = document.getElementById("buttonStop_" + id);
 
-        if (status == 'RUNNING-WARNNING' || status == 'RUNNING'){
+        if (status == 'RUNNING-WARNNING' || status == 'RUNNING' || status == 'INITIALIZING'){
             buttonStart.className = 'btn btn-green hidden';
             buttonStop.className = 'btn btn-red';
         } else {
