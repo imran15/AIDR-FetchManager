@@ -3310,3 +3310,7 @@ End of the tab panel styles
 .attributes-title .inner{
     margin: 20px 0 20px 0;
 }
+
+.word-wrap-class {
+    word-wrap: break-word;
+}

@@ -66,7 +66,10 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         this.lastStartedL = Ext.create('Ext.form.Label', {flex: 1});
         this.lastStoppedL = Ext.create('Ext.form.Label', {flex: 1});
         this.codeL = Ext.create('Ext.form.Label', {flex: 1});
-        this.keywordsL = Ext.create('Ext.form.Label', {flex: 1});
+        this.keywordsL = Ext.create('Ext.form.Label', {
+            flex: 1,
+            cls: 'word-wrap-class'
+        });
         this.geoL = Ext.create('Ext.form.Label', {flex: 1});
         this.followL = Ext.create('Ext.form.Label', {flex: 1});
         this.languageFiltersL = Ext.create('Ext.form.Label', {flex: 1});
@@ -317,7 +320,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             '<div>{[this.getField(values.geo)]}</div>',
             '<div>{[this.getField(values.follow)]}</div>',
             '<div>{[this.getField(values.langFilters)]}</div>',
-            '<div>{[this.getField(values.track)]}</div>',
+            '<div class="word-wrap-class">{[this.getField(values.track)]}</div>',
             '</div>',
 
             '</div>',
