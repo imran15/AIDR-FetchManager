@@ -277,7 +277,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
     updateDownloadPanel: function (code) {
         var downloadTabText = '<div class="styled-text">You can read the collected tweets from:<br><br>' +
-            '<b>1.</b>&nbsp;&nbsp;File /var/data/aidr/persister/' + code + '.json on server scd1.qcri.org<br>' +
+            '<b>1.</b>&nbsp;&nbsp;Live JSON feed: <a href="http://scd1.qcri.org/aidr/data/persister/' + code + '">http://scd1.qcri.org/aidr/data/persister/' + code + '/</a><br>' +
             '<b>2.</b>&nbsp;&nbsp;Redis queue FetcherChannel.' + code + ' on host scd1.qcri.org port 6379<br></div>';
 
         this.DetailsComponent.downloadText.setText(downloadTabText, false);
