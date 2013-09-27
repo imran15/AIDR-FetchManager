@@ -33,9 +33,11 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             padding: 0
         });
 
-        this.horisontalLine = Ext.create('Ext.container.Container', {
-            margin: '5 0 15 0',
-            html: '<div class="horisontalLine"></div>'
+        this.descriptionL = Ext.create('Ext.form.Label', {
+            flex: 1,
+            text: 'Create new collection',
+            padding: '0 0 0 0',
+            cls: 'header-h2'
         });
 
         this.codeE = Ext.create('Ext.form.field.Text', {
@@ -250,7 +252,17 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
 
         this.items = [
             this.breadcrumbs,
-            this.horisontalLine,
+            {
+                xtype: 'container',
+                margin: '5 0 5 0',
+                html: '<div class="horisontalLine"></div>'
+            },
+            this.descriptionL,
+            {
+                xtype: 'container',
+                margin: '5 0 15 0',
+                html: '<div class="horisontalLine"></div>'
+            },
             this.editForm
         ];
 
