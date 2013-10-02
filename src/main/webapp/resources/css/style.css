@@ -3314,3 +3314,13 @@ End of the tab panel styles
 .word-wrap-class {
     word-wrap: break-word;
 }
+
+.aidr-paging {
+    background-color: white !important;
+    background-image: none;
+}
+
+.aidr-paging .x-toolbar-text{
+    font-size: 12px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
+}

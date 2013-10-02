@@ -133,6 +133,8 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
         });
 
         this.trainingDataPaging = Ext.create('Ext.toolbar.Paging', {
+            cls: 'aidr-paging',
+            margin: '12 2 0 2',
             store:'trainingDataStore',
             displayInfo:true,
             displayMsg:'Training Data records {0} - {1} of {2}',

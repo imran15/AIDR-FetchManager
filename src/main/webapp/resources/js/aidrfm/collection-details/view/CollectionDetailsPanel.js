@@ -243,9 +243,11 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                     if (count > 0) {
                         me.collectionHistoryTitle.show();
                         me.collectionLogView.show();
+                        me.collectionLogPaging.show();
                     } else {
                         me.collectionHistoryTitle.hide();
                         me.collectionLogView.hide();
+                        me.collectionLogPaging.hide();
                     }
                 }
             }
@@ -344,6 +346,16 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             tpl: this.collectionLogTpl,
             itemSelector: 'div.active',
             loadMask: false
+        });
+
+        this.collectionLogPaging = Ext.create('Ext.toolbar.Paging', {
+            cls: 'aidr-paging',
+            margin: '12 2 0 2',
+            store:'collectionLogStore',
+            displayInfo:true,
+            hidden: true,
+            displayMsg:'Collection History records {0} - {1} of {2}',
+            emptyMsg:'No Collection History records to display'
         });
 
         this.editForm = {
@@ -722,16 +734,18 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             ],
             listeners: {
                 'tabchange': function (tabPanel, tab) {
-                    var tabIndex = tabPanel.items.findIndex('id', tab.id)
+                    var tabIndex = tabPanel.items.findIndex('id', tab.id);
                     if (tabIndex == 0){
                         var collectionHistoryCount = me.collectionLogStore.count();
                         if (collectionHistoryCount > 0) {
                             me.collectionHistoryTitle.show();
                             me.collectionLogView.show();
+                            me.collectionLogPaging.show();
                         }
                     } else {
                         me.collectionHistoryTitle.hide();
                         me.collectionLogView.hide();
+                        me.collectionLogPaging.hide();
                     }
                 }
             }
@@ -751,7 +765,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             },
             this.tabPanel,
             this.collectionHistoryTitle,
-            this.collectionLogView
+            this.collectionLogView,
+            this.collectionLogPaging
         ];
 
         this.callParent(arguments);
