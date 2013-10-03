@@ -255,6 +255,32 @@ public class CollectionController extends BaseController{
         return getUIWrapper(false);
     }
 
+    @RequestMapping(value = "/generateCSVLink.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> generateCSVLink(@RequestParam String code) throws Exception {
+        String result = "";
+        try {
+            result = collectionLogService.generateCSVLink(code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+        }
+        return getUIWrapper(result,true);
+    }
+
+    @RequestMapping(value = "/generateTweetIdsLink.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> generateTweetIdsLink(@RequestParam String code) throws Exception {
+        String result = "";
+        try {
+            result = collectionLogService.generateTweetIdsLink(code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+        }
+        return getUIWrapper(result,true);
+    }
+
     private AidrCollectionTotalDTO convertAidrCollectionToDTO(AidrCollection collection){
         if (collection == null){
             return null;

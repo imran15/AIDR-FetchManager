@@ -19,4 +19,8 @@ public interface CollectionLogService {
 
     public Integer countTotalDownloadedItemsForCollection(Integer collectionId) throws Exception;
 
+    public String generateCSVLink(String code) throws Exception;
+
+    public String generateTweetIdsLink(String code) throws Exception;
+
 }

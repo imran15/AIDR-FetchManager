@@ -169,6 +169,18 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 hide: function (btn, e, eOpts) {
                     AIDRFMFunctions.getMask().hide();
                 }
+            },
+
+            "#generateCSVLink": {
+                click: function (btn, e, eOpts) {
+                    this.generateCSVLink();
+                }
+            },
+
+            "#generateTweetIdsLink": {
+                click: function (btn, e, eOpts) {
+                    this.generateTweetIdsLink();
+                }
             }
 
         });
@@ -262,6 +274,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         this.setStartDate(r.startDate);
         this.setEndDate(r.endDate);
 
+        COLLECTION_CODE = r.code;
         p.codeL.setText(r.code);
         p.keywordsL.setText(r.track);
 
@@ -568,6 +581,60 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         } else {
             this.updateCollection(false);
         }
+    },
+
+    generateCSVLink: function() {
+        var me = this;
+
+        Ext.Ajax.request({
+            url: BASE_URL + '/protected/collection/generateCSVLink.action',
+            method: 'GET',
+            params: {
+                code: COLLECTION_CODE
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success) {
+                    if (resp.data && resp.data != '') {
+                        me.DetailsComponent.CSVLink.setText('<div class="styled-text download-link"><a href="' + resp.data + '">' + resp.data + '</a></div>', false);
+                    } else {
+                        AIDRFMFunctions.setAlert("Error", "Generate CSV service returned empty url. For further inquiries please contact admin.");
+                    }
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
+                }
+            }
+        });
+    },
+
+    generateTweetIdsLink: function() {
+        var me = this;
+
+        Ext.Ajax.request({
+            url: BASE_URL + '/protected/collection/generateTweetIdsLink.action',
+            method: 'GET',
+            params: {
+                code: COLLECTION_CODE
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success) {
+                    if (resp.data && resp.data != '') {
+                        me.DetailsComponent.tweetsIdsLink.setText('<div class="styled-text download-link"><a href="' + resp.data + '">' + resp.data + '</a></div>', false);
+                    } else {
+                        AIDRFMFunctions.setAlert("Error", "Generate Tweet Ids service returned empty url. For further inquiries please contact admin.");
+                    }
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
+                }
+            }
+        });
     }
 
 });

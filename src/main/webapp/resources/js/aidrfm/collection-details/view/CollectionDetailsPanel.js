@@ -702,6 +702,31 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             html: ''
         });
 
+        this.CSVLink = Ext.create('Ext.form.Label', {
+            flex: 1,
+            padding: '5 5 5 5',
+            html: ''
+        });
+        this.tweetsIdsLink = Ext.create('Ext.form.Label', {
+            flex: 1,
+            margin: '5 5 5 5',
+            html: ''
+        });
+
+        this.generateCSVButton = Ext.create('Ext.Button', {
+            text: 'Generate CSV',
+            margin: 5,
+            cls:'btn btn-blue download-button',
+            id: 'generateCSVLink'
+        });
+
+        this.generateTweetIdsButton = Ext.create('Ext.Button', {
+            text: 'Generate tweet-ids',
+            margin: 5,
+            cls:'btn btn-blue download-button',
+            id: 'generateTweetIdsLink'
+        });
+
         this.tabPanel = Ext.create('Ext.tab.Panel', {
             cls: 'tabPanel',
             width: '100%',
@@ -728,7 +753,32 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                     title: 'Download',
                     padding: '10 0 0 0',
                     items: [
-                        this.downloadText
+                        {
+                            xtype: 'container',
+                            layout: 'vbox',
+                            items: [
+                                this.downloadText,
+                                {
+                                    xtype: 'container',
+                                    padding: '15 0 0 0',
+                                    defaultType: 'label',
+                                    layout: 'hbox',
+                                    items: [
+                                        this.generateCSVButton,
+                                        this.CSVLink
+                                    ]
+                                },
+                                {
+                                    xtype: 'container',
+                                    defaultType: 'label',
+                                    layout: 'hbox',
+                                    items: [
+                                        this.generateTweetIdsButton,
+                                        this.tweetsIdsLink
+                                    ]
+                                }
+                            ]
+                        }
                     ]
                 }
             ],

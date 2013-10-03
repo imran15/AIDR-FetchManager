@@ -3324,3 +3324,11 @@ End of the tab panel styles
     font-size: 12px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
 }
+
+.download-link {
+    margin-top: 2px;
+}
+
+.btn.download-button {
+    min-width: 180px;
+}
