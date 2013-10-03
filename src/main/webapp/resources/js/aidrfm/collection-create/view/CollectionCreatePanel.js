@@ -54,6 +54,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
         this.nameE = Ext.create('Ext.form.field.Text', {
             width: 370,
             fieldLabel: 'Name',
+            id: 'nameTextField',
             name: 'name',
             allowBlank: false,
             emptyText: 'e.g., Hurricane Sandy'

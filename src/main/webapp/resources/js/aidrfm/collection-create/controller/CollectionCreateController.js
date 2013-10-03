@@ -89,6 +89,12 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
                 click: function (btn, e, eOpts) {
                     CollectionCreateController.isExist();
                 }
+            },
+
+            "#nameTextField": {
+                blur: function (field, eOpts) {
+                    CollectionCreateController.generateCollectionCode(field.getValue());
+                }
             }
 
         });
@@ -171,6 +177,67 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
                 }
             }
         });
+    },
+
+    generateCollectionCode: function(value) {
+        var me = this;
+
+        var currentCode = me.CollectionCreateComponent.codeE.getValue();
+        if (currentCode != ''){
+            return false;
+        }
+
+        var v = Ext.util.Format.trim(value);
+        v = v.replace(/ /g, '_');
+        v = Ext.util.Format.lowercase(v);
+
+        var date = Ext.Date.format(new Date(), "_M-y");
+        date = Ext.util.Format.lowercase(date);
+
+        var length = value.length;
+        if (length > 8){
+            length = 8;
+        }
+
+        var result = Ext.util.Format.substr(v, 0, length) + date;
+        me.isExistForGenerated(result);
+    },
+
+    isExistForGenerated: function (code, attempt) {
+        var me = this;
+
+        Ext.Ajax.request({
+            url: 'collection/exist.action',
+            method: 'GET',
+            params: {
+                code: code
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var response = Ext.decode(response.responseText);
+                if (response.data) {
+                    if (attempt) {
+                        me.modifyGeneratedCode(code, attempt);
+                    } else {
+                        me.modifyGeneratedCode(code, 0);
+                    }
+                } else {
+                    me.CollectionCreateComponent.codeE.setValue(code);
+                }
+            }
+        });
+    },
+
+    modifyGeneratedCode: function(oldCode, attempt) {
+        var me = this;
+
+        var date = Ext.util.Format.substr(oldCode, oldCode.length - 7, oldCode.length),
+            code = Ext.util.Format.substr(oldCode, 0, oldCode.length - 9);
+
+        var result = code + '_' + attempt + date;
+        me.isExistForGenerated(result, attempt + 1);
     }
 
 });
