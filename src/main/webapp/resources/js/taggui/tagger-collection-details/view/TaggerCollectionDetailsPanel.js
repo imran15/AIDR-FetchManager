@@ -120,7 +120,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '</div>',
 
             '<div class="leftColumn">',
-            '<div class="styled-text-17"><a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/{modelID}/model-details">{[this.getField(values.attribute)]}</a></div>',
+            '<div class="styled-text-17"><a href="{[this.getModelHref(values.modelID)]}">{[this.getField(values.attribute)]}</a></div>',
             '<div>{[this.getField(values.status)]}</div>',
             '<div>{[this.getNumber(values.trainingExamples)]}</div>',
             '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
@@ -151,6 +151,13 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                         return '<span class="greenInfo">' + r.toFixed(2) + '</span>';
                     }
                     return '<span class="redInfo">0.0</span>';
+                },
+                getModelHref: function (r) {
+                    if (r && r != 0) {
+                        return BASE_URL + '/protected/' + CRISIS_CODE + '/' + r + '/model-details';
+                    } else {
+                        return '#';
+                    }
                 }
             }
         );
