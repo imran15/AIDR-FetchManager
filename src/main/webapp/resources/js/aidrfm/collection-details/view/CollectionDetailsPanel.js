@@ -735,14 +735,14 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         });
 
         this.generateCSVButton = Ext.create('Ext.Button', {
-            text: 'Generate CSV',
+            text: 'Export tweets (.csv) (Last 100k tweets)',
             margin: 5,
             cls:'btn btn-blue download-button',
             id: 'generateCSVLink'
         });
 
         this.generateTweetIdsButton = Ext.create('Ext.Button', {
-            text: 'Generate tweet-ids',
+            text: 'Export tweet-ids only (.csv) (All tweets)',
             margin: 5,
             cls:'btn btn-blue download-button',
             id: 'generateTweetIdsLink'
