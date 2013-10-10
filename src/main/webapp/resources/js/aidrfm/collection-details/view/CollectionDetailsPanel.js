@@ -87,7 +87,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
 
         this.configurationsL = Ext.create('Ext.form.Label', {
             flex: 1,
-            text: 'Configurations',
+            text: 'Configuration',
             padding: '15 0 0 0',
             cls: 'header-h2'
         });
@@ -573,7 +573,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 220,
-                                    text: 'Downloaded items (since last start):'
+                                    text: 'Downloaded items (since last re-start):'
                                 },
                                 this.docCountL
                             ]

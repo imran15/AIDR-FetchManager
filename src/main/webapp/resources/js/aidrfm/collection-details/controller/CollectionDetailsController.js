@@ -61,7 +61,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 render: function (infoPanel, eOpts) {
                     var tip = Ext.create('Ext.tip.ToolTip', {
                         trackMouse: true,
-                        html: "Follow represents a comma-separated list twitter users� IDs to be followed. A valid twitter user id must be in the numeric format.",
+                        html: "Follow represents a comma-separated list twitter user-ids to be followed. A valid twitter user id must be in the numeric format.",
                         target: infoPanel.el,
                         dismissDelay: 0
                     });

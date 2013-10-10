@@ -106,7 +106,7 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
             '<div class="info">',
             '<div class="collection-title"><a href="{[this.getEncodedCode(values.code)]}/collection-details">{name}</a></div>',
             '<div class="styled-text-14" id="statusField_{id}">{[this.getStatus(values.status)]}</div>',
-            '<div class="styled-text-14" id="docCountField_{id}">Downloaded items:&nbsp;&nbsp;&nbsp;{[this.getDocNumber(values.count)]}</div>',
+            '<div class="styled-text-14" id="docCountField_{id}">Downloaded items (since last re-start):&nbsp;&nbsp;&nbsp;{[this.getDocNumber(values.count)]}</div>',
             '<div class="styled-text-14" id="lastDocField_{id}">Last downloaded item:&nbsp;&nbsp;&nbsp;{[this.getLastDoc(values.lastDocument)]}</div>',
             '</div>',
 
