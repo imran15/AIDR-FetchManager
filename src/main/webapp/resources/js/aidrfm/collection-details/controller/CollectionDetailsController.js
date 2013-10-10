@@ -173,13 +173,13 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
             "#generateCSVLink": {
                 click: function (btn, e, eOpts) {
-                    this.generateCSVLink();
+                    this.generateCSVLink(btn);
                 }
             },
 
             "#generateTweetIdsLink": {
                 click: function (btn, e, eOpts) {
-                    this.generateTweetIdsLink();
+                    this.generateTweetIdsLink(btn);
                 }
             }
 
@@ -583,8 +583,9 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         }
     },
 
-    generateCSVLink: function() {
+    generateCSVLink: function(btn) {
         var me = this;
+        btn.setDisabled(true);
 
         Ext.Ajax.request({
             url: BASE_URL + '/protected/collection/generateCSVLink.action',
@@ -596,6 +597,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 'Accept': 'application/json'
             },
             success: function (response) {
+                btn.setDisabled(false);
                 var resp = Ext.decode(response.responseText);
                 if (resp.success) {
                     if (resp.data && resp.data != '') {
@@ -606,12 +608,17 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);
                 }
+            },
+            failure: function () {
+                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+                btn.setDisabled(false);
             }
         });
     },
 
-    generateTweetIdsLink: function() {
+    generateTweetIdsLink: function(btn) {
         var me = this;
+        btn.setDisabled(true);
 
         Ext.Ajax.request({
             url: BASE_URL + '/protected/collection/generateTweetIdsLink.action',
@@ -623,6 +630,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 'Accept': 'application/json'
             },
             success: function (response) {
+                btn.setDisabled(false);
                 var resp = Ext.decode(response.responseText);
                 if (resp.success) {
                     if (resp.data && resp.data != '') {
@@ -633,6 +641,10 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);
                 }
+            },
+            failure: function () {
+                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+                btn.setDisabled(false);
             }
         });
     }
