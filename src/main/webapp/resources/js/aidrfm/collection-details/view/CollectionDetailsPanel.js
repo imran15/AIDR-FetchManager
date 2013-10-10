@@ -573,7 +573,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 220,
-                                    text: 'Downloaded items (Since last start):'
+                                    text: 'Downloaded items (since last start):'
                                 },
                                 this.docCountL
                             ]
