@@ -112,6 +112,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             labelWidth: 130,
             name: 'langFilters',
             flex: 1,
+            value: 'en',
             emptyText: 'e.g., en, ar, ja',
             tpl: '<tpl for=".">' +
                 '<li role="option" class="x-boundlist-item">{name}</li>' +
