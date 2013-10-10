@@ -400,22 +400,6 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             layout: 'hbox',
                             margin: '5 0',
                             items: [
-                                this.codeE,
-                                {
-                                    border: false,
-                                    bodyStyle: 'background:none',
-                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
-                                    height: 22,
-                                    width: 22,
-                                    id: 'collectionCodeInfo'
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: 'hbox',
-                            margin: '5 0',
-                            items: [
                                 this.nameE,
                                 {
                                     border: false,
@@ -424,6 +408,22 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                     height: 22,
                                     width: 22,
                                     id: 'collectionNameInfo'
+                                }
+                            ]
+                        },
+                        {
+                            xtype: 'container',
+                            layout: 'hbox',
+                            margin: '5 0',
+                            items: [
+                                this.codeE,
+                                {
+                                    border: false,
+                                    bodyStyle: 'background:none',
+                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
+                                    height: 22,
+                                    width: 22,
+                                    id: 'collectionCodeInfo'
                                 }
                             ]
                         },
