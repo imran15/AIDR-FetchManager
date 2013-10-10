@@ -311,7 +311,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
 
         p.geoE.setValue(r.geo ? r.geo : '');
         p.followE.setValue(r.follow ? r.follow : '');
-        p.languageFiltersE.setValue(r.langFilters ? r.langFilters : '');
+        p.langCombo.setValue(r.langFilters ? r.langFilters.split(',') : '');
     },
 
     setStatus: function (raw) {

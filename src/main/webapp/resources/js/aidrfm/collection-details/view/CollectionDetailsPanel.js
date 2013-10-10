@@ -143,12 +143,33 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             emptyText: 'e.g., 47423744, 53324456'
         });
 
-        this.languageFiltersE = Ext.create('Ext.form.field.Text', {
+        this.langComboStore = Ext.create('Ext.data.ArrayStore', {
+            autoDestroy: true,
+            storeId: 'langComboStore',
+            idIndex: 0,
+            fields: [
+                'name',
+                'code'
+            ],
+            data: LANG
+        });
+
+        this.langCombo = Ext.create('Ext.form.ComboBox', {
+            store: this.langComboStore,
+            queryMode: 'local',
+            displayField: 'name',
+            valueField: 'code',
+            multiSelect: true,
             fieldLabel: 'Language Filters',
-            name: 'langFilters',
             labelWidth: 130,
+            name: 'langFilters',
             flex: 1,
-            emptyText: 'e.g., en, ar, ja'
+            emptyText: 'e.g., en, ar, ja',
+            tpl: '<tpl for=".">' +
+                '<li role="option" class="x-boundlist-item">{name}</li>' +
+                '<tpl if="xindex == 9"><hr/></tpl>' +
+                '<tpl if="xindex == 56"><hr/>Other ...<hr/></tpl>' +
+                '</tpl>'
         });
 
         this.startButton = Ext.create('Ext.Button', {
@@ -465,7 +486,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             padding: '0 0 20 0',
                             cls: 'bordered-bottom',
                             items: [
-                                this.languageFiltersE,
+                                this.langCombo,
                                 {
                                     border: false,
                                     bodyStyle: 'background:none',
