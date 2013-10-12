@@ -231,6 +231,23 @@ public class TaggerController extends BaseController {
         return getUIWrapper(response, true, Long.valueOf(total), null);
     }
 
+    @RequestMapping(value = "/crisis-exists.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> crisisExists(@RequestParam String code) throws Exception {
+        TaggerCrisisExist taggerCrisisExist = null;
+        try {
+            taggerCrisisExist = taggerService.isCrisesExist(code);
+        } catch (AidrException e) {
+            e.printStackTrace();
+            return getUIWrapper(false);
+        }
+        if (taggerCrisisExist != null && taggerCrisisExist.getCrisisId() != null && taggerCrisisExist.getCrisisId() != 0){
+            return getUIWrapper(true, true);
+        } else {
+            return getUIWrapper(false, true);
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);

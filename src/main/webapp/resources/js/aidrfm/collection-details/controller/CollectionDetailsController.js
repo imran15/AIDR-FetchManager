@@ -193,10 +193,28 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         datailsController = this;
         var me = this;
 
-        if (CRISES_EXIST) {
-            this.DetailsComponent.gotoTaggerButton.show();
-            this.DetailsComponent.enableTaggerButton.hide();
-        }
+        Ext.Ajax.request({
+            url: BASE_URL + '/protected/tagger/crisis-exists.action',
+            method: 'GET',
+            params: {
+                code: COLLECTION_CODE
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success) {
+                    if (resp.data) {
+                        me.DetailsComponent.gotoTaggerButton.show();
+                        me.DetailsComponent.enableTaggerButton.hide();
+                    }
+                } else {
+                    me.DetailsComponent.gotoTaggerButton.hide();
+                    me.DetailsComponent.enableTaggerButton.hide();
+                }
+            }
+        });
 
         var id = COLLECTION_ID;
         this.DetailsComponent.currentCollectionId = COLLECTION_ID;

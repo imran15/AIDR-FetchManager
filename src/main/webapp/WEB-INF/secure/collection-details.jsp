@@ -5,7 +5,7 @@
 
   <script type="text/javascript">
       COLLECTION_ID = ${id};
-      CRISES_EXIST = ${crisesExist};
+      COLLECTION_CODE = "${collectionCode}";
   </script>
 
 </body>

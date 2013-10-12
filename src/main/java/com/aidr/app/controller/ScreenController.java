@@ -48,15 +48,9 @@ public class ScreenController extends BaseController{
     public ModelAndView collectionDetails(@PathVariable(value="code") String code) throws Exception {
         AidrCollection collection = collectionService.findByCode(code);
 
-        TaggerCrisisExist taggerCrisisExist = taggerService.isCrisesExist(code);
-        boolean crisesExist = false;
-        if (taggerCrisisExist != null && taggerCrisisExist.getCrisisId() != null && taggerCrisisExist.getCrisisId() != 0){
-            crisesExist = true;
-        }
-
         ModelAndView model = new ModelAndView("collection-details");
         model.addObject("id", collection.getId());
-        model.addObject("crisesExist", crisesExist);
+        model.addObject("collectionCode", code);
         return model;
     }
 
