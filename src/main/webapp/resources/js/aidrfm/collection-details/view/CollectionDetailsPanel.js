@@ -78,6 +78,33 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         this.totalDocCountL = Ext.create('Ext.form.Label', {flex: 1});
         this.lastDocL = Ext.create('Ext.form.Label', {flex: 1, cls:'tweet'});
 
+        this.geoContainer = Ext.create('Ext.container.Container', {
+            hidden: true,
+            defaultType: 'label',
+            layout: 'hbox',
+            items: [
+                {
+                    width: 220,
+                    text: 'Geographical regions:'
+                },
+                this.geoL
+            ]
+        });
+
+        this.followContainer = Ext.create('Ext.container.Container', {
+            hidden: true,
+            xtype: 'container',
+            defaultType: 'label',
+            layout: 'hbox',
+            items: [
+                {
+                    width: 220,
+                    text: 'Follow specific users:'
+                },
+                this.followL
+            ]
+        });
+
         this.timeDurationL = Ext.create('Ext.form.Label', {
             flex: 1,
             text: 'Time duration',
@@ -330,8 +357,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             '<div>Downloaded items:</div>',
             '<div>Start Date:</div>',
             '<div>End Date:</div>',
-            '<div>Geographical regions:</div>',
-            '<div>Follow specific users:</div>',
+            '{[this.showGeoLabel(values.geo)]}',
+            '{[this.showFollowLabel(values.follow)]}',
             '<div>Language Filters:</div>',
             '<div>Keywords:</div>',
             '</div>',
@@ -340,8 +367,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             '<div>{[this.getDocNumber(values.count)]}</div>',
             '<div>{[this.getField(values.startDate)]}</div>',
             '<div>{[this.getField(values.endDate)]}</div>',
-            '<div>{[this.getField(values.geo)]}</div>',
-            '<div>{[this.getField(values.follow)]}</div>',
+            '{[this.showValue(values.geo)]}',
+            '{[this.showValue(values.follow)]}',
             '<div>{[this.getField(values.langFilters)]}</div>',
             '<div class="word-wrap-class">{[this.getField(values.track)]}</div>',
             '</div>',
@@ -357,6 +384,15 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                 },
                 getDocNumber: function (r) {
                     return r ? Ext.util.Format.number(r,'0,000') : 0;
+                },
+                showGeoLabel: function (r) {
+                    return r ? '<div>Geographical regions:</div>' : '';
+                },
+                showValue: function (r) {
+                    return r ? '<div>' + r + '</div>' : '';
+                },
+                showFollowLabel: function (r) {
+                    return r ? '<div>Follow specific users:</div>' : '';
                 }
             }
         );
@@ -675,30 +711,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                 this.keywordsL
                             ]
                         },
-                        {
-                            xtype: 'container',
-                            defaultType: 'label',
-                            layout: 'hbox',
-                            items: [
-                                {
-                                    width: 220,
-                                    text: 'Geographical regions:'
-                                },
-                                this.geoL
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            defaultType: 'label',
-                            layout: 'hbox',
-                            items: [
-                                {
-                                    width: 220,
-                                    text: 'Follow specific users:'
-                                },
-                                this.followL
-                            ]
-                        },
+                        this.geoContainer,
+                        this.followContainer,
                         {
                             xtype: 'container',
                             defaultType: 'label',

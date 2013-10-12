@@ -278,8 +278,22 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
         p.codeL.setText(r.code);
         p.keywordsL.setText(r.track);
 
-        p.geoL.setText(r.geo ? r.geo : this.ns, false);
-        p.followL.setText(r.follow ? r.follow : this.ns, false);
+        if (r.geo){
+            p.geoL.setText(r.geo, false);
+            p.geoContainer.show();
+        } else {
+            p.geoL.setText(this.ns, false);
+            p.geoContainer.hide();
+        }
+
+        if (r.follow){
+            p.followL.setText(r.follow, false);
+            p.followContainer.show();
+        } else {
+            p.followL.setText(this.ns, false);
+            p.followContainer.hide();
+        }
+
         p.languageFiltersL.setText(r.langFilters ? r.langFilters : this.ns, false);
 
         p.createdL.setText(r.createdDate);
