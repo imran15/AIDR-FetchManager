@@ -52,9 +52,16 @@ time, mark, audio, video{
 }
 
 .mainWraper {
-    background: url("../img/qcri-bg-clouds.jpg") no-repeat scroll  transparent !important;
+    background: url(../img/qcri-bg-clouds.jpg) no-repeat scroll 52% 5% transparent !important;
     margin: 0 auto;
     padding: 2em;
+}
+
+.main {
+    padding: 2em;
+    margin: 0 auto;
+    width: 960px;
+    background: white;
 }
 
 .header-h1{
@@ -129,11 +136,18 @@ time, mark, audio, video{
 .site-footer{
     background: #464646;
 	padding: 25px;
-	text-align: center;
 	color: white;
 	font-size: 12px;
 	height :40px;
 }
+
+.site-footer .footer {
+    width: 960px;
+    margin: 0 auto;
+    font-size: 0.8em;
+    color: white;
+}
+
 .btnGreen{
   background-color : #4e914e;
 }
@@ -208,8 +222,7 @@ strong{
 /* ------ GLOBAL ------ */
 
 body{
-	font-family: 'Open Sans', sans-serif;
-	background: #f9f9f9;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
 	color: #333;
 	overflow-x: hidden;
 }
@@ -3332,4 +3345,20 @@ End of the tab panel styles
 
 .btn.download-button {
     min-width: 180px;
+}
+
+.mainWraper .main .left {
+    width: 260px;
+    float: left;
+}
+
+.mainWraper .main .center-img {
+    width: 240px;
+    margin:0 auto;
+}
+
+.mainWraper .main .center {
+    width: 400px;
+    margin:0 auto;
+    padding-top: 20px
 }

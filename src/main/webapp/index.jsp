@@ -5,22 +5,42 @@
 <html>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <title>AIDR Fetch Manager</title>
+
     <link rel="shortcut icon" type="image/ico" href="${pageContext.request.contextPath}/resources/img/favicon.ico" />
 
-<!--
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>Web Expert</title>
-       <link rel="stylesheet" type="text/css" href="/Extjs/extjs-4.1/resources/css/ext-all.css">
-       <script type="text/javascript" src="/Extjs/extjs-4.1/ext-all.js"></script>
-       <script>Ext.Loader.setConfig({enabled:true});</script>
-       <script type="text/javascript" src="app/app.js"></script>
--->
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
+
 </head>
 
 <body>
- 
- <form action="signin/twitter"   method="POST">
-   <input type="submit" value="Connect to Twitter"/>
- </form>
+
+<div class="headerWrapper">
+    <div class="header"></div>
+</div>
+
+<div class="mainWraper">
+    <div class="main" >
+        <div class="center-img"><img src="${pageContext.request.contextPath}/resources/img/AIDR/AIDR_PRIMARY_CMYK_COLOUR_HR.jpg" height="90"/></div>
+        <div class="center">
+            <div class="left">Twitter authentication process.</div>
+            <div>
+                <form action="signin/twitter" method="POST">
+                    <button class="btn btn-blue" type="submit">
+                        <span>Connect to Twitter</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="site-footer">
+    <div class="footer">
+        QCRI &mdash; Social Computing
+    </div>
+</div>
+
 </body>
 </html>
