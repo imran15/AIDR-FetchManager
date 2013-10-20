@@ -23,13 +23,16 @@
 <div class="mainWraper">
     <div class="main" >
         <div class="center-img"><img src="${pageContext.request.contextPath}/resources/img/AIDR/AIDR_PRIMARY_CMYK_COLOUR_HR.jpg" height="90"/></div>
-        <div class="center">
-            <div class="left">Twitter authentication process.</div>
+        <div >
+            </br>
+        </br>
+            <font size="3">Welcome. AIDR platform requires you to sign-in using your Twitter account.</font>
             <div>
                 <form action="signin/twitter" method="POST">
                     <button class="btn btn-blue" type="submit">
                         <span>Connect to Twitter</span>
                     </button>
+                    
                 </form>
             </div>
         </div>

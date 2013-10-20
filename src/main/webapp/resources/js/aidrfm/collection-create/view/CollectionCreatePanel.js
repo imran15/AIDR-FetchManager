@@ -66,7 +66,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             allowBlank: false,
             flex: 1,
             rows: 8,
-            emptyText: 'e.g., #sandy, #newyork,#joplin'
+            emptyText: 'e.g., #sandy, #newyork,#joplin (max 400)'
         });
 
         this.geoE = Ext.create('Ext.form.field.Text', {
@@ -74,7 +74,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             labelWidth: 130,
             name: 'geo',
             flex: 1,
-            emptyText: 'e.g., 43.43, 22.44, 89.32, 56.43'
+            emptyText: 'e.g., 43.43, 22.44, 89.32, 56.43 (max 25)'
         });
 
         this.geoDescription = Ext.create('Ext.form.Label', {
@@ -88,7 +88,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             labelWidth: 130,
             name: 'follow',
             flex: 1,
-            emptyText: 'e.g., 47423744, 53324456'
+            emptyText: 'e.g., 47423744, 53324456 (max 5000)'
         });
 
         this.langComboStore = Ext.create('Ext.data.ArrayStore', {
@@ -108,7 +108,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             displayField: 'name',
             valueField: 'code',
             multiSelect: true,
-            fieldLabel: 'Language Filters',
+            fieldLabel: 'Language filters',
             labelWidth: 130,
             name: 'langFilters',
             flex: 1,
@@ -123,7 +123,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
 
         this.configurationsL = Ext.create('Ext.form.Label', {
             flex: 1,
-            text: 'Configurations [optional]',
+            text: 'Configuration [optional]',
             padding: '15 0 0 0',
             cls: 'header-h2'
         });
@@ -284,7 +284,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             {
                 xtype: 'container',
                 margin: '5 0 15 0',
-                html: '<div class="horisontalLine"></div>'
+                //html: '<div class="horisontalLine"></div>'
             },
             this.editForm
         ];

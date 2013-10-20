@@ -187,7 +187,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             displayField: 'name',
             valueField: 'code',
             multiSelect: true,
-            fieldLabel: 'Language Filters',
+            fieldLabel: 'Language filters',
             labelWidth: 130,
             name: 'langFilters',
             flex: 1,
@@ -217,7 +217,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
 
         this.configurationsEditTabL = Ext.create('Ext.form.Label', {
             flex: 1,
-            text: 'Configurations [optional]',
+            text: 'Configuration [optional]',
             padding: '15 0 0 0',
             cls: 'header-h2'
         });
@@ -355,11 +355,11 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
 
             '<div class="rightColumn">',
             '<div>Downloaded items:</div>',
-            '<div>Start Date:</div>',
-            '<div>End Date:</div>',
+            '<div>Start date:</div>',
+            '<div>End date:</div>',
             '{[this.showGeoLabel(values.geo)]}',
             '{[this.showFollowLabel(values.follow)]}',
-            '<div>Language Filters:</div>',
+            '<div>Language filters:</div>',
             '<div>Keywords:</div>',
             '</div>',
 
@@ -680,7 +680,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 220,
-                                    text: 'Last Started On:'
+                                    text: 'Last started on:'
                                 },
                                 this.lastStartedL
                             ]
@@ -693,7 +693,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 220,
-                                    text: 'Last Stopped On:'
+                                    text: 'Last stopped on:'
                                 },
                                 this.lastStoppedL
                             ]
@@ -721,7 +721,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 220,
-                                    text: 'Language Filters:'
+                                    text: 'Language filters:'
                                 },
                                 this.languageFiltersL
                             ]
@@ -732,10 +732,10 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             ]
         });
 
-        this.downloadText = Ext.create('Ext.form.Label', {
-            flex: 1,
-            html: ''
-        });
+//        this.downloadText = Ext.create('Ext.form.Label', {
+//            flex: 1,
+//            html: ''
+//        });
 
         this.CSVLink = Ext.create('Ext.form.Label', {
             flex: 1,
@@ -760,6 +760,11 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             margin: 5,
             cls:'btn btn-blue download-button',
             id: 'generateTweetIdsLink'
+        });
+        
+        this.downloadText = Ext.create('Ext.form.Label', {
+            flex: 1,
+            html: ''
         });
 
         this.tabPanel = Ext.create('Ext.tab.Panel', {
@@ -792,7 +797,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             xtype: 'container',
                             layout: 'vbox',
                             items: [
-                                this.downloadText,
+                                
                                 {
                                     xtype: 'container',
                                     padding: '15 0 0 0',
@@ -803,6 +808,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                         this.CSVLink
                                     ]
                                 },
+                                
                                 {
                                     xtype: 'container',
                                     defaultType: 'label',
@@ -811,7 +817,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                         this.generateTweetIdsButton,
                                         this.tweetsIdsLink
                                     ]
-                                }
+                                },
+                                this.downloadText,
                             ]
                         }
                     ]
