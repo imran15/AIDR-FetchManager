@@ -24,13 +24,13 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
         this.breadcrumbs = Ext.create('Ext.container.Container', {
             html: '<div class="bread-crumbs">' +
                 '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;</span>' +
-                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + COLLECTION_NAME + '</a><span>&nbsp;>&nbsp;Predict a new attribute</span></div>',
+                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + COLLECTION_NAME + '</a><span>&nbsp;>&nbsp;Tag a new category</span></div>',
             margin: 0,
             padding: 0
         });
 
         this.newCustomAttribute = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/new-custom-attribute">Create new custom attribute >></a></div>',
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/new-custom-attribute">Create new custom category >></a></div>',
             margin: 0,
             padding: '30 0 0 0'
         });
@@ -43,14 +43,14 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
 
         this.pageTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
-            text: 'Predict a new attribute in "' + COLLECTION_NAME + '"',
+            text: 'Tag a new category in "' + COLLECTION_NAME + '"',
             flex: 1
         });
 
         this.pageDescription = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
-            text: 'Displaying: only attributes that your crises does not already have.',
+            text: 'In below shows only categories that your crisis does not already have.',
             flex: 1
         });
 
@@ -95,7 +95,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
             '<tpl for=".">',
 
             '<tpl if="xindex == 1">' +
-            '<div class="attributes-title"><div class="inner"><h2>Standard attributes</h2></div></div>' +
+            '<div class="attributes-title"><div class="inner"><h2>Standard categories</h2></div></div>' +
             '</tpl>' +
 
             '<div class="attribute-item">',

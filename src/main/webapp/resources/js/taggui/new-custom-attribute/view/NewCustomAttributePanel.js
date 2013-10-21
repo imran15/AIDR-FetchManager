@@ -23,7 +23,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
 
         this.breadcrumbs = Ext.create('Ext.container.Container', {
             html: '<div class="bread-crumbs">' +
-                '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;New Custom Attribute</span></div>',
+                '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;New Custom Category</span></div>',
             margin: 0,
             padding: 0
         });
@@ -44,7 +44,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             name: 'code',
             allowBlank: false,
             flex: 1,
-            emptyText: 'Enter code for Attribute',
+            emptyText: 'Enter code for your category',
             maxLength: 15,
             maxLengthText: 'The maximum length for this field is 15 ',
             maskRe: /[^ ]/
@@ -55,7 +55,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             fieldLabel: 'Name',
             name: 'name',
             allowBlank: false,
-            emptyText: 'Enter name for Attribute'
+            emptyText: 'Enter name for category'
         });
 
         this.descriptionE = Ext.create('Ext.form.field.Text', {
@@ -63,7 +63,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             name: 'description',
             allowBlank: true,
             flex: 1,
-            emptyText: 'Enter description for Attribute'
+            emptyText: 'Enter description for category'
         });
 
         this.codeLabelE = Ext.create('Ext.form.field.Text', {
