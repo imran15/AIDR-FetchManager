@@ -618,6 +618,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
     generateCSVLink: function(btn) {
         var me = this;
         btn.setDisabled(true);
+        me.DetailsComponent.CSVLink.setText('<div class="loading-block"></div>', false);
 
         Ext.Ajax.request({
             url: BASE_URL + '/protected/collection/generateCSVLink.action',
@@ -651,6 +652,7 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
     generateTweetIdsLink: function(btn) {
         var me = this;
         btn.setDisabled(true);
+        me.DetailsComponent.tweetsIdsLink.setText('<div class="loading-block"></div>', false);
 
         Ext.Ajax.request({
             url: BASE_URL + '/protected/collection/generateTweetIdsLink.action',

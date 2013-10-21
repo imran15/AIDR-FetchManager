@@ -3362,3 +3362,10 @@ End of the tab panel styles
     margin:0 auto;
     padding-top: 20px
 }
+
+.loading-block {
+    background-image: url('../img/loading.gif');
+    width: 16px;
+    height: 16px;
+    margin-top: 4px;
+}

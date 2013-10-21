@@ -732,11 +732,6 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             ]
         });
 
-//        this.downloadText = Ext.create('Ext.form.Label', {
-//            flex: 1,
-//            html: ''
-//        });
-
         this.CSVLink = Ext.create('Ext.form.Label', {
             flex: 1,
             padding: '5 5 5 5',
@@ -797,7 +792,6 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             xtype: 'container',
                             layout: 'vbox',
                             items: [
-                                
                                 {
                                     xtype: 'container',
                                     padding: '15 0 0 0',
@@ -818,7 +812,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                         this.tweetsIdsLink
                                     ]
                                 },
-                                this.downloadText,
+                                this.downloadText
                             ]
                         }
                     ]
