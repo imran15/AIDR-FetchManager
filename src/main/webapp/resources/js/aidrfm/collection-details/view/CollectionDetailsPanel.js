@@ -305,7 +305,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             '<div class="popup choose-crises">' +
 
             '<tpl if="xindex == 1">' +
-                '<h2>Choose Crises Type</h2>' +
+                '<h2>Choose Crisis Type</h2>' +
                 '<div class="crises-list">' +
                 '<ul>' +
             '</tpl>' +
