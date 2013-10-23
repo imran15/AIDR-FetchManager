@@ -94,8 +94,10 @@ public class TaggerController extends BaseController {
     public Map<String, Object> getAttributesForCrises(Integer id) {
         logger.info("Getting Attributes For Crises");
         try {
-            return getUIWrapper(taggerService.getAttributesForCrises(id), true);
-        } catch (AidrException e) {
+            String userName = getAuthenticatedUserName();
+            Integer taggerUserId = taggerService.isUserExistsByUsername(userName);
+            return getUIWrapper(taggerService.getAttributesForCrises(id, taggerUserId), true);
+        } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return getUIWrapper(false, e.getMessage());
         }

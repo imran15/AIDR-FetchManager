@@ -14,7 +14,7 @@ public interface TaggerService {
 
     public String createNewCrises(TaggerCrisisRequest crisis) throws AidrException;
 
-    public Collection<TaggerAttribute> getAttributesForCrises(Integer crisisID) throws AidrException;
+    public Collection<TaggerAttribute> getAttributesForCrises(Integer crisisID, Integer userId) throws AidrException;
 
     public TaggerCrisisExist isCrisesExist(String code) throws AidrException;
 

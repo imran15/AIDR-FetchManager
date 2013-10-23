@@ -90,7 +90,7 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    public Collection<TaggerAttribute> getAttributesForCrises(Integer crisisID) throws AidrException{
+    public Collection<TaggerAttribute> getAttributesForCrises(Integer crisisID, Integer userId) throws AidrException{
         try {
             /**
              * Rest call to Tagger
@@ -105,9 +105,11 @@ public class TaggerServiceImpl implements TaggerService {
             TaggerCrisisAttributesResponse crisisAttributesResponse = objectMapper.readValue(jsonResponse, TaggerCrisisAttributesResponse.class);
             if (crisisAttributesResponse.getCrisisAttributes() != null) {
                 logger.info("Tagger returned " + crisisAttributesResponse.getCrisisAttributes().size() + " attributes available for crises with ID " + crisisID);
+            } else {
+                return Collections.emptyList();
             }
 
-            return convertTaggerCrisesAttributeToDTO(crisisAttributesResponse.getCrisisAttributes());
+            return convertTaggerCrisesAttributeToDTO(crisisAttributesResponse.getCrisisAttributes(), userId);
         } catch (Exception e) {
             throw new AidrException("Error while getting all attributes for crisis from Tagger", e);
         }
@@ -399,10 +401,13 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    private Collection<TaggerAttribute> convertTaggerCrisesAttributeToDTO (List<TaggerCrisesAttribute> attributes) {
+    private Collection<TaggerAttribute> convertTaggerCrisesAttributeToDTO (List<TaggerCrisesAttribute> attributes, Integer userId) {
         Map<Integer, TaggerAttribute> result = new HashMap<Integer, TaggerAttribute>();
         for (TaggerCrisesAttribute a : attributes) {
             if(!result.containsKey(a.getNominalAttributeID())){
+                if (!userId.equals(a.getUserID()) && !(new Integer(1)).equals(a.getUserID())){
+                    continue;
+                }
                 TaggerUser user = new TaggerUser(a.getUserID());
                 List<TaggerLabel> labels = new ArrayList<TaggerLabel>();
                 TaggerLabel label = new TaggerLabel(a.getLabelName(), a.getLabelID());
