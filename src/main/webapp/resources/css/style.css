@@ -3310,6 +3310,10 @@ End of the tab panel styles
     color: #fff;
     background-color: #61a4e4;
 }
+.popup .crises-list ul {
+    overflow: auto;
+    height: 285px;
+}
 
 .div-top-padding {
     padding-top: 10px;
