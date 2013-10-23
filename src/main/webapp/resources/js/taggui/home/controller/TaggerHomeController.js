@@ -11,6 +11,12 @@ Ext.define('TAGGUI.home.controller.TaggerHomeController', {
 
             'tagger-home-view': {
                 beforerender: this.beforeRenderView
+            },
+
+            "#manageCollections": {
+                click: function (btn, e, eOpts) {
+                    document.location.href = BASE_URL + '/protected/home';
+                }
             }
 
         });

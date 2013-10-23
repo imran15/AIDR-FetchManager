@@ -33,6 +33,13 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
             flex: 1
         });
 
+        this.manageCollectionsButton = Ext.create('Ext.Button', {
+            text: 'Manage your collections',
+            margin: '27 0 0 0',
+            cls:'btn btn-blue',
+            id: 'manageCollections'
+        });
+
         this.taggerDescription = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
@@ -43,12 +50,6 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
         this.horisontalLine = Ext.create('Ext.container.Container', {
             width: '100%',
             html: '<div class="horisontalLine"></div>'
-        });
-
-        this.manageYourCollections = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/home">Manage your collections >></a></div>',
-            margin: 0,
-            padding: '45 0 0 0'
         });
 
         this.crisesStore = Ext.create('Ext.data.JsonStore', {
@@ -146,7 +147,15 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
                     align: 'stretch'
                 },
                 items: [
-                    this.taggerTitle,
+                    {
+                        xtype: 'container',
+                        layout: 'hbox',
+                        margin: '5 0',
+                        items: [
+                            this.taggerTitle,
+                            this.manageCollectionsButton
+                        ]
+                    },
                     this.taggerDescription
                 ]
             },
@@ -155,8 +164,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
                 width: '100%',
                 html: '<div class="horisontalLine"></div>'
             },
-            this.crisesView,
-            this.manageYourCollections
+            this.crisesView
         ];
 
         this.callParent(arguments);
