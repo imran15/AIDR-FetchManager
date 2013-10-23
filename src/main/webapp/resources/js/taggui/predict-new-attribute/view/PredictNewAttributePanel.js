@@ -100,7 +100,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
 
             '<div class="attribute-item">',
 
-            '<button id="buttonAddAttribute_{nominalAttributeID}" class="btn btn-blue" onclick="predictNewAttributeController.addAttributeToCrises({nominalAttributeID})">',
+            '<button id="buttonAddAttribute_{nominalAttributeID}" class="btn btn-blue" onclick="predictNewAttributeController.addAttributeToCrises({nominalAttributeID}, \'{name}\')">',
             '<span>Add</span>',
             '</button>',
 
@@ -149,7 +149,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
 
             '<div class="collection-item">',
 
-            '<button id="buttonAddAttribute_{nominalAttributeID}" class="btn btn-blue" onclick="predictNewAttributeController.addAttributeToCrises({nominalAttributeID})">',
+            '<button id="buttonAddAttribute_{nominalAttributeID}" class="btn btn-blue" onclick="predictNewAttributeController.addAttributeToCrises({nominalAttributeID}, \'{name}\')">',
             '<span>Add</span>',
             '</button>',
 

@@ -78,7 +78,7 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
         });
     },
 
-    addAttributeToCrises: function(id) {
+    addAttributeToCrises: function(id, name) {
         var me = this;
 
         Ext.Ajax.request({
@@ -96,6 +96,7 @@ Ext.define('TAGGUI.predict-new-attribute.controller.PredictNewAttributeControlle
                 var resp = Ext.decode(response.responseText);
                 if (resp.success && resp.data) {
                     me.getAttributesForCrises();
+                    AIDRFMFunctions.setAlert("Ok", '"' + name + '" has been added.');
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);
                 }
