@@ -29,6 +29,11 @@ public class ScreenController extends BaseController{
 		return "home";
 	}
 
+	@RequestMapping("signin")
+	public String signin(Map<String, String> model) throws Exception {
+		return "signin";
+	}
+
 	@RequestMapping("protected/task")
 	public String task() throws Exception {
 		return "task";
