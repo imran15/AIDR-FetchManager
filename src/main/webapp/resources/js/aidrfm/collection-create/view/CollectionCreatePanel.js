@@ -35,9 +35,9 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
 
         this.descriptionL = Ext.create('Ext.form.Label', {
             flex: 1,
-            text: 'Create new collection',
+            text: 'Create New Collection',
             padding: '0 0 0 0',
-            cls: 'header-h2'
+            cls: 'header-h1'
         });
 
         this.codeE = Ext.create('Ext.form.field.Text', {
@@ -65,7 +65,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             name: 'track',
             allowBlank: false,
             flex: 1,
-            rows: 8,
+            rows: 4,
             emptyText: 'e.g., #sandy, #newyork,#joplin (max 400)'
         });
 
@@ -108,7 +108,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             displayField: 'name',
             valueField: 'code',
             multiSelect: true,
-            fieldLabel: 'Language filters',
+            fieldLabel: 'Language(s)',
             labelWidth: 130,
             name: 'langFilters',
             flex: 1,
@@ -123,7 +123,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
 
         this.configurationsL = Ext.create('Ext.form.Label', {
             flex: 1,
-            text: 'Configuration [optional]',
+            text: 'Optional configuration',
             padding: '15 0 0 0',
             cls: 'header-h2'
         });
@@ -193,7 +193,6 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
                             layout: 'hbox',
                             margin: '5 0 0 0',
                             padding: '0 0 20 0',
-                            cls: 'bordered-bottom',
                             items: [
                                 this.keywordsE,
                                 {
@@ -206,11 +205,30 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
                                 }
                             ]
                         },
+                        {
+                            xtype: 'container',
+                            layout: 'hbox',
+                            margin: '5 0 0 0',
+                            padding: '0 0 20 0',
+                            cls: 'bordered-bottom',
+                            items: [
+                                this.langCombo,
+                                {
+                                    border: false,
+                                    bodyStyle: 'background:none',
+                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
+                                    height: 22,
+                                    width: 22,
+                                    id: 'collectionLangInfo'
+                                }
+                            ]
+                        },
                         this.configurationsL,
                         {
                             xtype: 'container',
                             layout: 'hbox',
                             margin: '0 0 5 0',
+                            cls: 'bordered-bottom',
                             items: [
                                 this.geoE,
                                 {
@@ -238,24 +256,6 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
                                     height: 22,
                                     width: 22,
                                     id: 'collectionFollowInfo'
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: 'hbox',
-                            margin: '5 0 0 0',
-                            padding: '0 0 20 0',
-                            cls: 'bordered-bottom',
-                            items: [
-                                this.langCombo,
-                                {
-                                    border: false,
-                                    bodyStyle: 'background:none',
-                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
-                                    height: 22,
-                                    width: 22,
-                                    id: 'collectionLangInfo'
                                 }
                             ]
                         },

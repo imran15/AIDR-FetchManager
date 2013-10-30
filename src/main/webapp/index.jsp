@@ -26,11 +26,11 @@
         <div >
             </br>
         </br>
-            <font size="3">Welcome. AIDR platform requires you to sign-in using your Twitter account. Please click on the following button to proceed.</font>
+            <p>Welcome. To continue please sign-in using your Twitter credentials.</p>
             <div>
                 <form action="signin/twitter" method="POST">
                     <button class="btn btn-blue" type="submit">
-                        <span>Connect to Twitter</span>
+                        <span>Sign in with Twitter</span>
                     </button>
                     
                 </form>

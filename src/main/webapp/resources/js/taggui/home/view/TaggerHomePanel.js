@@ -43,7 +43,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
         this.taggerDescription = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
-            text: 'Tagger is enabled on the following crises:',
+            text: 'Automatic tagging is enabled for the following collections:',
             flex: 1
         });
 
@@ -108,7 +108,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
                     if (attr && attr.length > 0) {
                         Ext.Array.each(attr, function(r, index) {
                             if (index == 0){
-                                result = 'Attributes being predicted:&nbsp;&nbsp;';
+                                result = 'Classifiers being used:&nbsp;&nbsp;';
                             }
                             var nominalAttribute = r.nominalAttribute;
                             if (nominalAttribute && nominalAttribute.name) {

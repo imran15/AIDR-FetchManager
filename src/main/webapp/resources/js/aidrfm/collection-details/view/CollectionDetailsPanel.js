@@ -107,7 +107,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
 
         this.timeDurationL = Ext.create('Ext.form.Label', {
             flex: 1,
-            text: 'Time duration',
+            text: 'Time period',
             padding: '15 0 0 0',
             cls: 'header-h2'
         });
@@ -144,7 +144,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             name: 'track',
             allowBlank: false,
             flex: 1,
-            rows: 8,
+            rows: 4,
             emptyText: 'e.g., #sandy, #newyork,#joplin'
         });
 
@@ -187,7 +187,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             displayField: 'name',
             valueField: 'code',
             multiSelect: true,
-            fieldLabel: 'Language filters',
+            fieldLabel: 'Language(s)',
             labelWidth: 130,
             name: 'langFilters',
             flex: 1,
@@ -359,7 +359,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             '<div>End date:</div>',
             '{[this.showGeoLabel(values.geo)]}',
             '{[this.showFollowLabel(values.follow)]}',
-            '<div>Language filters:</div>',
+            '<div>Language(s):</div>',
             '<div>Keywords:</div>',
             '</div>',
 
@@ -411,8 +411,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             store:'collectionLogStore',
             displayInfo:true,
             hidden: true,
-            displayMsg:'Collection History records {0} - {1} of {2}',
-            emptyMsg:'No Collection History records to display'
+            displayMsg:'Collection history records {0} - {1} of {2}',
+            emptyMsg:'No collection history records to display'
         });
 
         this.editForm = {
@@ -721,7 +721,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             items: [
                                 {
                                     width: 220,
-                                    text: 'Language filters:'
+                                    text: 'Language(s):'
                                 },
                                 this.languageFiltersL
                             ]

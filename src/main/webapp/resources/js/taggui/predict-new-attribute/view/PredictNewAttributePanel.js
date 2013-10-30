@@ -24,13 +24,13 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
         this.breadcrumbs = Ext.create('Ext.container.Container', {
             html: '<div class="bread-crumbs">' +
                 '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;</span>' +
-                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + COLLECTION_NAME + '</a><span>&nbsp;>&nbsp;Tag a new category</span></div>',
+                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + COLLECTION_NAME + '</a><span>&nbsp;>&nbsp;Add classifier</span></div>',
             margin: 0,
             padding: 0
         });
 
         this.newCustomAttribute = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/new-custom-attribute">Create new custom category >></a></div>',
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/new-custom-attribute">Add a custom classifier &gt;&gt;</a></div>',
             margin: 0,
             padding: '30 0 0 0'
         });
@@ -43,14 +43,14 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
 
         this.pageTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
-            text: 'Tag a new category in "' + COLLECTION_NAME + '"',
+            text: 'Add a classifier to "' + COLLECTION_NAME + '"',
             flex: 1
         });
 
         this.pageDescription = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
-            text: 'In below shows only categories that your crisis does not already have.',
+            text: 'Displaying available classifiers for your collection, except for those you are already using.',
             flex: 1
         });
 
@@ -95,7 +95,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
             '<tpl for=".">',
 
             '<tpl if="xindex == 1">' +
-            '<div class="attributes-title"><div class="inner"><h2>Standard categories</h2></div></div>' +
+            '<div class="attributes-title"><div class="inner"><h2>Standard classifiers</h2></div></div>' +
             '</tpl>' +
 
             '<div class="attribute-item">',
@@ -113,7 +113,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
             '<div class="info">',
             '<div class="collection-title"><a href="' + BASE_URL +  '/protected/{nominalAttributeID}/attribute-details">{name}</a></div>',
             '<div class="styled-text-14" id="docCountField_{id}">Description:&nbsp;&nbsp;&nbsp;{description}</div>',
-            '<div class="styled-text-14" id="lastDocField_{id}">Values:&nbsp;&nbsp;&nbsp;{[this.getLabels(values.nominalLabelCollection)]}</div>',
+            '<div class="styled-text-14" id="lastDocField_{id}">Categories:&nbsp;&nbsp;&nbsp;{[this.getLabels(values.nominalLabelCollection)]}</div>',
             '</div>',
 
             '</div>',
@@ -144,7 +144,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
             '<tpl for=".">',
 
             '<tpl if="xindex == 1">' +
-            '<div class="attributes-title"><div class="inner"><h2>Custom attributes</h2></div></div>' +
+            '<div class="attributes-title"><div class="inner"><h2>Custom classifiers</h2></div></div>' +
             '</tpl>' +
 
             '<div class="collection-item">',

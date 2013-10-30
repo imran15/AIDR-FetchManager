@@ -17,7 +17,7 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
                 render: function (infoPanel, eOpts) {
                     var tip = Ext.create('Ext.tip.ToolTip', {
                         trackMouse: true,
-                        html: 'Give a name to your attribute. For example, Violence, Region.',
+                        html: 'Give a name to your classifier.',
                         target: infoPanel.el,
                         dismissDelay: 0
                     });
@@ -28,8 +28,8 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
                 render: function (infoPanel, eOpts) {
                     var tip = Ext.create('Ext.tip.ToolTip', {
                         trackMouse: true,
-                        html: 'Attribute code consists of alpha-numeric short code name to a attribute. ' +
-                            'Spaces are not allowed in the code name. For example, missing_person, syria_region are valid code names',
+                        html: 'Attribute code consists of alpha-numeric short code name to a classifier. ' +
+                            'Spaces are not allowed in the code name.',
                         target: infoPanel.el,
                         dismissDelay: 0
                     });
@@ -40,7 +40,7 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
                 render: function (infoPanel, eOpts) {
                     var tip = Ext.create('Ext.tip.ToolTip', {
                         trackMouse: true,
-                        html: 'Give a description to your attribute. For example, Geographic regions centered on Syria, Report of violence.',
+                        html: 'Give a description to your classifier. Note that the description will be used in the question shown to volunteers/workers.',
                         target: infoPanel.el,
                         dismissDelay: 0
                     });

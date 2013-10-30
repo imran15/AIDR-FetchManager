@@ -23,14 +23,14 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
 
         this.breadcrumbs = Ext.create('Ext.container.Container', {
             html: '<div class="bread-crumbs">' +
-                '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;New Custom Category</span></div>',
+                '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;New Custom Classifier</span></div>',
             margin: 0,
             padding: 0
         });
 
         this.taggerTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
-            text: 'New Custom Attribute',
+            text: 'New Custom Classifier',
             flex: 1
         });
 
@@ -44,7 +44,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             name: 'code',
             allowBlank: false,
             flex: 1,
-            emptyText: 'Enter code for your category',
+            emptyText: 'e.g. donationtype',
             maxLength: 15,
             maxLengthText: 'The maximum length for this field is 15 ',
             maskRe: /[^ ]/
@@ -55,7 +55,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             fieldLabel: 'Name',
             name: 'name',
             allowBlank: false,
-            emptyText: 'Enter name for category'
+            emptyText: 'e.g. Donation type'
         });
 
         this.descriptionE = Ext.create('Ext.form.field.Text', {
@@ -63,7 +63,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             name: 'description',
             allowBlank: true,
             flex: 1,
-            emptyText: 'Enter description for category'
+            emptyText: 'e.g. Indicate the item being donated'
         });
 
         this.codeLabelE = Ext.create('Ext.form.field.Text', {
@@ -71,7 +71,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             name: 'code',
             allowBlank: false,
             flex: 1,
-            emptyText: 'Enter code for Label',
+            emptyText: 'e.g. shoesdonation',
             maxLength: 15,
             maxLengthText: 'The maximum length for this field is 15 ',
             maskRe: /[^ ]/
@@ -82,7 +82,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             fieldLabel: 'Name',
             name: 'name',
             allowBlank: false,
-            emptyText: 'Enter name for Label'
+            emptyText: 'e.g. Donation of shoes'
         });
 
         this.DescriptionLabelE = Ext.create('Ext.form.field.Text', {
@@ -90,12 +90,12 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             name: 'description',
             allowBlank: true,
             flex: 1,
-            emptyText: 'Enter description for Label'
+            emptyText: 'e.g. Footwear in general, shoes, boots, etc.'
         });
 
         this.newLabelL = Ext.create('Ext.form.Label', {
             flex: 1,
-            text: 'New Label',
+            text: 'New Category',
             padding: '15 0 0 0',
             cls: 'header-h2'
         });
@@ -114,7 +114,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
         });
 
         this.addLabelButton = Ext.create('Ext.Button', {
-            text: 'Add Label',
+            text: 'Add Category',
             cls: 'btn btn-green',
             id: 'addLabel'
         });
@@ -140,7 +140,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             '<tpl for=".">',
 
             '<tpl if="xindex == 1">' +
-                '<div class="attributes-title"><div class="inner"><h2>Labels</h2></div></div>' +
+                '<div class="attributes-title"><div class="inner"><h2>Categories</h2></div></div>' +
             '</tpl>' +
 
             '<div class="attribute-item">',
@@ -187,6 +187,22 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
                         align: 'stretch'
                     },
                     items: [
+                         {
+                            xtype: 'container',
+                            layout: 'hbox',
+                            margin: '5 0',
+                            items: [
+                                this.nameE,
+                                {
+                                    border: false,
+                                    bodyStyle: 'background:none',
+                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
+                                    height: 22,
+                                    width: 22,
+                                    id: 'nameInfo'
+                                }
+                            ]
+                        },                            
                         {
                             xtype: 'container',
                             layout: 'hbox',
@@ -200,22 +216,6 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
                                     height: 22,
                                     width: 22,
                                     id: 'codeInfo'
-                                }
-                            ]
-                        },
-                        {
-                            xtype: 'container',
-                            layout: 'hbox',
-                            margin: '5 0',
-                            items: [
-                                this.nameE,
-                                {
-                                    border: false,
-                                    bodyStyle: 'background:none',
-                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
-                                    height: 22,
-                                    width: 22,
-                                    id: 'nameInfo'
                                 }
                             ]
                         },

@@ -23,20 +23,20 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
 
         this.breadcrumbs = Ext.create('Ext.container.Container', {
             html: '<div class="bread-crumbs">' +
-                '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;Crisis details</span></div>',
+                '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;Details</span></div>',
             margin: 0,
             padding: 0
         });
 
         this.taggerTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
-            text: 'Details for crisis "' + CRISIS_NAME + '"',
+            text: 'Tagger for "' + CRISIS_NAME + '"',
             flex: 1
         });
 
         this.modelsTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
-            text: 'Tagger is using the following categories',
+            text: 'Classifiers',
             flex: 1
         });
 
@@ -46,7 +46,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
         this.predictNewAttribute = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + "/protected/" + encodeURI(CRISIS_CODE) + '/predict-new-attribute">Add a new category >></a></div>',
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + "/protected/" + encodeURI(CRISIS_CODE) + '/predict-new-attribute">Add a new classifier &gt;&gt;</a></div>',
             margin: 0,
             flex:1
         });
@@ -111,21 +111,19 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '<div class="content">',
 
             '<div class="rightColumn">',
-            '<div class="styled-text-17">Model:</div>',
+            '<div class="styled-text-17">Name:</div>',
             '<div>Status:</div>',
             '<div>Training examples:</div>',
             '<div>Classified elements:</div>',
-            '<div>AUC<span class="redInfo">*</span>:</div>',
-            '<div>Operations:</div>',
+            '<div>Quality (AUC)<span class="redInfo">*</span>:</div>',
             '</div>',
 
             '<div class="leftColumn">',
             '<div class="styled-text-17"><a href="{[this.getModelHref(values.modelID)]}">{[this.getField(values.attribute)]}</a></div>',
             '<div>{[this.getField(values.status)]}</div>',
-            '<div>{[this.getNumber(values.trainingExamples)]}</div>',
+            '<div>{[this.getNumber(values.trainingExamples)]} &mdash; <a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/{modelID}/training-data">add training examples &gt;&gt;</a></div>',
             '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
             '<div>{[this.getAucNumber(values.auc)]}</div>',
-            '<div><a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/{modelID}/training-data">Manage training examples >></a></div>',
 
             '</div>',
 
