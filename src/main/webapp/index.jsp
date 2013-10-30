@@ -6,7 +6,7 @@
 
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>AIDR Fetch Manager</title>
+    <title>AIDR - Collector</title>
 
     <link rel="shortcut icon" type="image/ico" href="${pageContext.request.contextPath}/resources/img/favicon.ico" />
 
@@ -26,7 +26,7 @@
         <div >
             </br>
         </br>
-            <font size="3">Welcome. AIDR platform requires you to sign-in using your Twitter account.</font>
+            <font size="3">Welcome. AIDR platform requires you to sign-in using your Twitter account. Please click on the following button to proceed.</font>
             <div>
                 <form action="signin/twitter" method="POST">
                     <button class="btn btn-blue" type="submit">
