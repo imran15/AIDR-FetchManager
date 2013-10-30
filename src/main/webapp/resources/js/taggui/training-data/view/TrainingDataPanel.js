@@ -39,14 +39,14 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
         this.taggerDescription = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
-            html: 'Status: <b>Running</b>. Has classified <b>1250</b> messages.&nbsp;<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/model-details">Details for running model >></a>',
+            html: 'Status: <b>Running</b>. Has classified <b>0</b> messages.&nbsp;<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/model-details">Details for running model >></a>',
             flex: 1
         });
 
         this.taggerDescription2line = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
-            html: '100 training examples. Click on a message to see/edit details',
+            html: '<b>0</b> training examples. Click on a message to see/edit details',
             flex: 1
         });
 
