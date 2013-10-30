@@ -13,6 +13,8 @@ public class TaggerModel {
     private long classifiedDocuments;
 
     private double auc;
+    
+    private Integer modelFamilyID;
 
     public Integer getModelID() {
         return modelID;
@@ -60,5 +62,19 @@ public class TaggerModel {
 
     public void setAuc(double auc) {
         this.auc = auc;
+    }
+
+    /**
+     * @return the modelFamilyID
+     */
+    public Integer getModelFamilyID() {
+        return modelFamilyID;
+    }
+
+    /**
+     * @param modelFamilyID the modelFamilyID to set
+     */
+    public void setModelFamilyID(Integer modelFamilyID) {
+        this.modelFamilyID = modelFamilyID;
     }
 }

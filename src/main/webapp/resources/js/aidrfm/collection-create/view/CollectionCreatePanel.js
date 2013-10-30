@@ -109,7 +109,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             valueField: 'code',
             multiSelect: true,
             fieldLabel: 'Language(s)',
-            labelWidth: 130,
+            labelWidth: 100,
             name: 'langFilters',
             flex: 1,
             value: 'en',
@@ -278,13 +278,12 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             {
                 xtype: 'container',
                 margin: '5 0 5 0',
-                html: '<div class="horisontalLine"></div>'
             },
             this.descriptionL,
             {
                 xtype: 'container',
                 margin: '5 0 15 0',
-                //html: '<div class="horisontalLine"></div>'
+                html: '<div class="horisontalLine"></div>'
             },
             this.editForm
         ];

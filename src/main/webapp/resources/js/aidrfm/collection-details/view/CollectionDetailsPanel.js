@@ -332,7 +332,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
         this.crisesTypeWin = Ext.create('Ext.window.Window', {
             bodyStyle: 'background:none; background-color: white;',
             height: 400,
-            width: 400,
+            width: 700,
             layout: 'fit',
             id: 'crisesTypeWin',
             closeAction: 'hide',
