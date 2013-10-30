@@ -5,6 +5,7 @@
   <script type="text/javascript">
       CRISIS_ID = ${crisisId};
       MODEL_ID = ${modelId};
+      MODEL_FAMILY_ID = ${modelFamilyId};
       CRISIS_CODE = "${code}";
       MODEL_NAME = "${modelName}";
       CRISIS_NAME = "${crisisName}";

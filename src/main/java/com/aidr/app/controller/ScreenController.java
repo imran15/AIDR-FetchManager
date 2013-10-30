@@ -126,6 +126,7 @@ public class ScreenController extends BaseController{
         TaggerCrisis crisis = taggerService.getCrisesByCode(code);
 
         Integer crisisId = 0;
+        Integer modelFamilyId = 0;
         String crisisName = "";
         String modelName = "";
         if (crisis != null && crisis.getCrisisID() != null && crisis.getName() != null){
@@ -137,6 +138,7 @@ public class ScreenController extends BaseController{
         for (TaggerModel model : modelsForCrisis) {
             if (modelId.equals(model.getModelID())){
                 modelName = model.getAttribute();
+                modelFamilyId = model.getModelFamilyID();
             }
         }
 
@@ -145,6 +147,7 @@ public class ScreenController extends BaseController{
         model.addObject("crisisName", crisisName);
         model.addObject("modelName", modelName);
         model.addObject("modelId", modelId);
+        model.addObject("modelFamilyId", modelFamilyId);
         model.addObject("code", code);
         return model;
     }
