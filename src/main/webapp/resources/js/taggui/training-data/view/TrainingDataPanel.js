@@ -77,7 +77,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
             listeners: {
                 beforeload: function (s) {
                     s.getProxy().extraParams = {
-                        modelId: MODEL_ID,
+                        modelFamilyId: MODEL_FAMILY_ID,
                         crisisId: CRISIS_ID
                     }
                 }

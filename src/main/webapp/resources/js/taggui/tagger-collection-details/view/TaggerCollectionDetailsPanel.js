@@ -79,7 +79,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         this.crisisModelsStore = Ext.create('Ext.data.Store', {
             pageSize: 30,
             storeId: 'crisisModelsStore',
-            fields: ['attribute', 'auc', 'classifiedDocuments', 'modelID', 'status', 'trainingExamples'],
+            fields: ['attribute', 'auc', 'classifiedDocuments', 'modelID', 'status', 'trainingExamples', 'modelFamilyID'],
             proxy: {
                 type: 'ajax',
                 url: BASE_URL + '/protected/tagger/getModelsForCrisis.action',
@@ -121,7 +121,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '<div class="leftColumn">',
             '<div class="styled-text-17"><a href="{[this.getModelHref(values.modelID)]}">{[this.getField(values.attribute)]}</a></div>',
             '<div>{[this.getField(values.status)]}</div>',
-            '<div>{[this.getNumber(values.trainingExamples)]} &mdash; <a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/{modelID}/training-data">add training examples &gt;&gt;</a></div>',
+            '<div>{[this.getNumber(values.trainingExamples)]} &mdash; <a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/{modelID}/{modelFamilyID}/training-data">add training examples &gt;&gt;</a></div>',
             '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
             '<div>{[this.getAucNumber(values.auc)]}</div>',
 

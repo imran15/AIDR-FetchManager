@@ -356,9 +356,9 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelId, Integer crisisId, Integer start, Integer limit) throws AidrException{
+    public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelFamilyId, Integer crisisId, Integer start, Integer limit) throws AidrException{
         try {
-            WebResource webResource = client.resource(taggerMainUrl + "/misc/getTrainingData?crisisID=" + crisisId + "&modelID=" + modelId + "&fromRecord=" + start +"&limit=" + limit);
+            WebResource webResource = client.resource(taggerMainUrl + "/misc/getTrainingData?crisisID=" + crisisId + "&modelFamilyId=" + modelFamilyId + "&fromRecord=" + start +"&limit=" + limit);
             ObjectMapper objectMapper = new ObjectMapper();
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
@@ -366,9 +366,9 @@ public class TaggerServiceImpl implements TaggerService {
             String jsonResponse = clientResponse.getEntity(String.class);
 
             TrainingDataRequest trainingDataRequest = objectMapper.readValue(jsonResponse, TrainingDataRequest.class);
-            if (trainingDataRequest.getTrainingData() != null) {
+            if (trainingDataRequest != null && trainingDataRequest.getTrainingData() != null) {
                 logger.info("Tagger returned " + trainingDataRequest.getTrainingData().size() + " training data records for crises with ID: "
-                        + crisisId + " and model with ID: " + modelId);
+                        + crisisId + " and family model with ID: " + modelFamilyId);
                 return trainingDataRequest.getTrainingData();
             } else {
                 return null;
