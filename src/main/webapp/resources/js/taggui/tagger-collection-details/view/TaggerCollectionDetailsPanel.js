@@ -119,7 +119,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '</div>',
 
             '<div class="leftColumn">',
-            '<div class="styled-text-17"><a href="{[this.getModelHref(values.modelID)]}">{[this.getField(values.attribute)]}</a></div>',
+            '<div class="styled-text-17">{[this.getModelName(values.modelID, values.attribute)]}</div>',
             '<div>{[this.getField(values.status)]}</div>',
             '<div>{[this.getNumber(values.trainingExamples)]} &mdash; <a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/{modelID}/{modelFamilyID}/training-data">add training examples &gt;&gt;</a></div>',
             '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
@@ -150,11 +150,11 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     }
                     return '<span class="redInfo">0.0</span>';
                 },
-                getModelHref: function (r) {
-                    if (r && r != 0) {
-                        return BASE_URL + '/protected/' + CRISIS_CODE + '/' + r + '/model-details';
+                getModelName: function (modelId, modelName) {
+                    if (modelId && modelId != 0) {
+                        return '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/' + modelId + '/model-details">' + modelName + '</a>';
                     } else {
-                        return '#';
+                        return modelName;
                     }
                 }
             }
