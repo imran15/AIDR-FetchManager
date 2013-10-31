@@ -120,7 +120,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
 
             '<div class="leftColumn">',
             '<div class="styled-text-17">{[this.getModelName(values.modelID, values.attribute)]}</div>',
-            '<div>{[this.getField(values.status)]}</div>',
+            '<div>{[this.getStatus(values.modelID)]}</div>',
             '<div>{[this.getNumber(values.trainingExamples)]} &mdash; <a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/{modelID}/{modelFamilyID}/training-data">add training examples &gt;&gt;</a></div>',
             '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
             '<div>{[this.getAucNumber(values.auc)]}</div>',
@@ -155,6 +155,13 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                         return '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/' + modelId + '/model-details">' + modelName + '</a>';
                     } else {
                         return modelName;
+                    }
+                },
+                getStatus: function (modelId) {
+                    if (modelId && modelId != 0) {
+                        return 'Running';
+                    } else {
+                        return 'Waiting training examples';
                     }
                 }
             }
