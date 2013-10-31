@@ -21,7 +21,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
     initComponent: function () {
         var me = this;
 
-        this.breadcrumbs = Ext.create('Ext.container.Container', {
+        this.breadcrumbs = Ext.create('Ext.form.Label', {
             html: '<div class="bread-crumbs">' +
                 '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;</span>' +
                 '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + CRISIS_NAME + '</a><span>&nbsp;>&nbsp;</span>' +
@@ -39,7 +39,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
         this.taggerDescription = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
             margin: '0 0 15 0',
-            html: 'Status: <b>Running</b>. Has classified <b>0</b> messages.&nbsp;<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/model-details">Details for running model >></a>',
+            html: 'Status: <b>Waiting training examples</b>. Has classified <b>0</b> messages.&nbsp;',
             flex: 1
         });
 

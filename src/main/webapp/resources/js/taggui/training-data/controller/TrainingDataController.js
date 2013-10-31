@@ -27,46 +27,57 @@ Ext.define('TAGGUI.training-data.controller.TrainingDataController', {
     },
 
     loadModelData: function() {
-        var me = this;
+        var me = this,
+            status = '',
+            detailsForModel = '';
 
-        Ext.Ajax.request({
-            url: BASE_URL + '/protected/tagger/getAllLabelsForModel.action',
-            method: 'GET',
-            params: {
-                id: MODEL_ID
-            },
-            headers: {
-                'Accept': 'application/json'
-            },
-            success: function (response) {
-                var resp = Ext.decode(response.responseText);
-                if (resp.success && resp.data) {
-                    var count = resp.data.length;
-                    if (count > 0) {
-                        var totalMessages = 0,
-                            totalExamples = 0;
-                        Ext.Array.each(resp.data, function(r, index) {
-                            if (r.classifiedDocumentCount && r.classifiedDocumentCount > 0) {
-                                totalMessages += r.classifiedDocumentCount;
-                            }
-                            if (r.trainingDocuments && r.trainingDocuments > 0) {
-                                totalExamples += r.trainingDocuments;
-                            }
-                        });
+        if (MODEL_ID && MODEL_ID != 0) {
+            status = 'Running';
+            detailsForModel = '<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/model-details">Details for running model >></a>';
 
-                        me.mainComponent.taggerDescription.setText('Status: <b>Running</b>. ' +
-                            'Has classified <b>' + totalMessages + '</b> messages.&nbsp;<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/model-details">Details for running model >></a>', false);
+            Ext.Ajax.request({
+                url: BASE_URL + '/protected/tagger/getAllLabelsForModel.action',
+                method: 'GET',
+                params: {
+                    id: MODEL_ID
+                },
+                headers: {
+                    'Accept': 'application/json'
+                },
+                success: function (response) {
+                    var resp = Ext.decode(response.responseText);
+                    if (resp.success && resp.data) {
+                        var count = resp.data.length;
+                        if (count > 0) {
+                            var totalMessages = 0,
+                                totalExamples = 0;
+                            Ext.Array.each(resp.data, function(r, index) {
+                                if (r.classifiedDocumentCount && r.classifiedDocumentCount > 0) {
+                                    totalMessages += r.classifiedDocumentCount;
+                                }
+                                if (r.trainingDocuments && r.trainingDocuments > 0) {
+                                    totalExamples += r.trainingDocuments;
+                                }
+                            });
 
-                        me.mainComponent.taggerDescription2line.setText('<b>' + totalExamples + '</b> training examples. Click on a message to see/edit details', false);
+                            me.mainComponent.taggerDescription.setText('Status: <b>' + status + '</b>. ' +
+                                'Has classified <b>' + totalMessages + '</b> messages.&nbsp;' + detailsForModel, false);
+                            me.mainComponent.taggerDescription2line.setText('<b>' + totalExamples + '</b> training examples. Click on a message to see/edit details', false);
+                        }
+                    } else {
+                        AIDRFMFunctions.setAlert("Error", resp.message);
                     }
-                } else {
-                    AIDRFMFunctions.setAlert("Error", resp.message);
+                },
+                failure: function () {
+                    AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
                 }
-            },
-            failure: function () {
-                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
-            }
-        });
+            });
+        } else {
+            me.mainComponent.breadcrumbs.setText('<div class="bread-crumbs">' +
+                '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;</span>' +
+                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + CRISIS_NAME + '</a><span>&nbsp;>&nbsp;' +
+                MODEL_NAME + '&nbsp;>&nbsp;Training data</span></div>', false);
+        }
     }
 
 });
