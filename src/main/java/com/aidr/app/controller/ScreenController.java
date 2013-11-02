@@ -113,10 +113,17 @@ public class ScreenController extends BaseController{
 
     @RequestMapping("protected/{id}/attribute-details")
     public ModelAndView attributeDetails(@PathVariable(value="id") Integer id) throws Exception {
-//        TODO check what is correct service
-//        AidrCollection collection = collectionService.findByCode(id);
         ModelAndView model = new ModelAndView("tagger/attribute-details");
-//        model.addObject("id", collection.getId());
+        Integer taggerUserId = 0;
+        try {
+            String userName = getAuthenticatedUserName();
+            taggerUserId = taggerService.isUserExistsByUsername(userName);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        model.addObject("id", id);
+        model.addObject("userId", taggerUserId);
         return model;
     }
 

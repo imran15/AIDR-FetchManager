@@ -181,6 +181,61 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/getAttributeInfo.action", method = {RequestMethod.GET})
+    @ResponseBody
+    public Map<String, Object> getAttributeInfo(@RequestParam Integer id) {
+        logger.info("Get attribute by Id");
+        try {
+            TaggerAttribute response = taggerService.getAttributeInfo(id);
+            if (response != null){
+                return getUIWrapper(response, true);
+            } else {
+                return getUIWrapper(false, "Error while getting attribute from Tagger");
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/deleteAttribute.action", method = {RequestMethod.GET})
+    @ResponseBody
+    public Map<String, Object> deleteAttribute(@RequestParam Integer id) {
+        logger.info("Delete attribute by Id");
+        try {
+            boolean success = taggerService.deleteAttribute(id);
+            if (success){
+                return getUIWrapper(true, "Attribute was successful deleted");
+            } else {
+                return getUIWrapper(false, "Error while deleting attribute in Tagger");
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
+    }
+
+    @RequestMapping(value = "/updateAttribute.action", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> updateAttribute(@RequestParam Integer attributeID, @RequestParam String attributeName) throws Exception {
+//        TODO check this service one more time
+        logger.info("Updating Attribute in Tagger having id " + attributeID);
+        try{
+            TaggerAttribute response = taggerService.getAttributeInfo(attributeID);
+            TaggerAttribute updatedAttibute;
+            if (response != null && attributeName != null){
+                response.setName(attributeName);
+                updatedAttibute = taggerService.updateAttribute(response);
+            } else {
+                return getUIWrapper(false, "Error while updating attribute in Tagger");
+            }
+            return getUIWrapper(updatedAttibute != null);
+        }catch(Exception e){
+            logger.error("Error while updating attribute in Tagger", e);
+            return getUIWrapper(false);
+        }
+    }
+
     @RequestMapping(value = "/createLabel.action", method = {RequestMethod.POST})
     @ResponseBody
     public Map<String, Object> createLabel(TaggerLabelRequest labelRequest) {

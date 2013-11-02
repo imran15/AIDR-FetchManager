@@ -18,6 +18,8 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
         width: '100%'
     },
 
+    attributeName: '',
+
     initComponent: function () {
         var me = this;
 
@@ -30,13 +32,6 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
 
         this.taggerTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
-            text: 'Tagger',
-            flex: 1
-        });
-
-        this.taggerDescription = Ext.create('Ext.form.Label', {
-            cls: 'styled-text',
-            margin: '0 0 15 0',
             text: 'Details for attribute',
             flex: 1
         });
@@ -44,6 +39,114 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
         this.horisontalLine = Ext.create('Ext.container.Container', {
             width: '100%',
             html: '<div class="horisontalLine"></div>'
+        });
+
+        this.saveButton = Ext.create('Ext.Button', {
+            text: 'Save',
+            cls:'btn btn-green',
+            id: 'attributeSave',
+            hidden: true
+        });
+
+        this.cancelButton = Ext.create('Ext.Button', {
+            text: 'Cancel',
+            margin: '0 0 0 10',
+            cls:'btn btn-green',
+            id: 'attributeCancel',
+            hidden: true
+        });
+
+        this.editButton = Ext.create('Ext.Button', {
+            text: 'Edit',
+            cls:'btn btn-green',
+            id: 'attributeEdit'
+        });
+
+        this.deleteButton = Ext.create('Ext.Button', {
+            text: 'Delete',
+            cls:'btn btn-red',
+            id: 'attributeDelete',
+            margin: '0 0 0 7'
+        });
+
+        this.buttonsBlock = Ext.create('Ext.container.Container', {
+            layout: 'hbox',
+            margin: '5 0',
+            padding: '0 10',
+            hidden: true,
+            items: [
+                {
+                    xtype: 'container',
+                    layout: 'hbox',
+                    margin: '0 0 0 0',
+                    width: 250,
+                    items: [
+                        this.editButton,
+                        this.saveButton,
+                        this.cancelButton
+                    ]
+                },
+                this.deleteButton
+            ]
+        });
+
+        this.codeValue = Ext.create('Ext.form.Label', {flex: 1});
+        this.nameValue = Ext.create('Ext.form.Label', {flex: 1});
+        this.typeValue = Ext.create('Ext.form.Label', {flex: 1});
+
+        this.nameTextBox = Ext.create('Ext.form.field.Text', {
+            flex: 1,
+            allowBlank: false,
+            hidden: true
+//            TODO add listener to enable save button only if this value was changed
+        });
+
+        this.codeBlock = Ext.create('Ext.container.Container', {
+            defaultType: 'label',
+            layout: 'hbox',
+            height: 22,
+            margin: '2 0',
+            padding: '0 10',
+            items: [
+                {
+                    width: 75,
+                    html: '<b>Code:</b>'
+                },
+                this.codeValue
+            ]
+        });
+
+        this.nameBlock = Ext.create('Ext.container.Container', {
+            xtype: 'container',
+            defaultType: 'label',
+            layout: 'hbox',
+            height: 22,
+            margin: '2 0',
+            padding: '0 10',
+            items: [
+                {
+                    width: 75,
+                    text: 'Name:'
+                },
+                this.nameValue,
+                this.nameTextBox
+            ]
+        });
+
+        this.typeBlock = Ext.create('Ext.container.Container', {
+            xtype: 'container',
+            defaultType: 'label',
+            layout: 'hbox',
+            height: 22,
+            margin: '2 0',
+            padding: '0 10',
+            items: [
+                {
+                    width: 75,
+                    text: 'Type:'
+                },
+                this.typeValue
+            ]
         });
 
 //        this.crisesStore = Ext.create('Ext.data.JsonStore', {
@@ -129,8 +232,27 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
                     align: 'stretch'
                 },
                 items: [
-                    this.taggerTitle,
-                    this.taggerDescription
+                    this.taggerTitle
+                ]
+            },
+            {
+                xtype: 'container',
+                layout: 'vbox',
+                items: [
+                    {
+                        xtype: 'container',
+                        width: '100%',
+                        html: '<div class="horisontalLine"></div>'
+                    },
+                    this.codeBlock,
+                    this.nameBlock,
+                    this.typeBlock,
+                    this.buttonsBlock,
+                    {
+                        xtype: 'container',
+                        width: '100%',
+                        html: '<div class="horisontalLine"></div>'
+                    }
                 ]
             },
             {

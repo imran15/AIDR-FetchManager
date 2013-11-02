@@ -309,6 +309,85 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
+    public TaggerAttribute getAttributeInfo(Integer id) throws AidrException {
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/attribute/" + id);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerAttribute response = objectMapper.readValue(jsonResponse, TaggerAttribute.class);
+            if (response != null) {
+                logger.info("Attribute with ID " + response.getNominalAttributeID() + " was retrieved from Tagger");
+                return response;
+            }
+            return null;
+        } catch (Exception e) {
+            throw new AidrException("Error while getting attribute from Tagger", e);
+        }
+    }
+
+    public boolean deleteAttribute(Integer id) throws AidrException {
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/attribute/" + id);
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .delete(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerStatusResponse response = objectMapper.readValue(jsonResponse, TaggerStatusResponse.class);
+            if (response != null && response.getStatusCode() != null) {
+                if ("SUCCESS".equals(response.getStatusCode())) {
+                    logger.info("Attribute with ID " + id + " was deleted in Tagger");
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return false;
+        } catch (Exception e) {
+            throw new AidrException("Error while deleting attribute in Tagger", e);
+        }
+    }
+
+    public TaggerAttribute updateAttribute(TaggerAttribute attribute) throws AidrException{
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/attribute");
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .put(ClientResponse.class, objectMapper.writeValueAsString(attribute));
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerAttribute updatedAttribute = objectMapper.readValue(jsonResponse, TaggerAttribute.class);
+            if (updatedAttribute != null) {
+                logger.info("Attribute with id " + updatedAttribute.getNominalAttributeID() + " was updated in Tagger");
+            } else {
+                return null;
+            }
+
+            return attribute;
+        } catch (Exception e) {
+            throw new AidrException("Error while updating attribute in Tagger", e);
+        }
+    }
+
     public TaggerLabel createNewLabel(TaggerLabelRequest label) throws AidrException {
         try {
             /**

@@ -34,6 +34,12 @@ public interface TaggerService {
 
     public TaggerAttribute createNewAttribute(TaggerAttribute attribute) throws AidrException;
 
+    public TaggerAttribute getAttributeInfo(Integer id) throws AidrException;
+
+    public boolean deleteAttribute(Integer id) throws AidrException;
+
+    public TaggerAttribute updateAttribute(TaggerAttribute attribute) throws AidrException;
+
     public TaggerLabel createNewLabel(TaggerLabelRequest label) throws AidrException;
 
     public TaggerAttribute attributeExists(String code) throws AidrException;
