@@ -181,7 +181,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             queryMode: 'local',
             displayField: 'name',
             valueField: 'crisisTypeID',
-            width: 300,
+            width: 280,
             listeners: {
                 change: function(combo, newValue, oldValue, eOpts) {
                     if (newValue == CRISIS_TYPE_ID) {
@@ -207,8 +207,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             margin: '0 0 0 7'
         });
 
-        this.rightBlock = Ext.create('Ext.container.Container', {
-            margin: '0 10 0 0',
+        this.crisisEditBlock = Ext.create('Ext.container.Container', {
             flex: 1,
             layout: 'vbox',
             items: [
@@ -226,7 +225,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     defaults: {
                         margin: '5 0'
                     },
-                    height: 155,
+                    height: 125,
                     items: [
                         {
                             xtype: 'container',
@@ -234,7 +233,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 55,
+                                    width: 75,
                                     text: 'Code:'
                                 },
                                 {
@@ -247,7 +246,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 55,
+                                    width: 75,
                                     text: 'Name:'
                                 },
                                 {
@@ -260,7 +259,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 55,
+                                    width: 75,
                                     text: 'Type:'
                                 },
                                 this.crysisTypesCombo
@@ -272,8 +271,8 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                                 {
                                     xtype: 'container',
                                     layout: 'hbox',
-                                    margin: '0 0 0 55',
-                                    width: 220,
+                                    margin: '0 0 0 75',
+                                    width: 200,
                                     items: [
                                         this.saveButton
                                     ]
@@ -291,9 +290,8 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             ]
         });
 
-        this.leftBlock = Ext.create('Ext.container.Container', {
-            margin: '0 0 0 10',
-            flex: 1.5,
+        this.feedBlock = Ext.create('Ext.container.Container', {
+            flex: 1,
             layout: 'vbox',
             items: [
                 {
@@ -310,7 +308,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     defaults: {
                         margin: '5 0'
                     },
-                    height: 155,
+                    height: 150,
                     items: [
                         {
                             xtype: 'container',
@@ -318,7 +316,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 90,
+                                    width: 160,
                                     html: '<b>Data feed</b>'
                                 },
                                 {
@@ -331,7 +329,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 90,
+                                    width: 160,
                                     text: 'Tweet-ids:'
                                 },
                                 {
@@ -344,7 +342,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 90,
+                                    width: 160,
                                     text: 'Full:'
                                 },
                                 {
@@ -354,11 +352,11 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                         },{
                             xtype: 'container',
                             defaultType: 'label',
-                            layout: 'vbox',
+                            layout: 'hbox',
                             items: [
                                 {
-                                    width: 90,
-                                    text: 'Classifier:'
+                                    width: 160,
+                                    text: 'Public crowdsourcing link:'
                                 },
                                 {
                                     html: '<a href="http://scd1.qcri.org:8084/AIDRCrowdsourcingAPI/crisisContent.html?code='
@@ -371,7 +369,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 90,
+                                    width: 160,
                                     text: ''
                                 },
                                 {
@@ -406,15 +404,9 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     this.taggerTitle
                 ]
             },
-            {
-                xtype: 'container',
-                layout: 'hbox',
-                items: [
-                    this.rightBlock,
-                    this.leftBlock
-                ]
-            },
+            this.crisisEditBlock,
             this.modelsTitle,
+            this.feedBlock,
             this.crisisModelsView,
             {
                 xtype: 'container',
