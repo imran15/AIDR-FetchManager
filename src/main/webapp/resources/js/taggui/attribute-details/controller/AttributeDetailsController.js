@@ -86,6 +86,7 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
                             }
                         }
                         me.mainComponent.typeValue.setText(type, false);
+                        me.mainComponent.labelsStore.loadData(r.nominalLabelCollection, true);
                     }
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);

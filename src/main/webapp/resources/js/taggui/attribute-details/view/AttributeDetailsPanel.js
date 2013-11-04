@@ -158,74 +158,58 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
             ]
         });
 
-//        this.crisesStore = Ext.create('Ext.data.JsonStore', {
-//            pageSize: 10,
-//            storeId: 'crisesStore',
-//            fields: ['crisisID', 'code', 'name', 'crisisType', 'users', 'modelFamilyCollection'],
-//            proxy: {
-//                type: 'ajax',
-//                url: 'tagger/getCrisesByUserId.action',
-//                reader: {
-//                    root: 'data',
-//                    totalProperty: 'total'
-//                }
-//            },
-//            autoLoad: true
-//        });
-//
-//        this.crisesTpl = new Ext.XTemplate(
-//            '<div class="collections-list">',
-//            '<tpl for=".">',
-//
-//            '<div class="collection-item">',
-//
-//
-//            '<div class="content">',
-//
-//            '<div class="img">',
-//            '<a href="{[this.getEncodedCode(values.code)]}/tagger-collection-details"><img alt="Collection image" height="70" src="/AIDRFetchManager/resources/img/collection-icon.png" width="70"></a>',
-//            '</div>',
-//
-//            '<div class="info">',
-//            '<div class="collection-title"><a href="{[this.getEncodedCode(values.code)]}/tagger-collection-details">{name}</a></div>',
-//            '<div class="styled-text-14 div-top-padding" id="statusField_{crisisID}">{[this.getAttributes(values.modelFamilyCollection)]}</div>',
-//            '</div>',
-//
-//            '</div>',
-//            '</div>',
-//
-//            '</tpl>',
-//            '</div>',
-//            {
-//                getAttributes: function (raw) {
-//                    var result = '';
-//                    if (raw && raw.length > 0) {
-//                        Ext.Array.each(raw, function(r, index) {
-//                            if (index == 1){
-//                                result = 'Attributes being predicted:&nbsp;&nbsp;';
-//                            }
-//                            var nominalAttribute = r.nominalAttribute;
-//                            if (nominalAttribute && nominalAttribute.name) {
-//                                result = result + nominalAttribute.name + ', ';
-//                            }
-//                        });
-//                        return result.substring(0, result.length - 2);
-//                    } else {
-//                        return '<a href="predict-new-attribute">Predict a new attribute >></a>';
-//                    }
-//                },
-//                getEncodedCode: function(code) {
-//                    return encodeURI(code);
-//                }
-//            }
-//        );
-//
-//        this.crisesView = Ext.create('Ext.view.View', {
-//            store: this.crisesStore,
-//            tpl: this.crisesTpl,
-//            itemSelector: 'div.active',
-//            loadMask: false
-//        });
+        this.labelsStore = Ext.create('Ext.data.JsonStore', {
+            pageSize: 100,
+            storeId: 'labelsStore',
+            fields: ['nominalLabelCode', 'description', 'name', 'nominalLabelID'],
+            proxy: {
+                type: 'ajax',
+                url: '',
+                reader: {
+                    root: 'data',
+                    totalProperty: 'total'
+                }
+            },
+            autoLoad: false
+        });
+
+        this.labelsTpl = new Ext.XTemplate(
+            '<div class="attribute-list">',
+
+            '<tpl for=".">',
+
+            '<tpl if="xindex == 1">' +
+                '<div class="attributes-title"><div class="inner"><h2>Values</h2></div></div>' +
+            '</tpl>' +
+
+            '<div class="attribute-item">',
+
+            '<div class="content">',
+
+            '<div class="img">',
+            '<img alt="Attribute image" src="/AIDRFetchManager/resources/img/AIDR/AIDR_EMBLEM_CMYK_COLOUR_HR.jpg" width="70">',
+            '</div>',
+
+            '<div class="info">',
+            '<div class="styled-text-14" id="docCountField_{id}">Name:&nbsp;&nbsp;&nbsp;{name}</div>',
+            '<div class="styled-text-14" id="docCountField_{id}">Code:&nbsp;&nbsp;&nbsp;{nominalLabelCode}</div>',
+            '<div class="styled-text-14" id="docCountField_{id}">Description:&nbsp;&nbsp;&nbsp;{description}</div>',
+            '</div>',
+
+            '</div>',
+            '</div>',
+
+            '</tpl>',
+
+            '</div>'
+        );
+
+        this.labelsView = Ext.create('Ext.view.View', {
+            store: this.labelsStore,
+            id: 'labelsViewId',
+            tpl: this.labelsTpl,
+            itemSelector: 'li.crisesItem'
+        });
 
         this.items = [
             this.breadcrumbs,
@@ -256,21 +240,15 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
                     this.codeBlock,
                     this.nameBlock,
                     this.typeBlock,
-                    this.buttonsBlock,
-                    {
-                        xtype: 'container',
-                        width: '100%',
-                        html: '<div class="horisontalLine"></div>'
-                    }
+                    this.buttonsBlock
                 ]
             },
             {
                 xtype: 'container',
                 width: '100%',
                 html: '<div class="horisontalLine"></div>'
-            }
-//            ,
-//            this.crisesView
+            },
+            this.labelsView
         ];
 
         this.callParent(arguments);
