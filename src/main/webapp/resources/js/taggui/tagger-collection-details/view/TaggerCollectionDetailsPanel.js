@@ -181,7 +181,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             queryMode: 'local',
             displayField: 'name',
             valueField: 'crisisTypeID',
-            width: 370,
+            width: 300,
             listeners: {
                 change: function(combo, newValue, oldValue, eOpts) {
                     if (newValue == CRISIS_TYPE_ID) {
@@ -208,7 +208,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
         this.rightBlock = Ext.create('Ext.container.Container', {
-            margin: '0 15 0 0',
+            margin: '0 10 0 0',
             flex: 1,
             layout: 'vbox',
             items: [
@@ -226,7 +226,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     defaults: {
                         margin: '5 0'
                     },
-                    height: 130,
+                    height: 155,
                     items: [
                         {
                             xtype: 'container',
@@ -234,7 +234,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 75,
+                                    width: 55,
                                     text: 'Code:'
                                 },
                                 {
@@ -247,7 +247,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 75,
+                                    width: 55,
                                     text: 'Name:'
                                 },
                                 {
@@ -260,7 +260,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 75,
+                                    width: 55,
                                     text: 'Type:'
                                 },
                                 this.crysisTypesCombo
@@ -272,8 +272,8 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                                 {
                                     xtype: 'container',
                                     layout: 'hbox',
-                                    margin: '0 0 0 75',
-                                    width: 290,
+                                    margin: '0 0 0 55',
+                                    width: 220,
                                     items: [
                                         this.saveButton
                                     ]
@@ -292,8 +292,8 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
         this.leftBlock = Ext.create('Ext.container.Container', {
-            margin: '0 0 0 15',
-            flex: 1,
+            margin: '0 0 0 10',
+            flex: 1.5,
             layout: 'vbox',
             items: [
                 {
@@ -305,12 +305,12 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     xtype: 'container',
                     defaultType: 'label',
                     padding: '0 10',
-                    flex: 1,
+                    flex: 2,
                     layout: 'vbox',
                     defaults: {
                         margin: '5 0'
                     },
-                    height: 130,
+                    height: 155,
                     items: [
                         {
                             xtype: 'container',
@@ -318,7 +318,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 75,
+                                    width: 90,
                                     html: '<b>Data feed</b>'
                                 },
                                 {
@@ -331,11 +331,11 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 75,
+                                    width: 90,
                                     text: 'Tweet-ids:'
                                 },
                                 {
-                                    html: '<a href="http://aidr.qcri.org/predict/public/"' + CRISIS_CODE + '>http://aidr.qcri.org/predict/public/' + CRISIS_CODE + '</a>'
+                                    html: '<a href="http://aidr.qcri.org/predict/public/' + CRISIS_CODE + '">http://aidr.qcri.org/predict/public/' + CRISIS_CODE + '</a>'
                                 }
                             ]
                         },{
@@ -344,11 +344,25 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 75,
+                                    width: 90,
                                     text: 'Full:'
                                 },
                                 {
-                                    html: '<a href="http://aidr.qcri.org/predict/protected/"' + CRISIS_CODE + '>http://aidr.qcri.org/predict/protected/' + CRISIS_CODE + '</a><br>'
+                                    html: '<a href="http://aidr.qcri.org/predict/protected/' + CRISIS_CODE + '">http://aidr.qcri.org/predict/protected/' + CRISIS_CODE + '</a><br>'
+                                }
+                            ]
+                        },{
+                            xtype: 'container',
+                            defaultType: 'label',
+                            layout: 'vbox',
+                            items: [
+                                {
+                                    width: 90,
+                                    text: 'Classifier:'
+                                },
+                                {
+                                    html: '<a href="http://scd1.qcri.org:8084/AIDRCrowdsourcingAPI/crisisContent.html?code='
+                                        + CRISIS_CODE + '">http://scd1.qcri.org:8084/AIDRCrowdsourcingAPI/crisisContent.html?code=' + CRISIS_CODE + '</a><br>'
                                 }
                             ]
                         },{
@@ -357,7 +371,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             layout: 'hbox',
                             items: [
                                 {
-                                    width: 75,
+                                    width: 90,
                                     text: ''
                                 },
                                 {
