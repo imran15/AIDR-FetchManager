@@ -45,7 +45,8 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
             text: 'Save',
             cls:'btn btn-green',
             id: 'attributeSave',
-            hidden: true
+            hidden: true,
+            disabled: true
         });
 
         this.cancelButton = Ext.create('Ext.Button', {
@@ -97,8 +98,16 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
         this.nameTextBox = Ext.create('Ext.form.field.Text', {
             flex: 1,
             allowBlank: false,
-            hidden: true
-//            TODO add listener to enable save button only if this value was changed
+            hidden: true,
+            listeners: {
+            change: function(combo, newValue, oldValue, eOpts) {
+                if (newValue == '' || newValue == me.attributeName) {
+                    me.saveButton.disable();
+                } else {
+                    me.saveButton.enable();
+                }
+            }
+        }
         });
 
         this.codeBlock = Ext.create('Ext.container.Container', {

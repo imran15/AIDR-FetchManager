@@ -370,6 +370,8 @@ public class TaggerServiceImpl implements TaggerService {
              */
             WebResource webResource = client.resource(taggerMainUrl + "/attribute");
             ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .put(ClientResponse.class, objectMapper.writeValueAsString(attribute));

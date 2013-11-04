@@ -70,9 +70,9 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
                         var r = resp.data,
                             type;
                         me.mainComponent.taggerTitle.setText("Details for attribute \"" + r.name + "\"");
+                        me.mainComponent.attributeName = r.name;
                         me.mainComponent.nameValue.setText(r.name, false);
                         me.mainComponent.nameTextBox.setValue(r.name);
-                        me.mainComponent.attributeName = r.name;
                         me.mainComponent.codeValue.setText("<b>" + r.code + "</b>", false);
 
                         if (r.users && r.users.userID) {
@@ -172,13 +172,25 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
             },
             success: function (resp) {
                 var response = Ext.decode(resp.responseText);
-//                TODO implement handler
-//                if (response.success) {
-//                    me.mainComponent.saveButton.hide();
-//                    CRISIS_TYPE_ID = crisisTypeId;
-//                } else {
-//                    AIDRFMFunctions.setAlert("Error", 'Error while saving crisis.');
-//                }
+                if (response.success) {
+                    me.mainComponent.nameTextBox.hide();
+                    me.mainComponent.saveButton.hide();
+                    me.mainComponent.cancelButton.hide();
+
+                    me.mainComponent.nameValue.setText(attributeName, false);
+                    me.mainComponent.nameValue.show();
+                    me.mainComponent.editButton.show();
+                } else {
+                    AIDRFMFunctions.setAlert("Error", 'Error while updating attribute in Tagger.');
+                }
+                me.mainComponent.cancelButton.enable();
+                me.mainComponent.deleteButton.enable();
+            },
+            failure: function () {
+                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+                me.attributeCancel();
+                me.mainComponent.cancelButton.enable();
+                me.mainComponent.deleteButton.enable();
             }
         });
 

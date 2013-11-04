@@ -218,13 +218,13 @@ public class TaggerController extends BaseController {
     @RequestMapping(value = "/updateAttribute.action", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> updateAttribute(@RequestParam Integer attributeID, @RequestParam String attributeName) throws Exception {
-//        TODO check this service one more time
         logger.info("Updating Attribute in Tagger having id " + attributeID);
         try{
             TaggerAttribute response = taggerService.getAttributeInfo(attributeID);
             TaggerAttribute updatedAttibute;
             if (response != null && attributeName != null){
                 response.setName(attributeName);
+                response.setNominalLabelCollection(null);
                 updatedAttibute = taggerService.updateAttribute(response);
             } else {
                 return getUIWrapper(false, "Error while updating attribute in Tagger");
