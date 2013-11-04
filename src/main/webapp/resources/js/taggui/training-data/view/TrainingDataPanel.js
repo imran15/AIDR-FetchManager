@@ -51,7 +51,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
         });
 
         this.addTrainingData = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="#">Add training data >></a></div>',
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/training-examples">Add training data >></a></div>',
             margin: 0,
             flex:1
         });
