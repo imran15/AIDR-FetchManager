@@ -24,6 +24,8 @@ public class TaggerServiceImpl implements TaggerService {
     private Client client;
     @Value("${taggerMainUrl}")
     private String taggerMainUrl;
+    @Value("${crowdsourcingAPIMainUrl}")
+    private String crowdsourcingAPIMainUrl;
 
     public List<TaggerCrisisType> getAllCrisisTypes() throws AidrException{
         try {
@@ -456,6 +458,24 @@ public class TaggerServiceImpl implements TaggerService {
             }
         } catch (Exception e) {
             throw new AidrException("Error while Getting training data for Crisis and Model.", e);
+        }
+    }
+
+    @Override
+    public String loadCloudAppList(Integer id) throws AidrException {
+        try {
+            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/template/app/id/" + id);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            logger.info("loadCloudAppList - clientResponse : " + clientResponse);
+            String jsonResponse = clientResponse.getEntity(String.class);
+            logger.info("loadCloudAppList - jsonResponse : " + jsonResponse);
+
+            return jsonResponse;
+        } catch (Exception e) {
+            throw new AidrException("Error while getting loadCloudAppList in Tagger", e);
         }
     }
 

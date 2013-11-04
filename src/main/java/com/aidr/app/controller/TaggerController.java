@@ -308,6 +308,22 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/loadCloudAppList.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> loadCloudAppList(@RequestParam Integer id) throws Exception {
+        try {
+            logger.info("loadCloudAppList is starting with id : " + id);
+
+            String sVar = taggerService.loadCloudAppList(id);
+
+            logger.info("sVar : " + sVar);
+            return getUIWrapper(sVar, true);
+        } catch (AidrException e) {
+            e.printStackTrace();
+            return getUIWrapper(e.getMessage(), false);
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);

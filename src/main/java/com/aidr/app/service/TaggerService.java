@@ -45,4 +45,6 @@ public interface TaggerService {
     public TaggerAttribute attributeExists(String code) throws AidrException;
 
     public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelFamilyId, Integer crisisId, Integer start, Integer limit) throws AidrException;
+
+    public String loadCloudAppList(Integer id)  throws AidrException;
 }
