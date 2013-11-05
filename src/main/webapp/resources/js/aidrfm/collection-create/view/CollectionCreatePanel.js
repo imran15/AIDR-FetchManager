@@ -191,8 +191,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
                         {
                             xtype: 'container',
                             layout: 'hbox',
-                            margin: '5 0 0 0',
-                            padding: '0 0 20 0',
+                            margin: '5 0',
                             items: [
                                 this.keywordsE,
                                 {
@@ -228,7 +227,6 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
                             xtype: 'container',
                             layout: 'hbox',
                             margin: '0 0 5 0',
-                            cls: 'bordered-bottom',
                             items: [
                                 this.geoE,
                                 {
