@@ -39,7 +39,7 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
                 render: function (infoPanel, eOpts) {
                     var tip = Ext.create('Ext.tip.ToolTip', {
                         trackMouse: true,
-                        html: 'This field represents comma separated keywords to filter the Twitter stream. Keywords are neither case sensitive nor #sensitive. Spaces between words will be treated as ANDing, and commas as ORing.',
+                        html: 'This field represents comma separated keywords to filter the Twitter stream',
                         target: infoPanel.el,
                         dismissDelay: 0
                     });
@@ -50,7 +50,7 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
                 render: function (infoPanel, eOpts) {
                     var tip = Ext.create('Ext.tip.ToolTip', {
                         trackMouse: true,
-                        html: 'This field represents a comma-separated pairs of longitude and latitude. A valid geo location represents a bounding box with southwest corner of the box coming first. Visit <a href="http://boundingbox.klokantech.com/">http://boundingbox.klokantech.com</a> to get a valid bounding box.',
+                        html: 'This field represents a comma-separated pairs of longitude and latitude. A valid geo location represents a bounding box with southwest corner of the box coming first. Note that if you specify a geographical region, all messages posted from within that region will be collected, independently of whether they contain the keywords or not.',
                         target: infoPanel.el,
                         dismissDelay: 0
                     });
