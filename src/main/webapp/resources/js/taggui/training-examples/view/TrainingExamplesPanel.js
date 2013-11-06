@@ -24,15 +24,15 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
         this.breadcrumbs = Ext.create('Ext.form.Label', {
             html: '<div class="bread-crumbs">' +
                 '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;</span>' +
-                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + CRISIS_NAME + '</a>' +
-                '<span>&nbsp;>&nbsp;New training example</span></div>',
+                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + CRISIS_NAME + '</a><span>&nbsp;>&nbsp;</span>' +
+                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/model-details">' + MODEL_NAME + '</a><span>&nbsp;>&nbsp;New training example</span></div>',
             margin: 0,
             padding: 0
         });
 
         this.taggerTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
-            text: 'Add new training example',
+            text: 'Add new training example for "' + MODEL_NAME + '" in collection "' + CRISIS_NAME + '"',
             flex: 1
         });
 

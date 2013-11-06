@@ -22,8 +22,16 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
 
         this.mainComponent = component;
         taggerCollectionDetailsController = this;
+        var me = this;
 
         this.loadData();
+
+        if (!MODEL_ID || MODEL_ID == 0) {
+            me.mainComponent.breadcrumbs.setText('<div class="bread-crumbs">' +
+                '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;</span>' +
+                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + CRISIS_NAME + '</a><span>&nbsp;>&nbsp;' +
+                MODEL_NAME + '&nbsp;>&nbsp;New training example</span></div>', false);
+        }
     },
 
     loadData: function() {

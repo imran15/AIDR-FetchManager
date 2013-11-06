@@ -192,8 +192,10 @@ public class ScreenController extends BaseController{
         return model;
     }
 
-    @RequestMapping("protected/{code}/training-examples")
-    public ModelAndView trainingExamples(@PathVariable(value="code") String code) throws Exception {
+    @RequestMapping("protected/{code}/{modelId}/training-examples/{modelName}")
+    public ModelAndView trainingExamples(@PathVariable(value="code") String code,
+                                         @PathVariable(value="modelId") Integer modelId,
+                                         @PathVariable(value="modelName") String modelName) throws Exception {
         TaggerCrisis crisis = taggerService.getCrisesByCode(code);
 
         Integer crisisId = 0;
@@ -207,9 +209,8 @@ public class ScreenController extends BaseController{
         model.addObject("code", code);
         model.addObject("crisisId", crisisId);
         model.addObject("crisisName", crisisName);
-//        model.addObject("modelName", modelName);
-//        model.addObject("modelId", modelId);
-//        model.addObject("modelFamilyId", modelFamilyId);
+        model.addObject("modelName", modelName);
+        model.addObject("modelId", modelId);
 
         return model;
     }

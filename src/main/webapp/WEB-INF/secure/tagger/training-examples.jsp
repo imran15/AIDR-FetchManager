@@ -6,9 +6,8 @@
       CRISIS_ID = ${crisisId};
       CRISIS_CODE = "${code}";
       CRISIS_NAME = "${crisisName}";
-      <%--MODEL_ID = ${modelId};--%>
-      <%--MODEL_FAMILY_ID = ${modelFamilyId};--%>
-      <%--MODEL_NAME = "${modelName}";--%>
+      MODEL_ID = ${modelId};
+      MODEL_NAME = "${modelName}";
   </script>
 
 </body>
