@@ -192,4 +192,27 @@ public class ScreenController extends BaseController{
         return model;
     }
 
+    @RequestMapping("protected/{code}/{modelId}/training-examples/{modelName}")
+    public ModelAndView trainingExamples(@PathVariable(value="code") String code,
+                                         @PathVariable(value="modelId") Integer modelId,
+                                         @PathVariable(value="modelName") String modelName) throws Exception {
+        TaggerCrisis crisis = taggerService.getCrisesByCode(code);
+
+        Integer crisisId = 0;
+        String crisisName = "";
+        if (crisis != null && crisis.getCrisisID() != null && crisis.getName() != null){
+            crisisId = crisis.getCrisisID();
+            crisisName = crisis.getName();
+        }
+
+        ModelAndView model = new ModelAndView("tagger/training-examples");
+        model.addObject("code", code);
+        model.addObject("crisisId", crisisId);
+        model.addObject("crisisName", crisisName);
+        model.addObject("modelName", modelName);
+        model.addObject("modelId", modelId);
+
+        return model;
+    }
+
 }

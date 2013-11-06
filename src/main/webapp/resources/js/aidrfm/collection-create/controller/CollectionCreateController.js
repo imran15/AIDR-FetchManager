@@ -39,7 +39,16 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
                 render: function (infoPanel, eOpts) {
                     var tip = Ext.create('Ext.tip.ToolTip', {
                         trackMouse: true,
-                        html: 'This field represents comma separated keywords to filter the Twitter stream. Keywords are neither case sensitive nor #sensitive. Spaces between words will be treated as ANDing, and commas as ORing.',
+                        html: 'This field represents comma separated keywords to filter the Twitter stream.<br>' +
+                            'General rules:<br>' +
+                            '- Not case-sensitive ("bridge" matches "Bridge").<br>' +
+                            '- Whole words match ("bridge" does not match "damagedbridge").<br><br>' +
+                            'Multi-word queries<br>' +
+                            '- If you include two or more words on a query, all of them must be present in the tweet ("Brooklin bridge" does not match a tweet that does not contain "Brooklin" or does not contain "bridge")<br>' +
+                            '- The words does not need to be consecutive or in that order ("Brooklin bridge" will match "the bridge to Brooklin")<br><br>' +
+                            'Queries with or without hashtags:<br>' +
+                            '- If you don\'t include \'#\', you also match hashtags ("bridge" matches "#bridge")<br>' +
+                            '- If you do include \'#\', you only match hashtags ("#bridge" does not match "bridge")<br>',
                         target: infoPanel.el,
                         dismissDelay: 0
                     });
@@ -50,7 +59,7 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
                 render: function (infoPanel, eOpts) {
                     var tip = Ext.create('Ext.tip.ToolTip', {
                         trackMouse: true,
-                        html: 'This field represents a comma-separated pairs of longitude and latitude. A valid geo location represents a bounding box with southwest corner of the box coming first. Visit <a href="http://boundingbox.klokantech.com/">http://boundingbox.klokantech.com</a> to get a valid bounding box.',
+                        html: 'This field represents a comma-separated pairs of longitude and latitude. A valid geo location represents a bounding box with southwest corner of the box coming first. Note that if you specify a geographical region, all messages posted from within that region will be collected, independently of whether they contain the keywords or not.',
                         target: infoPanel.el,
                         dismissDelay: 0
                     });
