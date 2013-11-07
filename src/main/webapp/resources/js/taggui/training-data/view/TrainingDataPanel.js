@@ -99,15 +99,22 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
 
             '<div class="rightColumn">',
             '<div class="styled-text-17">Value:</div>',
-            '<div>Text:</div>',
-            '<div>Labeler:</div>',
             '</div>',
-
             '<div class="leftColumn">',
             '<div class="styled-text-17">{[this.getField(values.labelName)]}</div>',
-//            TODO change to correct tweet text
-//            '<div>{[this.getField(values.tweetJSON)]}</div>',
-            '<div>{[this.getField("")]}</div>',
+            '</div>',
+
+            '<div class="rightColumn">',
+            '<div>Text:</div>',
+            '</div>',
+            '<div class="leftColumn">',
+            '<div>{[this.getTwitterText(values.tweetJSON)]}</div>',
+            '</div>',
+
+            '<div class="rightColumn">',
+            '<div>Labeler:</div>',
+            '</div>',
+            '<div class="leftColumn">',
             '<div>{[this.getField(values.labelerName)]}</div>',
             '</div>',
 
@@ -122,6 +129,15 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
                 },
                 getNumber: function (r) {
                     return r ? r : 0;
+                },
+                getTwitterText: function (r) {
+                    var strJson = r;
+                    var obj = Ext.JSON.decode(strJson);
+                    if (obj && obj.text) {
+                        return obj.text;
+                    } else {
+                        return "<span class='na-text'>Not specified</span>";
+                    }
                 }
             }
         );
