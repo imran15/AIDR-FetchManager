@@ -479,6 +479,26 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
+    @Override
+    public String getAssignableTask(Integer id, String userName) throws AidrException {
+        try {
+//            taskbufferNumber currently always 1
+            int taskbufferNumber = 1;
+            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/taskbuffer/getassignabletask/" + userName + "/" + id + "/" + taskbufferNumber);
+            ObjectMapper objectMapper = new ObjectMapper();
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            logger.info("getAssignableTask - clientResponse : " + clientResponse);
+            String jsonResponse = clientResponse.getEntity(String.class);
+            logger.info("getAssignableTask - jsonResponse : " + jsonResponse);
+
+            return jsonResponse;
+        } catch (Exception e) {
+            throw new AidrException("Error while getting loadCloudAppList in Tagger", e);
+        }
+    }
+
     public List<TaggerModelNominalLabel> getAllLabelsForModel(Integer modelID) throws AidrException{
         try {
             /**

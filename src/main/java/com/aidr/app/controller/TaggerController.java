@@ -324,6 +324,23 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/getAssignableTask.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> getAssignableTask(@RequestParam Integer id) throws Exception {
+        try {
+            logger.info("Get Assignable Task is started with crisis id: " + id);
+
+            String userName = getAuthenticatedUserName();
+            String sVar = taggerService.getAssignableTask(id, userName);
+
+            logger.info("sVar : " + sVar);
+            return getUIWrapper(sVar, true);
+        } catch (AidrException e) {
+            e.printStackTrace();
+            return getUIWrapper(e.getMessage(), false);
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);

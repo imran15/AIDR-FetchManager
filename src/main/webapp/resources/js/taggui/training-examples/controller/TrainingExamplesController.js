@@ -37,27 +37,32 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
     loadData: function() {
         var me = this;
 
-//        Ext.Ajax.request({
-//            url: BASE_URL + '/protected/tagger/getAllLabelsForModel.action',
-//            method: 'GET',
-//            params: {
-//                id: 12
-//            },
-//            headers: {
-//                'Accept': 'application/json'
-//            },
-//            success: function (response) {
-//                var resp = Ext.decode(response.responseText);
-//                if (resp.success && resp.data) {
-//                    console.log(resp.data);
-//                } else {
-//                    AIDRFMFunctions.setAlert("Error", resp.message);
-//                }
-//            },
-//            failure: function () {
-//                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
-//            }
-//        });
+        Ext.Ajax.request({
+            url: BASE_URL + '/protected/tagger/getAssignableTask.action',
+            method: 'GET',
+            params: {
+//                TODO change to real ID
+                id: CRISIS_ID
+//                id: 54
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success) {
+                    if (resp.data) {
+//                        debugger;
+//                        TODO implement data handler, when data will be available.
+                    }
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
+                }
+            },
+            failure: function () {
+                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+            }
+        });
     }
 
 });
