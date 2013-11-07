@@ -46,7 +46,5 @@ public interface TaggerService {
 
     public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelFamilyId, Integer crisisId, Integer start, Integer limit) throws AidrException;
 
-    public String loadCloudAppList(Integer id)  throws AidrException;
-
     public String getAssignableTask(Integer id, String userName)  throws AidrException;
 }

@@ -36,8 +36,6 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
         taggerCollectionDetailsController = this;
 
         var me = this;
-
-        this.loadCloudAppList();
     },
 
     crisisDelete: function () {
@@ -72,35 +70,6 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
             }
         });
 
-    },
-
-    loadCloudAppList: function() {
-        var me = this;
-
-        Ext.Ajax.request({
-            url: BASE_URL + '/protected/tagger/loadCloudAppList.action',
-            method: 'GET',
-            params: {
-                id: CRISIS_ID
-            },
-            headers: {
-                'Accept': 'application/json'
-            },
-            success: function (response) {
-                var resp = Ext.decode(response.responseText);
-                if (resp.success) {
-                    if (resp.data) {
-//                        debugger;
-//                        TODO implement data handler, when data will be available.
-                    }
-                } else {
-                    AIDRFMFunctions.setAlert("Error", resp.message);
-                }
-            },
-            failure: function () {
-                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
-            }
-        });
     }
 
 });

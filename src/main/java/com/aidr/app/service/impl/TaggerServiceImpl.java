@@ -462,24 +462,6 @@ public class TaggerServiceImpl implements TaggerService {
     }
 
     @Override
-    public String loadCloudAppList(Integer id) throws AidrException {
-        try {
-            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/template/app/id/" + id);
-            ObjectMapper objectMapper = new ObjectMapper();
-            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
-                    .accept(MediaType.APPLICATION_JSON)
-                    .get(ClientResponse.class);
-            logger.info("loadCloudAppList - clientResponse : " + clientResponse);
-            String jsonResponse = clientResponse.getEntity(String.class);
-            logger.info("loadCloudAppList - jsonResponse : " + jsonResponse);
-
-            return jsonResponse;
-        } catch (Exception e) {
-            throw new AidrException("Error while getting loadCloudAppList in Tagger", e);
-        }
-    }
-
-    @Override
     public String getAssignableTask(Integer id, String userName) throws AidrException {
         try {
 //            taskbufferNumber currently always 1
@@ -495,7 +477,7 @@ public class TaggerServiceImpl implements TaggerService {
 
             return jsonResponse;
         } catch (Exception e) {
-            throw new AidrException("Error while getting loadCloudAppList in Tagger", e);
+            throw new AidrException("Error while getting Assignable Task in Tagger", e);
         }
     }
 
