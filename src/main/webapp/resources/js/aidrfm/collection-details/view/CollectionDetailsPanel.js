@@ -188,7 +188,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             valueField: 'code',
             multiSelect: true,
             fieldLabel: 'Language(s)',
-            labelWidth: 130,
+            labelWidth: 100,
             name: 'langFilters',
             flex: 1,
             emptyText: 'e.g., en, ar, ja',
@@ -198,7 +198,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                 '<tpl if="xindex == 56"><hr/>Other ...<hr/></tpl>' +
                 '</tpl>'
         });
-
+ 
         this.startButton = Ext.create('Ext.Button', {
             text: 'Start',
             margin: 0,
@@ -217,7 +217,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
 
         this.configurationsEditTabL = Ext.create('Ext.form.Label', {
             flex: 1,
-            text: 'Configuration [optional]',
+            text: 'Optional configuration',
             padding: '15 0 0 0',
             cls: 'header-h2'
         });
@@ -467,9 +467,9 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                             xtype: 'container',
                             layout: 'hbox',
                             margin: '5 0 0 0',
-                            padding: '0 0 20 0',
-                            cls: 'bordered-bottom',
-                            items: [
+                            padding: '0 0 8 0',
+                            //cls: 'bordered-bottom',
+                            items: [ 
                                 this.keywordsE,
                                 {
                                     border: false,
@@ -480,7 +480,25 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                     id: 'collectionkeywordsInfo'
                                 }
                             ]
+                        },{
+                            xtype: 'container',
+                            layout: 'hbox',
+                            margin: '5 0 0 0',
+                            padding: '0 0 20 0',
+                            cls: 'bordered-bottom',
+                            items: [
+                                this.langCombo,
+                                {
+                                    border: false,
+                                    bodyStyle: 'background:none',
+                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
+                                    height: 22,
+                                    width: 22,
+                                    id: 'collectionLangInfo'
+                                }
+                            ]
                         },
+                        
                         this.configurationsEditTabL,
                         {
                             xtype: 'container',
@@ -515,24 +533,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                 }
                             ]
                         },
-                        {
-                            xtype: 'container',
-                            layout: 'hbox',
-                            margin: '5 0 0 0',
-                            padding: '0 0 20 0',
-                            cls: 'bordered-bottom',
-                            items: [
-                                this.langCombo,
-                                {
-                                    border: false,
-                                    bodyStyle: 'background:none',
-                                    html: '<img src="/AIDRFetchManager/resources/img/info.png"/>',
-                                    height: 22,
-                                    width: 22,
-                                    id: 'collectionLangInfo'
-                                }
-                            ]
-                        },
+                        
                         {
                             xtype: 'container',
                             layout: 'hbox',
