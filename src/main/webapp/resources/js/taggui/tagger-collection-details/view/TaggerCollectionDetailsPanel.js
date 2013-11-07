@@ -34,16 +34,49 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             flex: 1
         });
 
-        this.modelsTitle = Ext.create('Ext.form.Label', {
+        this.classifiersTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
             text: 'Classifiers',
             flex: 1
         });
 
+        this.settingsTitle = Ext.create('Ext.form.Label', {
+            cls: 'header-h1 bold-text',
+            text: 'Settings',
+            flex: 1
+        });
+
         this.publicLink = Ext.create('Ext.container.Container', {
-            html: 'Public crowdsourcing link: <a href="http://scd1.qcri.org:8084/AIDRCrowdsourcingAPI/crisisContent.html?code='
-                + CRISIS_CODE + ' target="_blank"">http://scd1.qcri.org:8084/AIDRCrowdsourcingAPI/crisisContent.html?code=' + CRISIS_CODE + '</a><br>',
-            margin: '0 0 3 0'
+            html: 'Public link:',
+            margin: '6 15 0 0'
+        });
+
+        this.socialIcons = Ext.create('Ext.container.Container', {
+            flex: 1,
+            layout: 'hbox',
+            defaults: {
+                margin: '0 5 0 0'
+            },
+            items: [
+                {
+                    xtype: 'image',
+                    src: '/AIDRFetchManager/resources/img/icons/twitter-icon.png'
+                },{
+                    xtype: 'image',
+                    src: '/AIDRFetchManager/resources/img/icons/facebook-icon.png'
+                },{
+                    xtype: 'image',
+                    src: '/AIDRFetchManager/resources/img/icons/google-icon.png'
+                },{
+                    xtype: 'image',
+                    src: '/AIDRFetchManager/resources/img/icons/pinterest-icon.png'
+                }
+            ]
+        });
+
+        this.pyBossaLink = Ext.create('Ext.container.Container', {
+            html: '<div class="gray-backgrpund"><i>http://pybossa.qcri.org/crisisContent.html?code=' + CRISIS_CODE + '</i></div>',
+            margin: '5 0 5 0'
         });
 
         this.horisontalLine = Ext.create('Ext.container.Container', {
@@ -213,8 +246,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             margin: '0 0 0 7'
         });
 
-        this.rightBlock = Ext.create('Ext.container.Container', {
-            margin: '0 15 0 0',
+        this.detailsBlock = Ext.create('Ext.container.Container', {
             flex: 1,
             layout: 'vbox',
             items: [
@@ -232,7 +264,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     defaults: {
                         margin: '5 0'
                     },
-                    height: 130,
+                    height: 120,
                     items: [
                         {
                             xtype: 'container',
@@ -298,16 +330,10 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
 
-        this.leftBlock = Ext.create('Ext.container.Container', {
-            margin: '0 0 0 15',
+        this.feedsBlock = Ext.create('Ext.container.Container', {
             flex: 1,
             layout: 'vbox',
             items: [
-                {
-                    xtype: 'container',
-                    width: '100%',
-                    html: '<div class="horisontalLine"></div>'
-                },
                 {
                     xtype: 'container',
                     defaultType: 'label',
@@ -317,7 +343,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     defaults: {
                         margin: '5 0'
                     },
-                    height: 130,
+                    height: 100,
                     items: [
                         {
                             xtype: 'container',
@@ -373,11 +399,6 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                             ]
                         }
                     ]
-                },
-                {
-                    xtype: 'container',
-                    width: '100%',
-                    html: '<div class="horisontalLine"></div>'
                 }
             ]
         });
@@ -402,24 +423,39 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             },
             {
                 xtype: 'container',
+                flex: 1,
                 layout: 'hbox',
+                margin: '0 0 5 0',
                 items: [
-                    this.rightBlock,
-                    this.leftBlock
+                    this.publicLink,
+                    this.socialIcons
                 ]
             },
-            this.modelsTitle,
-            this.publicLink,
+            this.pyBossaLink,
+            {
+                xtype: 'container',
+                margin: '15 0 0 0',
+                html: '<div class="horisontalLine"></div>'
+            },
+            this.classifiersTitle,
             this.crisisModelsView,
             {
                 xtype: 'container',
                 layout: 'hbox',
-                padding: '25 0 0 0',
+                padding: '15 0 0 0',
                 items: [
                     this.predictNewAttribute,
                     this.aucHint
                 ]
-            }
+            },
+            {
+                xtype: 'container',
+                margin: '15 0 0 0',
+                html: '<div class="horisontalLine"></div>'
+            },
+            this.settingsTitle,
+            this.detailsBlock,
+            this.feedsBlock
         ];
 
         this.callParent(arguments);

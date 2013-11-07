@@ -3378,3 +3378,8 @@ End of the tab panel styles
     font-size: 20px;
     color: #4c4c4c;
 }
+
+.gray-backgrpund {
+    padding: 5px;
+    background: #cccccc;
+}
