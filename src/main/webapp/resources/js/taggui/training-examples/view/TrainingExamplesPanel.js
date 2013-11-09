@@ -37,31 +37,100 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
         });
 
         this.documentLabel = Ext.create('Ext.form.Label', {
-            cls: 'styled-text-20',
-            margin: '0 0 15 0',
+            cls: 'header-h1',
+            margin: '0 0 10 0',
             html: 'Document',
             flex: 1
         });
 
+        this.documentTextLabel = Ext.create('Ext.form.Label', {
+            cls:'tweet',
+            margin: '0 15 20 15',
+            html: '',
+            flex: 1
+        });
+
         this.labelsLabel = Ext.create('Ext.form.Label', {
-            cls: 'styled-text-20',
-            margin: '0 0 15 0',
+            cls: 'header-h1',
+            margin: '15 0 10 0',
             html: 'Labels',
             flex: 1
         });
 
+        this.attributeNameLabel = Ext.create('Ext.form.Label', {
+            cls: 'styled-text',
+            margin: '0 15 10 15',
+            html: '',
+            flex: 1
+        });
+
         this.instructionsLabel = Ext.create('Ext.form.Label', {
-            cls: 'styled-text-20',
-            margin: '0 0 15 0',
+            cls: 'header-h1',
+            margin: '0 0 10 0',
             html: 'Instructions',
             flex: 1
         });
 
         this.instructionsText = Ext.create('Ext.form.Label', {
             cls: 'styled-text',
-            margin: '0 0 15 0',
+            margin: '0 15 15 15',
             html: 'Teach the system how to label incoming documents by labeling examples.',
             flex: 1
+        });
+
+        this.optionRG = Ext.create('Ext.form.RadioGroup', {
+            columns: 2,
+            vertical: true,
+            width: 700,
+            margin: '0 0 15 0',
+            items: []
+        });
+
+        this.optionPanel = Ext.create('Ext.container.Container', {
+            flex: 1,
+            layout: 'hbox',
+            margin: '0 15 0 15',
+            items: [
+                this.optionRG
+            ]
+        });
+
+        this.optinText = Ext.create('Ext.form.Label', {
+            cls: 'styled-text',
+            margin: '0 15 15 15',
+            html: '',
+            flex: 1
+        });
+
+        this.saveLabelsButton = Ext.create('Ext.Button', {
+            text: 'Save labels',
+            cls:'btn btn-green',
+            id: 'saveLabels'
+        });
+
+        this.skipTaskButton = Ext.create('Ext.Button', {
+            text: 'Skip task',
+            cls:'btn btn-green',
+            id: 'skipTask',
+            margin: '0 0 0 15'
+        });
+
+        this.cancelButton = Ext.create('Ext.Button', {
+            text: 'Cancel',
+            cls:'btn btn-red',
+            id: 'cancel',
+            margin: '0 0 0 15'
+        });
+
+        this.buttonsBlock = Ext.create('Ext.container.Container', {
+            flex: 1,
+            layout: 'hbox',
+            margin: '0 15 15 15',
+            items: [
+                this.saveLabelsButton,
+                this.skipTaskButton,
+                this.cancelButton
+            ]
         });
 
         this.items = [
@@ -80,7 +149,22 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
                 items: [
                     this.taggerTitle,
                     this.documentLabel,
+                    this.documentTextLabel,
+                    {
+                        xtype: 'container',
+                        margin: '5 0 0 0',
+                        html: '<div class="horisontalLine"></div>'
+                    },
                     this.labelsLabel,
+                        this.attributeNameLabel,
+                        this.optionPanel,
+                        this.optinText,
+                        this.buttonsBlock,
+                    {
+                        xtype: 'container',
+                        margin: '5 0 10 0',
+                        html: '<div class="horisontalLine"></div>'
+                    },
                     this.instructionsLabel,
                     this.instructionsText
                 ]

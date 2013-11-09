@@ -325,6 +325,23 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/skipTask.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> skipTask(@RequestParam Integer id) throws Exception {
+        try {
+            logger.info("Skip Task for document id: " + id);
+
+            String userName = getAuthenticatedUserName();
+            String sVar = taggerService.skipTask(id, userName);
+
+            logger.info("sVar : " + sVar);
+            return getUIWrapper(sVar, true);
+        } catch (AidrException e) {
+            e.printStackTrace();
+            return getUIWrapper(e.getMessage(), false);
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);

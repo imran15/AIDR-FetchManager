@@ -464,10 +464,9 @@ public class TaggerServiceImpl implements TaggerService {
     @Override
     public String getAssignableTask(Integer id, String userName) throws AidrException {
         try {
-//            taskbufferNumber currently always 1
-            int taskbufferNumber = 1;
-            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/taskbuffer/getassignabletask/" + userName + "/" + id + "/" + taskbufferNumber);
-            ObjectMapper objectMapper = new ObjectMapper();
+//            taskBufferNumber currently always 1
+            int taskBufferNumber = 1;
+            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/taskbuffer/getassignabletask/" + userName + "/" + id + "/" + taskBufferNumber);
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .get(ClientResponse.class);
@@ -478,6 +477,23 @@ public class TaggerServiceImpl implements TaggerService {
             return jsonResponse;
         } catch (Exception e) {
             throw new AidrException("Error while getting Assignable Task in Tagger", e);
+        }
+    }
+
+    @Override
+    public String skipTask(Integer id, String userName) throws AidrException {
+        try {
+            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/taskassignment/searchByDocUserName/" + userName + "/" + id);
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            logger.info("skipTask - clientResponse : " + clientResponse);
+            String jsonResponse = clientResponse.getEntity(String.class);
+            logger.info("skipTask - jsonResponse : " + jsonResponse);
+
+            return jsonResponse;
+        } catch (Exception e) {
+            throw new AidrException("Error while Skip Task operation", e);
         }
     }
 

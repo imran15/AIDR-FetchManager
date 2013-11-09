@@ -11,6 +11,24 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
 
             'training-examples-view': {
                 beforerender: this.beforeRenderView
+            },
+
+            "#saveLabels": {
+                click: function (btn, e, eOpts) {
+                    this.saveLabels();
+                }
+            },
+
+            "#skipTask": {
+                click: function (btn, e, eOpts) {
+                    this.skipTask();
+                }
+            },
+
+            "#cancel": {
+                click: function (btn, e, eOpts) {
+                    this.cancelTraining();
+                }
             }
 
         });
@@ -37,13 +55,16 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
     loadData: function() {
         var me = this;
 
+        var mask = AIDRFMFunctions.getMask(true);
+        mask.show();
+
         Ext.Ajax.request({
             url: BASE_URL + '/protected/tagger/getAssignableTask.action',
             method: 'GET',
             params: {
 //                TODO change to real ID
-                id: CRISIS_ID
-//                id: 54
+                id: 54
+//                id: CRISIS_ID
             },
             headers: {
                 'Accept': 'application/json'
@@ -52,14 +73,99 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
                 var resp = Ext.decode(response.responseText);
                 if (resp.success) {
                     if (resp.data) {
-//                        debugger;
-//                        TODO implement data handler, when data will be available.
+                        var obj = Ext.JSON.decode(resp.data);
+                        if (obj) {
+                            var r = obj[0];
+                            me.mainComponent.documentID = r.documentID;
+                            if (r.data){
+                                var tweetData = Ext.JSON.decode(r.data);
+                                me.mainComponent.documentTextLabel.setText(tweetData.text);
+                            }
+                            if (r.attributeInfo){
+//                                TODO change to real data when this will be fixed
+                                r.attributeInfo = "{\"attributes\":[{\"id\":300,\"name\":\"Informative v1.0\",\"description\":\"Informative messages enhancing situational awareness, v1.0\",\"labels\":[{\"name\":\"Does not apply\",\"description\":\"The label does not apply\",\"code\":\"000_na\",\"id\":171},{\"name\":\"Informative\",\"description\":\"Contributes useful information enhancing situational awareness\",\"code\":\"010_informative\",\"id\":192},{\"name\":\"Label_test3\",\"description\":\"Contributes useful information enhancing situational awareness\",\"code\":\"010_informative\",\"id\":1922},{\"name\":\"Label_test1\",\"description\":\"Contributes useful information enhancing situational awareness\",\"code\":\"010_informative\",\"id\":1923},{\"name\":\"Label_test2\",\"description\":\"Contributes useful information enhancing situational awareness\",\"code\":\"010_informative\",\"id\":19234}]}]}";
+                                var attributeInfo = Ext.JSON.decode(r.attributeInfo);
+                                if (attributeInfo && attributeInfo.attributes) {
+                                    var attr = attributeInfo.attributes[0];
+                                    if (attr.name) {
+                                        me.mainComponent.attributeNameLabel.setText(attr.name);
+                                    }
+                                    if (attr.labels && Ext.isArray(attr.labels)) {
+                                        Ext.each(attr.labels, function (lbl) {
+                                            me.mainComponent.optionRG.add({
+                                                boxLabel: lbl.name,
+                                                name: 'rg',
+                                                inputValue: lbl.id
+                                            });
+                                        })
+                                    }
+                                    if (attr.description) {
+                                        me.mainComponent.optinText.setText('<div class="na-text">' + attr.description + '</div>', false);
+                                    }
+                                }
+                            }
+                        }
                     }
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);
                 }
+                mask.hide();
             },
             failure: function () {
+                mask.hide();
+                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+            }
+        });
+    },
+
+    cancelTraining: function() {
+        document.location.href = BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/' + MODEL_FAMILY_ID + '/training-data/' + MODEL_NAME;
+    },
+
+    saveLabels: function() {
+        AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');
+//        TODO implement when we will have corresponding service.
+    },
+
+    skipTask: function() {
+        var me = this;
+
+
+//      TODO implement when service will return correct response.
+        return false;
+
+
+
+        if (!me.mainComponent.documentID) {
+            AIDRFMFunctions.setAlert("Error", "Can not find Document Id");
+            return false;
+        }
+
+        var mask = AIDRFMFunctions.getMask(true);
+        mask.show();
+
+        Ext.Ajax.request({
+            url: BASE_URL + '/protected/tagger/skipTask.action',
+            method: 'GET',
+            params: {
+                id: me.mainComponent.documentID
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success) {
+                    if (resp.data) {
+//                      TODO implement when service will return correct response.
+                    }
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
+                }
+                mask.hide();
+            },
+            failure: function () {
+                mask.hide();
                 AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
             }
         });

@@ -51,7 +51,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
         });
 
         this.addTrainingData = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/' + MODEL_ID +
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/' + MODEL_FAMILY_ID +
                 '/training-examples/' + MODEL_NAME + '">Add training data >></a></div>',
             margin: 0,
             flex:1
@@ -131,8 +131,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
                     return r ? r : 0;
                 },
                 getTwitterText: function (r) {
-                    var strJson = r;
-                    var obj = Ext.JSON.decode(strJson);
+                    var obj = Ext.JSON.decode(r);
                     if (obj && obj.text) {
                         return obj.text;
                     } else {
