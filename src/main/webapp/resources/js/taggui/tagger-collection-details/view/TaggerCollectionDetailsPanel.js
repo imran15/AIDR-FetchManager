@@ -47,7 +47,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
         this.publicLink = Ext.create('Ext.container.Container', {
-            html: 'Public link:',
+            html: 'Public link for volunteers:',
             margin: '6 15 0 0'
         });
 
@@ -75,7 +75,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
         this.pyBossaLink = Ext.create('Ext.container.Container', {
-            html: '<div class="gray-backgrpund"><i>http://pybossa.qcri.org/crisisContent.html?code=' + CRISIS_CODE + '</i></div>',
+            html: '<div class="gray-backgrpund"><i>http://pybossa-dev.qcri.org/AIDRCrowdsourcingAPI/crisisContent.html?code=' + CRISIS_CODE + '</i></div>',
             margin: '5 0 5 0'
         });
 
@@ -85,13 +85,13 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
         this.predictNewAttribute = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + "/protected/" + encodeURI(CRISIS_CODE) + '/predict-new-attribute">Add a new classifier &gt;&gt;</a></div>',
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + "/protected/" + encodeURI(CRISIS_CODE) + '/predict-new-attribute">Add a new classifier</a></div>',
             margin: 0,
             flex:1
         });
 
         this.aucHint = Ext.create('Ext.container.Container', {
-            html: '<span class="redInfo">*</span>If AUC is low, it is recommended that you add more training examples.',
+            html: '<span class="redInfo">*</span>If AUC is lower than 0.8-0.9, or AUC is 1.0, you urgently need more training examples.',
             margin: 0
         });
 
@@ -153,7 +153,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '<div class="styled-text-17">Name:</div>',
             '<div>Status:</div>',
             '<div>Training examples:</div>',
-            '<div>Classified elements:</div>',
+            '<div>Classified elements (since last change of the classifier):</div>',
             '<div>Quality (AUC)<span class="redInfo">*</span>:</div>',
             '</div>',
 
@@ -161,7 +161,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '<div class="styled-text-17">{[this.getModelName(values.modelID, values.attribute)]}</div>',
             '<div>{[this.getStatus(values.modelID)]}</div>',
             '<div>{[this.getNumber(values.trainingExamples)]} &mdash; <a href="' + BASE_URL +  '/protected/'
-                + CRISIS_CODE + '/{modelID}/{modelFamilyID}/training-data/{[this.getField(values.attribute)]}">Manage training examples &gt;&gt;</a></div>',
+                + CRISIS_CODE + '/{modelID}/{modelFamilyID}/training-data/{[this.getField(values.attribute)]}">Manage training examples &raquo;</a></div>',
             '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
             '<div>{[this.getAucNumber(values.auc)]}</div>',
 
@@ -250,11 +250,11 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             flex: 1,
             layout: 'vbox',
             items: [
-                {
-                    xtype: 'container',
-                    width: '100%',
-                    html: '<div class="horisontalLine"></div>'
-                },
+//                {
+//                    xtype: 'container',
+//                    width: '100%',
+//                    html: '<div class="horisontalLine"></div>'
+//                },
                 {
                     xtype: 'container',
                     defaultType: 'label',
