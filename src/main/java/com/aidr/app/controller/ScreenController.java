@@ -145,7 +145,9 @@ public class ScreenController extends BaseController{
         for (TaggerModel model : modelsForCrisis) {
             if (modelId.equals(model.getModelID())){
                 modelName = model.getAttribute();
-                modelFamilyId = model.getModelFamilyID();
+                if (model.getModelFamilyID() != null) {
+                    modelFamilyId = model.getModelFamilyID();
+                }
             }
         }
 
