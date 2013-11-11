@@ -62,9 +62,7 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
             url: BASE_URL + '/protected/tagger/getAssignableTask.action',
             method: 'GET',
             params: {
-//                TODO change to real ID
-                id: 54
-//                id: CRISIS_ID
+                id: CRISIS_ID
             },
             headers: {
                 'Accept': 'application/json'
@@ -73,7 +71,11 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
                 var resp = Ext.decode(response.responseText);
                 if (resp.success) {
                     if (resp.data) {
-                        var obj = Ext.JSON.decode(resp.data);
+                        try {
+                            var obj = Ext.JSON.decode(resp.data);
+                        } catch (e) {
+                            AIDRFMFunctions.setAlert("Error", "Examples not available for this crisis.");
+                        }
                         if (obj) {
                             var r = obj[0];
                             me.mainComponent.documentID = r.documentID;
@@ -82,20 +84,17 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
                                 me.mainComponent.documentTextLabel.setText(tweetData.text);
                             }
                             if (r.attributeInfo){
-//                                TODO change to real data when this will be fixed
-                                r.attributeInfo = "{\"attributes\":[{\"id\":300,\"name\":\"Informative v1.0\",\"description\":\"Informative messages enhancing situational awareness, v1.0\",\"labels\":[{\"name\":\"Does not apply\",\"description\":\"The label does not apply\",\"code\":\"000_na\",\"id\":171},{\"name\":\"Informative\",\"description\":\"Contributes useful information enhancing situational awareness\",\"code\":\"010_informative\",\"id\":192},{\"name\":\"Label_test3\",\"description\":\"Contributes useful information enhancing situational awareness\",\"code\":\"010_informative\",\"id\":1922},{\"name\":\"Label_test1\",\"description\":\"Contributes useful information enhancing situational awareness\",\"code\":\"010_informative\",\"id\":1923},{\"name\":\"Label_test2\",\"description\":\"Contributes useful information enhancing situational awareness\",\"code\":\"010_informative\",\"id\":19234}]}]}";
-                                var attributeInfo = Ext.JSON.decode(r.attributeInfo);
-                                if (attributeInfo && attributeInfo.attributes) {
-                                    var attr = attributeInfo.attributes[0];
+                                if (r.attributeInfo) {
+                                    var attr = r.attributeInfo[0];
                                     if (attr.name) {
                                         me.mainComponent.attributeNameLabel.setText(attr.name);
                                     }
-                                    if (attr.labels && Ext.isArray(attr.labels)) {
-                                        Ext.each(attr.labels, function (lbl) {
+                                    if (attr.nominalLabelJsonModelSet && Ext.isArray(attr.nominalLabelJsonModelSet)) {
+                                        Ext.each(attr.nominalLabelJsonModelSet, function (lbl) {
                                             me.mainComponent.optionRG.add({
                                                 boxLabel: lbl.name,
                                                 name: 'rg',
-                                                inputValue: lbl.id
+                                                inputValue: lbl.norminalLabelID
                                             });
                                         })
                                     }
@@ -132,6 +131,7 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
 
 
 //      TODO implement when service will return correct response.
+        AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');
         return false;
 
 
