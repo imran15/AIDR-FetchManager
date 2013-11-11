@@ -41,9 +41,16 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
 
         this.newCollectionButton = Ext.create('Ext.Button', {
             text: 'Create New Collection',
-            margin: '27 0 0 0',
+            margin: '27 0 0 15',
             cls:'btn btn-blue',
             id: 'newCollection'
+        });
+
+        this.manageCrisisButton = Ext.create('Ext.Button', {
+            text: 'Manage your crises',
+            margin: '27 0 0 0',
+            cls:'btn btn-blue',
+            id: 'manageCrisis'
         });
 
         this.refreshButton = Ext.create('Ext.Button', {
@@ -166,6 +173,7 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
                         margin: '5 0',
                         items: [
                             this.collectionTitle,
+                            this.manageCrisisButton,
                             this.newCollectionButton
                         ]
                     },

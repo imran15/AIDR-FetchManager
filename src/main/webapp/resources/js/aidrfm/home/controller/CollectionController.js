@@ -23,6 +23,12 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 click: function (btn, e, eOpts) {
                     collectionController.refreshButtonAction();
                 }
+            },
+
+            "#manageCrisis": {
+                click: function (btn, e, eOpts) {
+                    document.location.href = BASE_URL + '/protected/tagger-home';
+                }
             }
 
         });
