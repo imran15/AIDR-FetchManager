@@ -40,6 +40,13 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             flex: 1
         });
 
+        this.gotoCollectorButton = Ext.create('Ext.Button', {
+            text: 'Go To Collector',
+            cls:'btn btn-blue',
+            id: 'goToCollector',
+            margin: '30 0 0 0'
+        });
+
         this.settingsTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
             text: 'Settings',
@@ -453,7 +460,14 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                 margin: '15 0 0 0',
                 html: '<div class="horisontalLine"></div>'
             },
-            this.settingsTitle,
+            {
+                xtype: 'container',
+                layout: 'hbox',
+                items: [
+                    this.settingsTitle,
+                    this.gotoCollectorButton
+                ]
+            },
             this.detailsBlock,
             this.feedsBlock
         ];

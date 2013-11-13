@@ -23,6 +23,12 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
                 click: function (btn, e, eOpts) {
                     this.crisisSave();
                 }
+            },
+
+            "#goToCollector": {
+                click: function (btn, e, eOpts) {
+                    this.goToCollector();
+                }
             }
 
         });
@@ -69,7 +75,10 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
                 }
             }
         });
+    },
 
+    goToCollector: function() {
+        document.location.href = BASE_URL + '/protected/' + CRISIS_CODE +'/collection-details';
     }
 
 });
