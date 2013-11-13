@@ -221,15 +221,15 @@ public class TaggerController extends BaseController {
         logger.info("Updating Attribute in Tagger having id " + attributeID);
         try{
             TaggerAttribute response = taggerService.getAttributeInfo(attributeID);
-            TaggerAttribute updatedAttibute;
+            TaggerAttribute updatedAttribute;
             if (response != null && attributeName != null){
                 response.setName(attributeName);
                 response.setNominalLabelCollection(null);
-                updatedAttibute = taggerService.updateAttribute(response);
+                updatedAttribute = taggerService.updateAttribute(response);
             } else {
                 return getUIWrapper(false, "Error while updating attribute in Tagger");
             }
-            return getUIWrapper(updatedAttibute != null);
+            return getUIWrapper(updatedAttribute != null);
         }catch(Exception e){
             logger.error("Error while updating attribute in Tagger", e);
             return getUIWrapper(false);

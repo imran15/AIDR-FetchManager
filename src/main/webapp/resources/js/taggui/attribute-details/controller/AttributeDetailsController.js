@@ -35,6 +35,24 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
                 click: function (btn, e, eOpts) {
                     this.attributeCancel();
                 }
+            },
+
+            "#valuesSave": {
+                click: function (btn, e, eOpts) {
+                    this.valuesSave();
+                }
+            },
+
+            "#valuesEdit": {
+                click: function (btn, e, eOpts) {
+                    this.valuesEdit();
+                }
+            },
+
+            "#valuesCancel": {
+                click: function (btn, e, eOpts) {
+                    this.valuesCancel();
+                }
             }
 
         });
@@ -83,10 +101,23 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
                             }
                             if (r.users.userID == USER_ID) {
                                 me.mainComponent.buttonsBlock.show();
+                                me.mainComponent.valuesEditButton.show();
                             }
                         }
                         me.mainComponent.typeValue.setText(type, false);
-                        me.mainComponent.labelsStore.loadData(r.nominalLabelCollection, true);
+
+                        if (r.nominalLabelCollection && Ext.isArray(r.nominalLabelCollection)) {
+                            me.mainComponent.valuesLable.show();
+                            me.mainComponent.valuesButtonsBlock.show();
+                            Ext.each(r.nominalLabelCollection, function (lbl) {
+                                me.mainComponent.labelsBlock.add({
+                                    name: lbl.name,
+                                    code: lbl.nominalLabelCode,
+                                    description: lbl.description,
+                                    labelId: lbl.nominalLabelID
+                                });
+                            });
+                        }
                     }
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);
@@ -219,6 +250,47 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
         me.mainComponent.cancelButton.hide();
 
         me.mainComponent.nameTextBox.setValue(me.mainComponent.attributeName);
+    },
+
+    valuesEdit: function () {
+        var me = this;
+
+        var children = me.mainComponent.labelsBlock.items ? me.mainComponent.labelsBlock.items.items : [];
+        Ext.each(children, function (child) {
+            child.edit();
+        });
+
+        me.mainComponent.valuesEditButton.hide();
+        me.mainComponent.valuesSaveButton.show();
+        me.mainComponent.valuesCancelButton.show();
+    },
+
+    valuesSave: function () {
+        var me = this;
+
+        var children = me.mainComponent.labelsBlock.items ? me.mainComponent.labelsBlock.items.items : [];
+        Ext.each(children, function (child) {
+            child.save();
+        });
+
+        me.mainComponent.valuesEditButton.show();
+        me.mainComponent.valuesSaveButton.hide();
+        me.mainComponent.valuesSaveButton.disable();
+        me.mainComponent.valuesCancelButton.hide();
+    },
+
+    valuesCancel: function () {
+        var me = this;
+
+        var children = me.mainComponent.labelsBlock.items ? me.mainComponent.labelsBlock.items.items : [];
+        Ext.each(children, function (child) {
+            child.cancel();
+        });
+
+        me.mainComponent.valuesEditButton.show();
+        me.mainComponent.valuesSaveButton.hide();
+        me.mainComponent.valuesSaveButton.disable();
+        me.mainComponent.valuesCancelButton.hide();
     }
 
 });
