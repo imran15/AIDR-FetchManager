@@ -118,7 +118,7 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
     },
 
     cancelTraining: function() {
-        document.location.href = BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/' + MODEL_FAMILY_ID + '/training-data/' + MODEL_NAME;
+        document.location.href = BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/' + MODEL_FAMILY_ID + '/training-data';
     },
 
     saveLabels: function() {

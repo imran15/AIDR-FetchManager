@@ -161,7 +161,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '<div class="styled-text-17">{[this.getModelName(values.modelID, values.attribute)]}</div>',
             '<div>{[this.getStatus(values.modelID)]}</div>',
             '<div>{[this.getNumber(values.trainingExamples)]} &mdash; <a href="' + BASE_URL +  '/protected/'
-                + CRISIS_CODE + '/{modelID}/{modelFamilyID}/training-data/{[this.getField(values.attribute)]}">Manage training examples &raquo;</a></div>',
+                + CRISIS_CODE + '/{modelID}/{modelFamilyID}/training-data">Manage training examples &raquo;</a></div>',
             '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
             '<div>{[this.getAucNumber(values.auc)]}</div>',
 

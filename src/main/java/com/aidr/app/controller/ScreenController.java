@@ -170,18 +170,29 @@ public class ScreenController extends BaseController{
         return model;
     }
 
-    @RequestMapping("protected/{code}/{modelId}/{modelFamilyId}/training-data/{modelName}")
+    @RequestMapping("protected/{code}/{modelId}/{modelFamilyId}/training-data")
     public ModelAndView trainingData(@PathVariable(value="code") String code,
                                      @PathVariable(value="modelId") Integer modelId,
-                                     @PathVariable(value="modelFamilyId") Integer modelFamilyId,
-                                     @PathVariable(value="modelName") String modelName) throws Exception {
+                                     @PathVariable(value="modelFamilyId") Integer modelFamilyId) throws Exception {
         TaggerCrisis crisis = taggerService.getCrisesByCode(code);
 
         Integer crisisId = 0;
         String crisisName = "";
+        String modelName = "";
         if (crisis != null && crisis.getCrisisID() != null && crisis.getName() != null){
             crisisId = crisis.getCrisisID();
             crisisName = crisis.getName();
+
+        }
+
+        List<TaggerModel> modelsForCrisis = taggerService.getModelsForCrisis(crisisId);
+        for (TaggerModel model : modelsForCrisis) {
+            if (modelId.equals(model.getModelID())){
+                modelName = model.getAttribute();
+                if (model.getModelFamilyID() != null) {
+                    modelFamilyId = model.getModelFamilyID();
+                }
+            }
         }
 
         ModelAndView model = new ModelAndView("tagger/training-data");
@@ -194,18 +205,28 @@ public class ScreenController extends BaseController{
         return model;
     }
 
-    @RequestMapping("protected/{code}/{modelId}/{modelFamilyId}/training-examples/{modelName}")
+    @RequestMapping("protected/{code}/{modelId}/{modelFamilyId}/training-examples")
     public ModelAndView trainingExamples(@PathVariable(value="code") String code,
                                          @PathVariable(value="modelId") Integer modelId,
-                                         @PathVariable(value="modelFamilyId") Integer modelFamilyId,
-                                         @PathVariable(value="modelName") String modelName) throws Exception {
+                                         @PathVariable(value="modelFamilyId") Integer modelFamilyId) throws Exception {
         TaggerCrisis crisis = taggerService.getCrisesByCode(code);
 
         Integer crisisId = 0;
         String crisisName = "";
+        String modelName = "";
         if (crisis != null && crisis.getCrisisID() != null && crisis.getName() != null){
             crisisId = crisis.getCrisisID();
             crisisName = crisis.getName();
+        }
+
+        List<TaggerModel> modelsForCrisis = taggerService.getModelsForCrisis(crisisId);
+        for (TaggerModel model : modelsForCrisis) {
+            if (modelId.equals(model.getModelID())){
+                modelName = model.getAttribute();
+                if (model.getModelFamilyID() != null) {
+                    modelFamilyId = model.getModelFamilyID();
+                }
+            }
         }
 
         ModelAndView model = new ModelAndView("tagger/training-examples");

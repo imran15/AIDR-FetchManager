@@ -109,7 +109,7 @@ Ext.define('TAGGUI.model-details.controller.ModelDetailsController', {
                             'Has classified <b>' + totalMessages + '</b> messages.&nbsp;' +
                             'Trained on <b>' + totalExamples + '</b> training examples.&nbsp;' +
                             '<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/' + MODEL_FAMILY_ID
-                            + '/training-data/' + MODEL_NAME + '">Manage training examples >></a>', false);
+                            + '/training-data">Manage training examples &raquo;</a>', false);
                         me.mainComponent.modelLabelsStore.loadData(models);
                     }
                 } else {
