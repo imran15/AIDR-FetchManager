@@ -51,7 +51,7 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
     },
 
     crisisDelete: function () {
-        Ext.MessageBox.confirm('Confirm Crisis Delete', 'Do you want to delete <b>' + CRISIS_NAME + '</b>?',
+        Ext.MessageBox.confirm('Confirm Crisis Delete', 'Do you want to delete <b>"' + CRISIS_NAME + '"</b>?',
             function (buttonId) {
             if (buttonId === 'yes') {
                 AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');

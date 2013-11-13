@@ -15,7 +15,7 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
 
             "#attributeDelete": {
                 click: function (btn, e, eOpts) {
-                    this.attributeDelete();
+                    this.attributeDeleteHandler();
                 }
             },
 
@@ -96,6 +96,18 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
                 AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
             }
         });
+    },
+
+    attributeDeleteHandler: function () {
+        var me = this;
+
+        Ext.MessageBox.confirm('Confirm Attribute Delete', 'Do you want to delete <b>"' + me.mainComponent.attributeName + '"</b>?',
+            function (buttonId) {
+                if (buttonId === 'yes') {
+                    taggerCollectionDetailsController.attributeDelete();
+                }
+            }
+        );
     },
 
     attributeDelete: function () {
