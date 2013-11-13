@@ -33,7 +33,7 @@ Ext.define('TAGGUI.training-data.controller.TrainingDataController', {
 
         if (MODEL_ID && MODEL_ID != 0) {
             status = 'Running';
-            detailsForModel = '<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/model-details">Details for running model >></a>';
+            detailsForModel = '<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/model-details">Details for running model &raquo;</a>';
 
             Ext.Ajax.request({
                 url: BASE_URL + '/protected/tagger/getAllLabelsForModel.action',

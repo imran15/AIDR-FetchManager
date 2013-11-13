@@ -45,7 +45,7 @@ Ext.define('TAGGUI.model-details.view.ModelDetailsPanel', {
 
         this.linkToAttribute = Ext.create('Ext.container.Container', {
 //            TODO check if this is correct place we need to go to
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + MODEL_ID + '/attribute-details">Details on attribute "' + MODEL_NAME + '" >></a></div>',
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + MODEL_ID + '/attribute-details">Details on attribute "' + MODEL_NAME + '" &raquo;</a></div>',
             margin: 0,
             padding: '30 0 0 0',
             flex:1

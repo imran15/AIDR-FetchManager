@@ -117,7 +117,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
                         });
                         return result.substring(0, result.length - 2);
                     } else {
-                        return '<a href="' + this.getEncodedCode(code) + '/predict-new-attribute">Predict a new attribute >></a>';
+                        return '<a href="' + this.getEncodedCode(code) + '/predict-new-attribute">Predict a new attribute &raquo;</a>';
                     }
                 },
                 getEncodedCode: function(code) {
