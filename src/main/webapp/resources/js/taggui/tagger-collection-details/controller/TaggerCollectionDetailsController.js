@@ -29,6 +29,12 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
                 click: function (btn, e, eOpts) {
                     this.goToCollector();
                 }
+            },
+
+            "#addNewClassifier": {
+                click: function (btn, e, eOpts) {
+                    this.addNewClassifier();
+                }
             }
 
         });
@@ -45,7 +51,12 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
     },
 
     crisisDelete: function () {
-        AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');
+        Ext.MessageBox.confirm('Confirm Crisis Delete', 'Do you want to delete <b>' + CRISIS_NAME + '</b>?',
+            function (buttonId) {
+            if (buttonId === 'yes') {
+                AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');
+            }
+        });
     },
 
     crisisSave: function () {
@@ -79,6 +90,10 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
 
     goToCollector: function() {
         document.location.href = BASE_URL + '/protected/' + CRISIS_CODE +'/collection-details';
+    },
+
+    addNewClassifier: function() {
+        document.location.href = BASE_URL + "/protected/" + CRISIS_CODE + '/predict-new-attribute';
     }
 
 });

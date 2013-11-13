@@ -44,6 +44,15 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             text: 'Go To Collector',
             cls:'btn btn-blue',
             id: 'goToCollector',
+            width: 130,
+            margin: '0 0 0 0'
+        });
+
+        this.addNewClassifierButton = Ext.create('Ext.Button', {
+            text: 'Add a new classifier',
+            cls:'btn btn-blue',
+            id: 'addNewClassifier',
+            width: 130,
             margin: '30 0 0 0'
         });
 
@@ -89,12 +98,6 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         this.horisontalLine = Ext.create('Ext.container.Container', {
             width: '100%',
             html: '<div class="horisontalLine"></div>'
-        });
-
-        this.predictNewAttribute = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + "/protected/" + encodeURI(CRISIS_CODE) + '/predict-new-attribute">Add a new classifier</a></div>',
-            margin: 0,
-            flex:1
         });
 
         this.aucHint = Ext.create('Ext.container.Container', {
@@ -145,10 +148,10 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
         this.crisisModelsTpl = new Ext.XTemplate(
-            '<div class="collections-list">',
+            '<div class="c-list">',
             '<tpl for=".">',
 
-            '<div class="collection-item">',
+            '<div class="crisis-item">',
 
             '<div class="img">',
             '<img alt="Collection History image" src="/AIDRFetchManager/resources/img/AIDR/AIDR_EMBLEM_CMYK_COLOUR_HR.jpg" width="70">',
@@ -169,7 +172,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '<div>{[this.getStatus(values.modelID)]}</div>',
             '<div>{[this.getNumber(values.trainingExamples)]} &mdash; <a href="' + BASE_URL +  '/protected/'
                 + CRISIS_CODE + '/{modelID}/{modelFamilyID}/training-data">Manage training examples &raquo;</a></div>',
-            '<div>{[this.getNumber(values.classifiedDocuments)]}</div>',
+            '<div>{[this.getNumber(values.classifiedDocuments)]}<br><br><br></div>',
             '<div>{[this.getAucNumber(values.auc)]}</div>',
 
             '</div>',
@@ -177,12 +180,13 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '</div>',
             '</div>',
 
+            '<tpl if="xindex != xcount">',
+            '<div class="horisontalLine"></div>',
+            '</tpl>',
+
             '</tpl>',
             '</div>',
             {
-                getField: function (r) {
-                    return r ? r : "<span class='na-text'>Not specified</span>";
-                },
                 getNumber: function (r) {
                     return r ? r : 0;
                 },
@@ -257,11 +261,6 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             flex: 1,
             layout: 'vbox',
             items: [
-//                {
-//                    xtype: 'container',
-//                    width: '100%',
-//                    html: '<div class="horisontalLine"></div>'
-//                },
                 {
                     xtype: 'container',
                     defaultType: 'label',
@@ -435,7 +434,8 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                 margin: '0 0 5 0',
                 items: [
                     this.publicLink,
-                    this.socialIcons
+                    this.socialIcons,
+                    this.gotoCollectorButton
                 ]
             },
             this.pyBossaLink,
@@ -444,14 +444,24 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                 margin: '15 0 0 0',
                 html: '<div class="horisontalLine"></div>'
             },
-            this.classifiersTitle,
+            {
+                xtype: 'container',
+                layout: 'hbox',
+                items: [
+                    this.classifiersTitle,
+                    this.addNewClassifierButton
+                ]
+            },
             this.crisisModelsView,
             {
                 xtype: 'container',
                 layout: 'hbox',
                 padding: '15 0 0 0',
                 items: [
-                    this.predictNewAttribute,
+                    {
+                        xtype: 'container',
+                        flex: 1
+                    },
                     this.aucHint
                 ]
             },
@@ -460,14 +470,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                 margin: '15 0 0 0',
                 html: '<div class="horisontalLine"></div>'
             },
-            {
-                xtype: 'container',
-                layout: 'hbox',
-                items: [
-                    this.settingsTitle,
-                    this.gotoCollectorButton
-                ]
-            },
+            this.settingsTitle,
             this.detailsBlock,
             this.feedsBlock
         ];

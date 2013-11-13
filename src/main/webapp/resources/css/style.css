@@ -2969,14 +2969,22 @@ footer p a:hover{
     border-bottom: 1px #e3e1e1 solid;
 }
 
+.c-list .crisis-item {
+    overflow: hidden;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
 .collections-list .collection-item .img,
-.attribute-list .attribute-item .img {
+.attribute-list .attribute-item .img,
+.c-list .crisis-item .img {
     float: left;
     padding: 3px;
     margin: 0 8px 0 0;
 }
 
-.collections-list .collection-item .btn{
+.collections-list .collection-item .btn,
+.c-list .crisis-item .btn {
     position: relative;
     float: right;
     top: 35px;
@@ -3112,7 +3120,8 @@ footer p a:hover{
 }
 
 .collection-item button:hover,
-.attribute-item button:hover {
+.attribute-item button:hover,
+.crisis-item button:hover{
     cursor: pointer;
 }
 
@@ -3250,32 +3259,37 @@ End of the tab panel styles
 }
 
 .collections-list .content .rightColumn,
-.attribute-list .content .rightColumn {
+.attribute-list .content .rightColumn,
+.c-list .content .rightColumn {
     line-height: 1.5;
     float:left;
     width:160px;
 }
 .collections-list .content .leftColumn,
-.attribute-list .content .leftColumn {
+.attribute-list .content .leftColumn,
+.c-list .content .leftColumn {
     line-height: 1.5;
     float:left;
     width:710px;
 }
 
 .collections-list .content .img,
-.attribute-list .content .img {
+.attribute-list .content .img,
+.c-list .content .img {
     float:left;
     width:75px;
 }
 
 .collections-list .content .info,
-.attribute-list .content .info {
+.attribute-list .content .info,
+.c-list .content .info {
     float:left;
     width:800px;
 }
 
 .collections-list .content .info .field-labels,
-.attribute-list .content .info .field-labels {
+.attribute-list .content .info .field-labels,
+.c-list .content .info .field-labels {
     width:200px;
 }
 
