@@ -30,7 +30,7 @@ Ext.define('TAGGUI.predict-new-attribute.view.PredictNewAttributePanel', {
         });
 
         this.newCustomAttribute = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/new-custom-attribute">Add a custom classifier &gt;&gt;</a></div>',
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/new-custom-attribute">Add a custom classifier &raquo;</a></div>',
             margin: 0,
             padding: '30 0 0 0'
         });
