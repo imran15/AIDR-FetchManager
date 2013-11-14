@@ -4,6 +4,8 @@
 
   <script type="text/javascript">
       CRISIS_CODE = "${code}";
+      CRISIS_ID = ${crisisId};
+      CRISIS_NAME = "${crisisName}";
   </script>
 
 </body>

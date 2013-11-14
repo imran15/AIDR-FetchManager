@@ -163,9 +163,19 @@ public class ScreenController extends BaseController{
 
     @RequestMapping("protected/{code}/new-custom-attribute")
     public ModelAndView newCustomAttribute(@PathVariable(value="code") String code) throws Exception {
+        TaggerCrisis crisis = taggerService.getCrisesByCode(code);
+        Integer crisisId = 0;
+        String crisisName = "";
+
+        if (crisis != null && crisis.getCrisisID() != null && crisis.getName() != null){
+            crisisId = crisis.getCrisisID();
+            crisisName = crisis.getName();
+        }
 
         ModelAndView model = new ModelAndView("tagger/new-custom-attribute");
         model.addObject("code", code);
+        model.addObject("crisisId", crisisId);
+        model.addObject("crisisName", crisisName);
 
         return model;
     }

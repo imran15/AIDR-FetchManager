@@ -2961,6 +2961,10 @@ footer p a:hover{
     margin-bottom : 5px;
 }
 
+.horizontalLineTop {
+    border-top: 1px #e3e1e1 solid;
+}
+
 .collections-list .collection-item,
 .attribute-list .attribute-item {
     overflow: hidden;
@@ -3336,7 +3340,6 @@ End of the tab panel styles
 .attributes-title {
     font-size: 20px;
     color: #4c4c4c;
-    border-bottom: 1px #e3e1e1 solid;
 }
 
 .attributes-title .inner{

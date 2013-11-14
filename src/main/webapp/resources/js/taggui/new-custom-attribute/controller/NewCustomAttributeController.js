@@ -217,6 +217,8 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
                 if (resp.success && resp.data) {
                     var labels = me.mainComponent.labelsStore.getRange();
 
+                    me.addAttributeToCrises(resp.data.nominalAttributeID, name);
+
                     if (labels.length == 0) {
 //                        redirect because attribute was created and there is no labels for it
                           me.redirectAfterSave(mask);
@@ -259,6 +261,32 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
                     mask.hide();
                     AIDRFMFunctions.setAlert('Error', 'Error while saving labels for attribute in Tagger');
                 }
+            }
+        });
+    },
+
+    addAttributeToCrises: function (id, name) {
+        Ext.Ajax.request({
+            url: BASE_URL + '/protected/tagger/addAttributeToCrisis.action',
+            method: 'GET',
+            params: {
+                crisesId: CRISIS_ID,
+                attributeId: id,
+                isActive: true
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success && resp.data) {
+                    AIDRFMFunctions.setAlert("Ok", '"' + name + '" has been added to "' + CRISIS_NAME + '" crisis.');
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
+                }
+            },
+            failure: function () {
+                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
             }
         });
     },

@@ -1,5 +1,6 @@
 Ext.require([
-    'AIDRFM.common.AIDRFMFunctions'
+    'AIDRFM.common.AIDRFMFunctions',
+    'TAGGUI.attribute-details.view.AttributeValuePanel'
 ]);
 
 Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
@@ -91,6 +92,55 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
             ]
         });
 
+        this.valuesSaveButton = Ext.create('Ext.Button', {
+            text: 'Save',
+            cls:'btn btn-green',
+            id: 'valuesSave',
+            hidden: true,
+            disabled: true
+        });
+
+        this.valuesCancelButton = Ext.create('Ext.Button', {
+            text: 'Cancel',
+            margin: '0 0 0 10',
+            cls:'btn btn-green',
+            id: 'valuesCancel',
+            hidden: true
+        });
+
+        this.valuesEditButton = Ext.create('Ext.Button', {
+            text: 'Edit',
+            cls:'btn btn-green',
+            id: 'valuesEdit',
+            hidden: true
+        });
+
+        this.valuesButtonsBlock = Ext.create('Ext.container.Container', {
+            layout: 'hbox',
+            margin: '15 0',
+            padding: '0 10',
+            hidden: true,
+            items: [
+                {
+                    xtype: 'container',
+                    layout: 'hbox',
+                    margin: '0 0 0 0',
+                    width: 250,
+                    items: [
+                        this.valuesEditButton,
+                        this.valuesSaveButton,
+                        this.valuesCancelButton
+                    ]
+                }
+            ]
+        });
+
+        this.valuesLable = Ext.create('Ext.container.Container', {
+            width: '100%',
+            html: '<div class="attributes-title"><div class="inner"><h2>Values</h2></div></div>',
+            hidden: true
+        });
+
         this.codeValue = Ext.create('Ext.form.Label', {flex: 1});
         this.nameValue = Ext.create('Ext.form.Label', {flex: 1});
         this.typeValue = Ext.create('Ext.form.Label', {flex: 1});
@@ -126,7 +176,6 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
         });
 
         this.nameBlock = Ext.create('Ext.container.Container', {
-            xtype: 'container',
             defaultType: 'label',
             layout: 'hbox',
             height: 22,
@@ -143,7 +192,6 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
         });
 
         this.typeBlock = Ext.create('Ext.container.Container', {
-            xtype: 'container',
             defaultType: 'label',
             layout: 'hbox',
             height: 22,
@@ -158,57 +206,11 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
             ]
         });
 
-        this.labelsStore = Ext.create('Ext.data.JsonStore', {
-            pageSize: 100,
-            storeId: 'labelsStore',
-            fields: ['nominalLabelCode', 'description', 'name', 'nominalLabelID'],
-            proxy: {
-                type: 'ajax',
-                url: '',
-                reader: {
-                    root: 'data',
-                    totalProperty: 'total'
-                }
-            },
-            autoLoad: false
-        });
-
-        this.labelsTpl = new Ext.XTemplate(
-            '<div class="attribute-list">',
-
-            '<tpl for=".">',
-
-            '<tpl if="xindex == 1">' +
-                '<div class="attributes-title"><div class="inner"><h2>Values</h2></div></div>' +
-            '</tpl>' +
-
-            '<div class="attribute-item">',
-
-            '<div class="content">',
-
-            '<div class="img">',
-            '<img alt="Attribute image" src="/AIDRFetchManager/resources/img/AIDR/AIDR_EMBLEM_CMYK_COLOUR_HR.jpg" width="70">',
-            '</div>',
-
-            '<div class="info">',
-            '<div class="styled-text-14" id="docCountField_{id}">Name:&nbsp;&nbsp;&nbsp;{name}</div>',
-            '<div class="styled-text-14" id="docCountField_{id}">Code:&nbsp;&nbsp;&nbsp;{nominalLabelCode}</div>',
-            '<div class="styled-text-14" id="docCountField_{id}">Description:&nbsp;&nbsp;&nbsp;{description}</div>',
-            '</div>',
-
-            '</div>',
-            '</div>',
-
-            '</tpl>',
-
-            '</div>'
-        );
-
-        this.labelsView = Ext.create('Ext.view.View', {
-            store: this.labelsStore,
-            id: 'labelsViewId',
-            tpl: this.labelsTpl,
-            itemSelector: 'li.crisesItem'
+        this.labelsBlock = Ext.create('Ext.container.Container', {
+            defaultType: 'attribute-value-view',
+            flex: 1,
+            layout: 'vbox',
+            items: []
         });
 
         this.items = [
@@ -248,7 +250,9 @@ Ext.define('TAGGUI.attribute-details.view.AttributeDetailsPanel', {
                 width: '100%',
                 html: '<div class="horisontalLine"></div>'
             },
-            this.labelsView
+            this.valuesLable,
+            this.labelsBlock,
+            this.valuesButtonsBlock
         ];
 
         this.callParent(arguments);

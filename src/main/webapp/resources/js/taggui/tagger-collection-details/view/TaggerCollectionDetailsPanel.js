@@ -44,7 +44,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             text: 'Go To Collector',
             cls:'btn btn-blue',
             id: 'goToCollector',
-            width: 130,
+            width: 150,
             margin: '0 0 0 0'
         });
 
@@ -52,7 +52,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             text: 'Add a new classifier',
             cls:'btn btn-blue',
             id: 'addNewClassifier',
-            width: 130,
+            width: 150,
             margin: '30 0 0 0'
         });
 
