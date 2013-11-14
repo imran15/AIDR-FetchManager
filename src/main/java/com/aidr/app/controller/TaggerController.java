@@ -236,6 +236,26 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/updateLabel.action", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> updateLabel(@RequestParam Integer labelID, @RequestParam String labelName) throws Exception {
+        logger.info("Updating Label in Tagger having id " + labelID);
+        try{
+            TaggerLabel response = taggerService.getLabelInfo(labelID);
+            TaggerLabel updatedLabel;
+            if (response != null && labelName != null){
+                response.setName(labelName);
+                updatedLabel = taggerService.updateLabel(response);
+            } else {
+                return getUIWrapper(false, "Error while updating label in Tagger");
+            }
+            return getUIWrapper(updatedLabel != null);
+        }catch(Exception e){
+            logger.error("Error while updating label in Tagger", e);
+            return getUIWrapper(false);
+        }
+    }
+
     @RequestMapping(value = "/createLabel.action", method = {RequestMethod.POST})
     @ResponseBody
     public Map<String, Object> createLabel(TaggerLabelRequest labelRequest) {

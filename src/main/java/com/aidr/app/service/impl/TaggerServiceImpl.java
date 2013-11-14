@@ -318,7 +318,6 @@ public class TaggerServiceImpl implements TaggerService {
              */
             WebResource webResource = client.resource(taggerMainUrl + "/attribute/" + id);
             ObjectMapper objectMapper = new ObjectMapper();
-            objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
 
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
@@ -333,6 +332,30 @@ public class TaggerServiceImpl implements TaggerService {
             return null;
         } catch (Exception e) {
             throw new AidrException("Error while getting attribute from Tagger", e);
+        }
+    }
+
+    public TaggerLabel getLabelInfo(Integer id) throws AidrException {
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/label/" + id);
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerLabel response = objectMapper.readValue(jsonResponse, TaggerLabel.class);
+            if (response != null) {
+                logger.info("Label with ID " + response.getNominalLabelID() + " was retrieved from Tagger");
+                return response;
+            }
+            return null;
+        } catch (Exception e) {
+            throw new AidrException("Error while getting label from Tagger", e);
         }
     }
 
@@ -389,6 +412,33 @@ public class TaggerServiceImpl implements TaggerService {
             return attribute;
         } catch (Exception e) {
             throw new AidrException("Error while updating attribute in Tagger", e);
+        }
+    }
+
+    public TaggerLabel updateLabel(TaggerLabel label) throws AidrException{
+        try {
+            /**
+             * Rest call to Tagger
+             */
+            WebResource webResource = client.resource(taggerMainUrl + "/label");
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setSerializationInclusion(JsonSerialize.Inclusion.NON_NULL);
+
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .put(ClientResponse.class, objectMapper.writeValueAsString(label));
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            TaggerLabel updatedLabel = objectMapper.readValue(jsonResponse, TaggerLabel.class);
+            if (updatedLabel != null) {
+                logger.info("Label with id " + updatedLabel.getNominalLabelID() + " was updated in Tagger");
+            } else {
+                return null;
+            }
+
+            return label;
+        } catch (Exception e) {
+            throw new AidrException("Error while updating label in Tagger", e);
         }
     }
 

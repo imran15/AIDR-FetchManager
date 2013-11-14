@@ -29,10 +29,8 @@ Ext.define('TAGGUI.attribute-details.view.AttributeValuePanel', {
             value: this.name
             ,
             listeners: {
-                change: function(combo, newValue, oldValue, eOpts) {
-                    if (newValue == '' || newValue == me.attributeName) {
-//                        me.saveButton.disable();
-                    } else {
+                change: function(combo, newValue) {
+                    if (newValue != '' && newValue != me.attributeName) {
                         me.enableParentSaveButton();
                     }
                 }
@@ -126,10 +124,47 @@ Ext.define('TAGGUI.attribute-details.view.AttributeValuePanel', {
     },
 
     save: function(){
+        var me = this;
+
         var newName = this.nameTextBox.getValue();
         if (this.name != newName && newName != '') {
 
-//          TODO implement actual saving
+            Ext.Ajax.request({
+                url: BASE_URL + '/protected/tagger/updateLabel.action',
+                method: 'POST',
+                params: {
+                    labelID: me.labelId,
+                    labelName: newName
+                },
+                headers: {
+                    'Accept': 'application/json'
+                },
+                success: function (resp) {
+                    var response = Ext.decode(resp.responseText);
+//                    TODO change response handler after updateLabel service will be fixed in Tagger
+//                    if (response.success) {
+//                        me.mainComponent.nameTextBox.hide();
+//                        me.mainComponent.saveButton.hide();
+//                        me.mainComponent.cancelButton.hide();
+//
+//                        me.mainComponent.nameValue.setText(attributeName, false);
+//                        me.mainComponent.nameValue.show();
+//                        me.mainComponent.editButton.show();
+//                    } else {
+//                        AIDRFMFunctions.setAlert("Error", 'Error while updating attribute in Tagger.');
+//                    }
+//                    me.mainComponent.cancelButton.enable();
+//                    me.mainComponent.deleteButton.enable();
+                },
+                failure: function () {
+                    AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+//                    me.attributeCancel();
+//                    me.mainComponent.cancelButton.enable();
+//                    me.mainComponent.deleteButton.enable();
+                }
+            });
+
+
 
             this.nameValue.setText(newName);
             this.name = newName;
@@ -141,4 +176,4 @@ Ext.define('TAGGUI.attribute-details.view.AttributeValuePanel', {
         Ext.getCmp('valuesSave').enable();
     }
 
-})
+});
