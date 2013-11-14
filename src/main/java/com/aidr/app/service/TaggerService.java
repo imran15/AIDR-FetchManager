@@ -42,7 +42,7 @@ public interface TaggerService {
 
     public TaggerAttribute updateAttribute(TaggerAttribute attribute) throws AidrException;
 
-    public TaggerLabel updateLabel(TaggerLabel label) throws AidrException;
+    public TaggerLabel updateLabel(TaggerLabelRequest label) throws AidrException;
 
     public TaggerLabel createNewLabel(TaggerLabelRequest label) throws AidrException;
 

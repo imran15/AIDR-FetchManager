@@ -134,37 +134,22 @@ Ext.define('TAGGUI.attribute-details.view.AttributeValuePanel', {
                 method: 'POST',
                 params: {
                     labelID: me.labelId,
-                    labelName: newName
+                    labelName: newName,
+                    attributeID: ATTRIBUTE_ID
                 },
                 headers: {
                     'Accept': 'application/json'
                 },
                 success: function (resp) {
                     var response = Ext.decode(resp.responseText);
-//                    TODO change response handler after updateLabel service will be fixed in Tagger
-//                    if (response.success) {
-//                        me.mainComponent.nameTextBox.hide();
-//                        me.mainComponent.saveButton.hide();
-//                        me.mainComponent.cancelButton.hide();
-//
-//                        me.mainComponent.nameValue.setText(attributeName, false);
-//                        me.mainComponent.nameValue.show();
-//                        me.mainComponent.editButton.show();
-//                    } else {
-//                        AIDRFMFunctions.setAlert("Error", 'Error while updating attribute in Tagger.');
-//                    }
-//                    me.mainComponent.cancelButton.enable();
-//                    me.mainComponent.deleteButton.enable();
+                    if (!response.success) {
+                        AIDRFMFunctions.setAlert("Error", 'Error while updating label in Tagger.');
+                    }
                 },
                 failure: function () {
                     AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
-//                    me.attributeCancel();
-//                    me.mainComponent.cancelButton.enable();
-//                    me.mainComponent.deleteButton.enable();
                 }
             });
-
-
 
             this.nameValue.setText(newName);
             this.name = newName;

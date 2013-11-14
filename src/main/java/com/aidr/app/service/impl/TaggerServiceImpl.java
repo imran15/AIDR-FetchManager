@@ -415,7 +415,7 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    public TaggerLabel updateLabel(TaggerLabel label) throws AidrException{
+    public TaggerLabel updateLabel(TaggerLabelRequest label) throws AidrException{
         try {
             /**
              * Rest call to Tagger
@@ -436,7 +436,7 @@ public class TaggerServiceImpl implements TaggerService {
                 return null;
             }
 
-            return label;
+            return updatedLabel;
         } catch (Exception e) {
             throw new AidrException("Error while updating label in Tagger", e);
         }

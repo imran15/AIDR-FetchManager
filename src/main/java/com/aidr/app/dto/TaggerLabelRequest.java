@@ -2,6 +2,8 @@ package com.aidr.app.dto;
 
 public class TaggerLabelRequest {
 
+    private Integer nominalLabelID;
+
     private Integer nominalAttributeID;
 
     private String name;
@@ -9,6 +11,14 @@ public class TaggerLabelRequest {
     private String nominalLabelCode;
 
     private String description;
+
+    public Integer getNominalLabelID() {
+        return nominalLabelID;
+    }
+
+    public void setNominalLabelID(Integer nominalLabelID) {
+        this.nominalLabelID = nominalLabelID;
+    }
 
     public Integer getNominalAttributeID() {
         return nominalAttributeID;
