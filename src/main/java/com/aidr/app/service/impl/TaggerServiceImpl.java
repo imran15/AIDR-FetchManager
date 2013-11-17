@@ -550,7 +550,7 @@ public class TaggerServiceImpl implements TaggerService {
     @Override
     public String skipTask(Integer id, String userName) throws AidrException {
         try {
-            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/taskassignment/searchByDocUserName/" + userName + "/" + id);
+            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/taskassignment/revert/searchByDocUserName/" + userName + "/" + id);
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .get(ClientResponse.class);

@@ -75,33 +75,24 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
                             var obj = Ext.JSON.decode(resp.data);
                         } catch (e) {
                             AIDRFMFunctions.setAlert("Error", "Examples not available for this crisis.");
+                            me.mainComponent.saveLabelsButton.disable();
+                            me.mainComponent.skipTaskButton.disable();
                         }
                         if (obj) {
+                            me.mainComponent.optionPanel.removeAll();
                             var r = obj[0];
                             me.mainComponent.documentID = r.documentID;
                             if (r.data){
                                 var tweetData = Ext.JSON.decode(r.data);
+                                console.log(tweetData.text);
                                 me.mainComponent.documentTextLabel.setText(tweetData.text);
                             }
                             if (r.attributeInfo){
-                                if (r.attributeInfo) {
-                                    var attr = r.attributeInfo[0];
-                                    if (attr.name) {
-                                        me.mainComponent.attributeNameLabel.setText(attr.name);
-                                    }
-                                    if (attr.nominalLabelJsonModelSet && Ext.isArray(attr.nominalLabelJsonModelSet)) {
-                                        Ext.each(attr.nominalLabelJsonModelSet, function (lbl) {
-                                            me.mainComponent.optionRG.add({
-                                                boxLabel: lbl.name,
-                                                name: 'rg',
-                                                inputValue: lbl.norminalLabelID
-                                            });
-                                        })
-                                    }
-                                    if (attr.description) {
-                                        me.mainComponent.optinText.setText('<div class="na-text">' + attr.description + '</div>', false);
-                                    }
-                                }
+                                Ext.each(r.attributeInfo, function (attr) {
+                                    var labelPanel = Ext.create('TAGGUI.training-examples.view.LabelPanel', {});
+                                    labelPanel.showData(attr);
+                                    me.mainComponent.optionPanel.add(labelPanel);
+                                });
                             }
                         }
                     }
@@ -129,13 +120,6 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
     skipTask: function() {
         var me = this;
 
-
-//      TODO implement when service will return correct response.
-        AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');
-        return false;
-
-
-
         if (!me.mainComponent.documentID) {
             AIDRFMFunctions.setAlert("Error", "Can not find Document Id");
             return false;
@@ -157,7 +141,11 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
                 var resp = Ext.decode(response.responseText);
                 if (resp.success) {
                     if (resp.data) {
-//                      TODO implement when service will return correct response.
+                        if (resp.data == 'success') {
+                            me.loadData();
+                        } else {
+                            AIDRFMFunctions.setAlert("Error", "Error while skipping task.");
+                        }
                     }
                 } else {
                     AIDRFMFunctions.setAlert("Error", resp.message);

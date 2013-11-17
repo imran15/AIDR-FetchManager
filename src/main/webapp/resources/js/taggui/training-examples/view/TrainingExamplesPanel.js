@@ -1,5 +1,6 @@
 Ext.require([
-    'AIDRFM.common.AIDRFMFunctions'
+    'AIDRFM.common.AIDRFMFunctions',
+    'TAGGUI.training-examples.view.LabelPanel'
 ]);
 
 Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
@@ -78,20 +79,12 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
             flex: 1
         });
 
-        this.optionRG = Ext.create('Ext.form.RadioGroup', {
-            columns: 2,
-            vertical: true,
-            width: 700,
-            margin: '0 0 15 0',
-            items: []
-        });
-
         this.optionPanel = Ext.create('Ext.container.Container', {
             flex: 1,
-            layout: 'hbox',
+            layout: 'vbox',
             margin: '0 15 0 15',
             items: [
-                this.optionRG
+
             ]
         });
 
@@ -125,7 +118,7 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
         this.buttonsBlock = Ext.create('Ext.container.Container', {
             flex: 1,
             layout: 'hbox',
-            margin: '0 15 15 15',
+            margin: '10 0 10 0',
             items: [
                 this.saveLabelsButton,
                 this.skipTaskButton,
@@ -156,10 +149,8 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
                         html: '<div class="horisontalLine"></div>'
                     },
                     this.labelsLabel,
-                        this.attributeNameLabel,
-                        this.optionPanel,
-                        this.optinText,
-                        this.buttonsBlock,
+                    this.optionPanel,
+                    this.buttonsBlock,
                     {
                         xtype: 'container',
                         margin: '5 0 10 0',
