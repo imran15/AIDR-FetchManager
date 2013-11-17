@@ -531,6 +531,23 @@ public class TaggerServiceImpl implements TaggerService {
     }
 
     @Override
+    public String getTemplateStatus(String code) throws AidrException {
+        try {
+            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/template/status/crisis/code/" + code);
+            ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
+                    .accept(MediaType.APPLICATION_JSON)
+                    .get(ClientResponse.class);
+            logger.info("getTemplateStatus - clientResponse : " + clientResponse);
+            String jsonResponse = clientResponse.getEntity(String.class);
+            logger.info("getTemplateStatus - jsonResponse : " + jsonResponse);
+
+            return jsonResponse;
+        } catch (Exception e) {
+            throw new AidrException("Error while getting Template Status in Tagger", e);
+        }
+    }
+
+    @Override
     public String skipTask(Integer id, String userName) throws AidrException {
         try {
             WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/taskassignment/searchByDocUserName/" + userName + "/" + id);

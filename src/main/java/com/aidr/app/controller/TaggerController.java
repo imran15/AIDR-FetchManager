@@ -369,6 +369,22 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/getTemplateStatus.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> getTemplateStatus(@RequestParam String code) throws Exception {
+        try {
+            logger.info("Get Template Status for crisis with code: " + code);
+
+            String sVar = taggerService.getTemplateStatus(code);
+
+            logger.info("sVar : " + sVar);
+            return getUIWrapper(sVar, true);
+        } catch (AidrException e) {
+            e.printStackTrace();
+            return getUIWrapper(e.getMessage(), false);
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);

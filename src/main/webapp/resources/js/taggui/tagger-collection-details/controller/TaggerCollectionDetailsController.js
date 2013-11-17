@@ -46,6 +46,7 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
 
         this.mainComponent = component;
         taggerCollectionDetailsController = this;
+        this.getTemplateStatus();
 
         var me = this;
     },
@@ -94,6 +95,39 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
 
     addNewClassifier: function() {
         document.location.href = BASE_URL + "/protected/" + CRISIS_CODE + '/predict-new-attribute';
+    },
+
+    getTemplateStatus: function() {
+        var me = this;
+
+        Ext.Ajax.request({
+            url: BASE_URL + '/protected/tagger/getTemplateStatus.action',
+            method: 'GET',
+            params: {
+                code: CRISIS_CODE
+            },
+            headers: {
+                'Accept': 'application/json'
+            },
+            success: function (response) {
+                var resp = Ext.decode(response.responseText);
+                if (resp.success && resp.data) {
+                    var data = Ext.JSON.decode(resp.data);
+                    if (data && data.status){
+                        if (data.status == 'ready') {
+                            me.mainComponent.pyBossaLink.setText('<div class="gray-backgrpund"><a href="' + data.url + '"><i>' + data.url + '</i></a></div>', false);
+                        } else if (data.status == 'not_ready') {
+                            me.mainComponent.pyBossaLink.setText('<div class="gray-backgrpund"><i>' + data.message + '</i></div>', false);
+                        }
+                    }
+                } else {
+                    AIDRFMFunctions.setAlert("Error", resp.message);
+                }
+            },
+            failure: function () {
+                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+            }
+        });
     }
 
 });

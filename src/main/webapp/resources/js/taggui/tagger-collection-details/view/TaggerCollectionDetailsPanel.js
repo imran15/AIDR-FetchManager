@@ -90,8 +90,8 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             ]
         });
 
-        this.pyBossaLink = Ext.create('Ext.container.Container', {
-            html: '<div class="gray-backgrpund"><i>http://pybossa-dev.qcri.org/AIDRCrowdsourcingAPI/crisisContent.html?code=' + CRISIS_CODE + '</i></div>',
+        this.pyBossaLink = Ext.create('Ext.form.Label', {
+            html: '<div class="gray-backgrpund"><i></i></div>',
             margin: '5 0 5 0'
         });
 
