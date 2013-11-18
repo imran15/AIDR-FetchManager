@@ -69,7 +69,7 @@ public class TaggerServiceImpl implements TaggerService {
 
             return taggerAllCrisesResponse.getCrisises();
         } catch (Exception e) {
-            throw new AidrException("Error while getting all crisis for user in Tagger", e);
+            throw new AidrException("No collection is enabled for Tagger. Please enable tagger for one of your collections.", e);
         }
     }
 

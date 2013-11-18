@@ -22,7 +22,7 @@
 
 <div class="mainWraper">
     <div class="main" >
-        <div class="center-img"><img src="${pageContext.request.contextPath}/resources/img/AIDR/AIDR_PRIMARY_CMYK_COLOUR_HR.jpg" height="90"/></div>
+        <div class="center-img"><img src="${pageContext.request.contextPath}/resources/img/AIDR/AIDR_PRIMARY_CMYK_COLOUR_HR.png" height="90"/></div>
         <div >
             </br>
         </br>
