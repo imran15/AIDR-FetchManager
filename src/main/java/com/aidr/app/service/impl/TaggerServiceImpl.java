@@ -569,11 +569,14 @@ public class TaggerServiceImpl implements TaggerService {
             WebResource webResource = client.resource(taggerMainUrl + "/crisis");
             ObjectMapper objectMapper = new ObjectMapper();
 
+            logger.info("saveTaskAnswer - postData : " + objectMapper.writeValueAsString(taskAnswer));
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)
                     .post(ClientResponse.class, objectMapper.writeValueAsString(taskAnswer));
 
-            return clientResponse.getEntity(String.class);
+            String resp = clientResponse.getEntity(String.class);
+            logger.info("saveTaskAnswer - clientResponse : " + resp);
+            return resp;
         } catch (Exception e) {
             throw new AidrException("Error while saving TaskAnswer in AIDRCrowdsourcing", e);
         }
