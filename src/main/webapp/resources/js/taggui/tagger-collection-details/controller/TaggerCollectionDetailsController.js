@@ -112,20 +112,24 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
             success: function (response) {
                 var resp = Ext.decode(response.responseText);
                 if (resp.success && resp.data) {
-                    var data = Ext.JSON.decode(resp.data);
-                    if (data && data.status){
-                        if (data.status == 'ready') {
-                            me.mainComponent.pyBossaLink.setText('<div class="gray-backgrpund"><a href="' + data.url + '"><i>' + data.url + '</i></a></div>', false);
-                        } else if (data.status == 'not_ready') {
-                            me.mainComponent.pyBossaLink.setText('<div class="gray-backgrpund"><i>' + data.message + '</i></div>', false);
+                    try {
+                        var data = Ext.JSON.decode(resp.data);
+                        if (data && data.status) {
+                            if (data.status == 'ready') {
+                                me.mainComponent.pyBossaLink.setText('<div class="gray-backgrpund"><a href="' + data.url + '"><i>' + data.url + '</i></a></div>', false);
+                            } else if (data.status == 'not_ready') {
+                                me.mainComponent.pyBossaLink.setText('<div class="gray-backgrpund"><i>' + data.message + '</i></div>', false);
+                            }
                         }
+                    } catch (e) {
+                        me.mainComponent.pyBossaLink.setText('<div class="gray-backgrpund"><i>Initializing crowdsourcing task. Please come back in a few minutes.</i></div>', false);
                     }
                 } else {
-                    AIDRFMFunctions.setAlert("Error", resp.message);
+                    me.mainComponent.pyBossaLink.setText('<div class="gray-backgrpund"><i>Initializing crowdsourcing task. Please come back in a few minutes.</i></div>', false);
                 }
             },
             failure: function () {
-                AIDRFMFunctions.setAlert("Error", "System is down or under maintenance. For further inquiries please contact admin.");
+                me.mainComponent.pyBossaLink.setText('<div class="gray-backgrpund"><i>Initializing crowdsourcing task. Please come back in a few minutes.</i></div>', false);
             }
         });
     }

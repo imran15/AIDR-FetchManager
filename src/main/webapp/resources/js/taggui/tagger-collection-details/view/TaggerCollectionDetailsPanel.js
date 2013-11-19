@@ -91,7 +91,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
         this.pyBossaLink = Ext.create('Ext.form.Label', {
-            html: '<div class="gray-backgrpund"><i></i></div>',
+            html: '<div class="gray-backgrpund"><i>Initializing crowdsourcing task. Please come back in a few minutes.</i></div>',
             margin: '5 0 5 0'
         });
 
