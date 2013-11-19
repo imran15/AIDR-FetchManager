@@ -11,6 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -385,6 +386,32 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/saveTaskAnswer.action", method = {RequestMethod.POST})
+    @ResponseBody
+    public Map<String, Object> saveTaskAnswer(TaskAnswerRequest taskAnswerRequest) {
+        logger.info("Saving TaskAnswer in AIDRCrowdsourcing");
+        try {
+            String userName = getAuthenticatedUserName();
+            Integer taggerUserId = taggerService.isUserExistsByUsername(userName);
+            if (taggerUserId == null) {
+                logger.error("Saving TaskAnswer - can not find Tagger user by User name");
+                return getUIWrapper(false, "Saving TaskAnswer - can not find Tagger user by User name");
+            }
+            List<TaskAnswer> taskAnswer = transformTaskAnswerRequestToTaskAnswer(taskAnswerRequest, taggerUserId);
+
+            String response = taggerService.saveTaskAnswer(taskAnswer);
+
+            if ("SUCCESS".equals(response)){
+                return getUIWrapper(true);
+            } else {
+                return getUIWrapper(false, response);
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+            return getUIWrapper(false, e.getMessage());
+        }
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);
@@ -404,6 +431,32 @@ public class TaggerController extends BaseController {
             crisis.setCrisisType(crisisType);
         }
         return crisis;
+    }
+
+    private List<TaskAnswer> transformTaskAnswerRequestToTaskAnswer (TaskAnswerRequest taskAnswerRequest, Integer taggerUserId) {
+        List<TaskAnswer> result = new ArrayList<TaskAnswer>();
+        TaskAnswer taskAnswer = new TaskAnswer();
+        taskAnswer.setUser_id(taggerUserId);
+
+        DateHistory dateHistory = new DateHistory();
+        dateHistory.setTaskcreated(taskAnswerRequest.getTaskcreated());
+        dateHistory.setTaskcompleted(taskAnswerRequest.getTaskcompleted());
+        dateHistory.setTaskpresented(taskAnswerRequest.getTaskcreated());
+        dateHistory.setTaskpulled(taskAnswerRequest.getTaskcompleted());
+
+        TaskInfo taskInfo = new TaskInfo();
+        taskInfo.setDocumentID(taskAnswerRequest.getDocumentID());
+        taskInfo.setText("");
+        taskInfo.setCategory(taskAnswerRequest.getCategory());
+        taskInfo.setAidrID(taggerUserId);
+        taskInfo.setTweetid("");
+        taskInfo.setCrisisID(taskAnswerRequest.getCrisisID());
+
+        taskAnswer.setDateHistory(dateHistory);
+        taskAnswer.setInfo(taskInfo);
+
+        result.add(taskAnswer);
+        return result;
     }
 
 }

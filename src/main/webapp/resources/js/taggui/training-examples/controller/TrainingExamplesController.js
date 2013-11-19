@@ -82,6 +82,7 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
                             me.mainComponent.optionPanel.removeAll();
                             var r = obj[0];
                             me.mainComponent.documentID = r.documentID;
+                            me.mainComponent.createDate = Ext.Date.format(new Date(), "c");
                             if (r.data){
                                 var tweetData = Ext.JSON.decode(r.data);
                                 console.log(tweetData.text);
@@ -113,8 +114,52 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
     },
 
     saveLabels: function() {
-        AIDRFMFunctions.setAlert("Ok", 'Will be implemented later');
-//        TODO implement when we will have corresponding service.
+        var me = this;
+
+        if (!me.mainComponent.documentID) {
+            AIDRFMFunctions.setAlert("Error", "Can not find Document Id");
+            return false;
+        }
+
+        var notSelected = false;
+        var children = me.mainComponent.optionPanel.items ? me.mainComponent.optionPanel.items.items : [];
+        Ext.each(children, function (child) {
+            var values = child.optionRG.getChecked();
+            if (values.length == 0) {
+                AIDRFMFunctions.setAlert("Error", "No label has been selected");
+                notSelected = true;
+            }
+        });
+
+        if (notSelected){
+            return false;
+        }
+
+        Ext.each(children, function (child) {
+            var values = child.optionRG.getChecked();
+            Ext.Ajax.request({
+                url: BASE_URL + '/protected/tagger/saveTaskAnswer.action',
+                method: 'POST',
+                params: {
+                    documentID: me.mainComponent.documentID,
+                    crisisID: CRISIS_ID,
+                    category: values[0].name,
+                    taskcreated: me.mainComponent.createDate,
+                    taskcompleted: Ext.Date.format(new Date(), "c")
+                },
+                headers: {
+                    'Accept': 'application/json'
+                },
+                success: function (response) {
+                    var resp = Ext.decode(response.responseText);
+                    if (resp.success) {
+                        me.loadData();
+                    } else {
+                        AIDRFMFunctions.setAlert("Error", "Error while saving task.");
+                    }
+                }
+            });
+        });
     },
 
     skipTask: function() {

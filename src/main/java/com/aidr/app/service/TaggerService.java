@@ -55,4 +55,6 @@ public interface TaggerService {
     public String getTemplateStatus(String code)  throws AidrException;
 
     public String skipTask(Integer id, String userName)  throws AidrException;
+
+    public String saveTaskAnswer(List<TaskAnswer> taskAnswer) throws AidrException;
 }
