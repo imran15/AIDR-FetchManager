@@ -566,7 +566,7 @@ public class TaggerServiceImpl implements TaggerService {
 
     public String saveTaskAnswer(List<TaskAnswer> taskAnswer) throws AidrException {
         try {
-            WebResource webResource = client.resource(taggerMainUrl + "/crisis");
+            WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/taskanswer/save");
             ObjectMapper objectMapper = new ObjectMapper();
 
             logger.info("saveTaskAnswer - postData : " + objectMapper.writeValueAsString(taskAnswer));
