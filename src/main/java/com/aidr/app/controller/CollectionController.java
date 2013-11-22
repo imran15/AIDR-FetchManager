@@ -102,6 +102,7 @@ public class CollectionController extends BaseController{
 
 //              set some fields from old collection and update collection
                 collection.setStartDate(dbCollection.getStartDate());
+                collection.setEndDate(dbCollection.getEndDate());
                 collection.setUser(dbCollection.getUser());
                 collection.setCreatedDate(dbCollection.getCreatedDate());
                 collectionService.update(collection);

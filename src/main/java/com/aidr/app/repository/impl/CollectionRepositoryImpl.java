@@ -75,7 +75,7 @@ public class CollectionRepositoryImpl extends GenericRepositoryImpl<AidrCollecti
 		  AidrCollection collection =	this.findById(collectionId);
 		  Calendar now = Calendar.getInstance();
 		  collection.setStartDate(now.getTime());
-		  collection.setEndDate(null);
+//		  collection.setEndDate(null);
 		  collection.setStatus(CollectionStatus.RUNNING);
 		  this.update(collection);
 		  return collection;
