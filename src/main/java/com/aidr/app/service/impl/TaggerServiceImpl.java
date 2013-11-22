@@ -564,7 +564,7 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    public String saveTaskAnswer(List<TaskAnswer> taskAnswer) throws AidrException {
+    public boolean saveTaskAnswer(List<TaskAnswer> taskAnswer) throws AidrException {
         try {
             WebResource webResource = client.resource(crowdsourcingAPIMainUrl + "/taskanswer/save");
             ObjectMapper objectMapper = new ObjectMapper();
@@ -576,7 +576,8 @@ public class TaggerServiceImpl implements TaggerService {
 
             String resp = clientResponse.getEntity(String.class);
             logger.info("saveTaskAnswer - clientResponse : " + resp);
-            return resp;
+
+            return clientResponse.getStatus() == 204;
         } catch (Exception e) {
             throw new AidrException("Error while saving TaskAnswer in AIDRCrowdsourcing", e);
         }

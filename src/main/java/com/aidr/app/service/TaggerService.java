@@ -56,5 +56,5 @@ public interface TaggerService {
 
     public String skipTask(Integer id, String userName)  throws AidrException;
 
-    public String saveTaskAnswer(List<TaskAnswer> taskAnswer) throws AidrException;
+    public boolean saveTaskAnswer(List<TaskAnswer> taskAnswer) throws AidrException;
 }

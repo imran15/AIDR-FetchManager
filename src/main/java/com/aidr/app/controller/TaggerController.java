@@ -399,13 +399,8 @@ public class TaggerController extends BaseController {
             }
             List<TaskAnswer> taskAnswer = transformTaskAnswerRequestToTaskAnswer(taskAnswerRequest, taggerUserId);
 
-            String response = taggerService.saveTaskAnswer(taskAnswer);
-
-            if ("SUCCESS".equals(response)){
-                return getUIWrapper(true);
-            } else {
-                return getUIWrapper(false, response);
-            }
+            boolean result = taggerService.saveTaskAnswer(taskAnswer);
+            return getUIWrapper(result);
         } catch (Exception e) {
             logger.error(e.getMessage(), e);
             return getUIWrapper(false, e.getMessage());
