@@ -1,4 +1,4 @@
-<jsp:include page="../header.jsp"/>
+<jsp:include page="header.jsp"/>
 <body>
   <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/taggui/attribute-details/Application.js"></script>
 
