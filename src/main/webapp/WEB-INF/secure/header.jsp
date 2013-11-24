@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title>AIDR - Collector</title>
+   <!--  <title>AIDR - Collector</title> -->
 
     <link rel="shortcut icon" type="image/ico" href="${pageContext.request.contextPath}/resources/img/favicon.ico" />
 
@@ -24,4 +24,4 @@
         var BASE_URL = '<%=request.getContextPath() %>';
     </script>
 
-</head>
+<!-- </head> -->

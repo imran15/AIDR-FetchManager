@@ -1,4 +1,6 @@
 <jsp:include page="header.jsp"/>
+<title>AIDR - Classifier details</title>
+</head>
 <body>
   <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/taggui/model-details/Application.js"></script>
 

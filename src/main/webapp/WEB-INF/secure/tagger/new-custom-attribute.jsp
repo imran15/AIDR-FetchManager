@@ -1,4 +1,6 @@
 <jsp:include page="header.jsp"/>
+<title>AIDR - Create custom classifier</title>
+</head>
 <body>
   <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/taggui/new-custom-attribute/Application.js"></script>
 
