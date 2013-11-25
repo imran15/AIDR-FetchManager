@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,10 +13,10 @@
 
 </head>
 
-<body>
+<body class="mainbody">
 
 <div class="headerWrapper">
-    <div class="header"></div>
+    <div class="header"><img class="headeraidrlogo" src="${pageContext.request.contextPath}/resources/img/AIDR/aidr_logo_240x90.png"></div>
 </div>
 
 <div class="mainWraper">
@@ -29,10 +28,8 @@
             <p>Welcome. To continue please sign-in using your Twitter credentials.</p>
             <div>
                 <form action="signin/twitter" method="POST">
-                    <button class="btn btn-blue" type="submit">
-                        <span>Sign in with Twitter</span>
-                    </button>
-                    
+                    <input type="image" src="${pageContext.request.contextPath}/resources/img/tweeterSignin.png" style="border: 0;">
+
                 </form>
             </div>
         </div>
@@ -41,7 +38,7 @@
 
 <div class="site-footer">
     <div class="footer">
-        QCRI &mdash; Social Computing
+        <a style="text-decoration: none;color: #ffffff" href="http://www.qcri.qa/">A project by <img align="middle" id="footerqcrilogo" src="${pageContext.request.contextPath}/resources/img/qcri-gray-horiz.png"></a>
     </div>
 </div>
 
