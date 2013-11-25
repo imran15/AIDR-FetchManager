@@ -37,6 +37,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         this.classifiersTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
             text: 'Classifiers',
+            margin: '17 0 5 0',
             flex: 1
         });
 
@@ -53,12 +54,13 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             cls:'btn btn-blue',
             id: 'addNewClassifier',
             width: 150,
-            margin: '30 0 0 0'
+            margin: '27 0 0 0'
         });
 
         this.settingsTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
             text: 'Settings',
+            margin: '17 0 12 0',
             flex: 1
         });
 
