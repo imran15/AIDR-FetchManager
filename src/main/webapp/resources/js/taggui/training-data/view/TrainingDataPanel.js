@@ -85,67 +85,30 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
             }
         });
 
-        this.trainingDataTpl = new Ext.XTemplate(
-            '<div class="collections-list">',
-            '<tpl for=".">',
-
-            '<div class="collection-item">',
-
-            '<div class="img">',
-                '<img alt="Collection History image" src="/AIDRFetchManager/resources/img/AIDR/AIDR_EMBLEM_CMYK_COLOUR_HR.jpg" width="70">',
-            '</div>',
-
-            '<div class="content">',
-
-            '<div class="rightColumn">',
-            '<div class="styled-text-17">Value:</div>',
-            '</div>',
-            '<div class="leftColumn">',
-            '<div class="styled-text-17">{[this.getField(values.labelName)]}</div>',
-            '</div>',
-
-            '<div class="rightColumn">',
-            '<div>Text:</div>',
-            '</div>',
-            '<div class="leftColumn">',
-            '<div>{[this.getTwitterText(values.tweetJSON)]}</div>',
-            '</div>',
-
-            '<div class="rightColumn">',
-            '<div>Labeler:</div>',
-            '</div>',
-            '<div class="leftColumn">',
-            '<div>{[this.getField(values.labelerName)]}</div>',
-            '</div>',
-
-            '</div>',
-            '</div>',
-
-            '</tpl>',
-            '</div>',
-            {
-                getField: function (r) {
-                    return r ? r : "<span class='na-text'>Not specified</span>";
+        this.trainingDataGrid = Ext.create('Ext.grid.Panel', {
+            flex:1,
+            store: this.trainingDataStore,
+            cls: 'aidr-grid',
+            columns: [
+                {
+                    xtype: 'gridcolumn', dataIndex: 'labelName', text: 'Value', width: 150, sortable: false,
+                    renderer: function (value, meta, record) {
+                        return me.getField(value);
+                    }
                 },
-                getNumber: function (r) {
-                    return r ? r : 0;
+                {
+                    xtype: 'gridcolumn', dataIndex: 'tweetJSON', text: 'Text', flex: 1, sortable: false,
+                    renderer: function (value, meta, record) {
+                        return me.getTwitterText(value);
+                    }
                 },
-                getTwitterText: function (r) {
-                    var obj = Ext.JSON.decode(r);
-                    if (obj && obj.text) {
-                        return obj.text;
-                    } else {
-                        return "<span class='na-text'>Not specified</span>";
+                {
+                    xtype: 'gridcolumn', dataIndex: 'labelerName', text: 'Labeler', width: 150, sortable: false,
+                    renderer: function (value, meta, record) {
+                        return me.getField(value);
                     }
                 }
-            }
-        );
-
-        this.trainingDataView = Ext.create('Ext.view.View', {
-            store: this.trainingDataStore,
-            tpl: this.trainingDataTpl,
-            itemSelector: 'div.active',
-            loadMask: false
+            ]
         });
 
         this.trainingDataPaging = Ext.create('Ext.toolbar.Paging', {
@@ -176,17 +139,12 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
                     this.taggerDescription2line
                 ]
             },
-            {
-                xtype: 'container',
-                width: '100%',
-                html: '<div class="horisontalLine"></div>'
-            },
-            this.trainingDataView,
+            this.trainingDataGrid,
             this.trainingDataPaging,
             {
                 xtype: 'container',
                 layout: 'hbox',
-                padding: '25 0 0 0',
+                padding: '20 0 0 0',
                 items: [
                     this.addTrainingData
                 ]
@@ -194,6 +152,19 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
         ];
 
         this.callParent(arguments);
+    },
+
+    getField: function (r) {
+        return r ? r : "<span class='na-text'>Not specified</span>";
+    },
+
+    getTwitterText: function (r) {
+        var obj = Ext.JSON.decode(r);
+        if (obj && obj.text) {
+            return obj.text;
+        } else {
+            return "<span class='na-text'>Not specified</span>";
+        }
     }
 
 })
