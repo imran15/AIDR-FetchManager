@@ -3400,3 +3400,39 @@ End of the tab panel styles
     padding: 5px;
     background: #cccccc;
 }
+
+.aidr-grid .x-grid-header-ct {
+    border-top-width: 0!important;
+    border-left-width: 0!important;
+    border-right-width: 0!important;
+}
+
+.aidr-grid .x-grid-body {
+    border-bottom-width: 0!important;
+    border-left-width: 0!important;
+    border-right-width: 0!important;
+}
+
+.aidr-grid .x-box-inner {
+    height: 25px!important;
+}
+
+.aidr-grid .x-column-header-inner {
+    padding-top: 3px!important;
+}
+
+.aidr-grid .x-column-header-inner span {
+    font-size: 12px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
+}
+
+.aidr-grid .x-grid-cell-inner {
+    padding-top: 4px;
+    height: 24px;
+    font-size: 12px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
+}
+
+.aidr-grid .x-column-header-last {
+    border-right-width: 0!important;
+}
