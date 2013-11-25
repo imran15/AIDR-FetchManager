@@ -5,29 +5,18 @@ http://www.barrelny.com
 
 /* ------ DEFAULTS ------ */
 
-html, body, div, span, applet, object, iframe,
-h1, h2, h3, h4, h5, h6, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed, 
-figure, figcaption, footer, header, hgroup, 
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video{
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-}
+
 
 .x-body,
 .x-form-item,
 .x-form-field{
     font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
+}
+
+.mainbody {
+    padding: 0;
+    margin: 0;
+    background: url(../img/aidr-bg-clouds.jpg) repeat-x scroll 52% 5% transparent !important;
 }
 
 .textcenter{
@@ -51,14 +40,21 @@ time, mark, audio, video{
 	margin-top:70px;
 }
 
+.headeraidrlogo {
+    margin-top: 10px;
+    border-radius: 8px;
+    padding: 8px;
+    background: white;
+}
+
 .mainWraper {
-    background: url(../img/qcri-bg-clouds.jpg) no-repeat scroll 52% 5% transparent !important;
     margin: 0 auto;
-    padding: 2em;
+    padding: 1em;
 }
 
 .main {
-    padding: 2em;
+    padding: 1em;
+    border-radius: 12px;
     margin: 0 auto;
     width: 960px;
     background: white;
@@ -105,19 +101,18 @@ time, mark, audio, video{
 }
 
 .headerWrapper{
-    height: 120px;
+    background-color: #00a79d;
+    opacity: 0.9;
+    height: 130px;
     width: auto;
     margin: 0;
     padding: 0;
-    background: #464646;
 }
 
 .header{
     margin: 0 auto;
     padding: 0;
-    width: 940px;
-    height: 120px;
-    background: url("../img/qcri-gray.png") no-repeat;
+    width: 992px;
 }
 
 .search-item {
@@ -134,18 +129,20 @@ time, mark, audio, video{
 }
 
 .site-footer{
-    background: #464646;
-	padding: 25px;
-	color: white;
-	font-size: 12px;
-	height :40px;
+    background-color: #464646;
+    height: 120px;
+    width: 100%;
+    position:absolute;
+    bottom: 0;
 }
 
 .site-footer .footer {
     width: 960px;
+    padding: 1em;
     margin: 0 auto;
     font-size: 0.8em;
     color: white;
+    text-align: right;
 }
 
 .btnGreen{
