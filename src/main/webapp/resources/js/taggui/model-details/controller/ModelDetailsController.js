@@ -53,6 +53,11 @@ Ext.define('TAGGUI.model-details.controller.ModelDetailsController', {
                             totalRecall = 0,
                             status = '';
                         Ext.Array.each(resp.data, function(r, index) {
+//                            do not count any data from labels with code == null
+                            if (!r.nominalLabel || !r.nominalLabel.nominalLabelCode || r.nominalLabel.nominalLabelCode == 'null'){
+                                return true;
+                            }
+
                             if (r.classifiedDocumentCount && r.classifiedDocumentCount > 0) {
                                 totalMessages += r.classifiedDocumentCount;
                             }
@@ -74,6 +79,10 @@ Ext.define('TAGGUI.model-details.controller.ModelDetailsController', {
                         });
 
                         Ext.Array.each(resp.data, function(r, index) {
+//                            do not show labels with code == null
+                            if (!r.nominalLabel || !r.nominalLabel.nominalLabelCode || r.nominalLabel.nominalLabelCode == 'null'){
+                                return true;
+                            }
                             var model = {};
                             if (r.nominalLabel && r.nominalLabel.name) {
                                 model.value = r.nominalLabel.name;

@@ -52,6 +52,11 @@ Ext.define('TAGGUI.training-data.controller.TrainingDataController', {
                             var totalMessages = 0,
                                 totalExamples = 0;
                             Ext.Array.each(resp.data, function(r, index) {
+//                              do not count any data from labels with code == null
+                                if (!r.nominalLabel || !r.nominalLabel.nominalLabelCode || r.nominalLabel.nominalLabelCode == 'null'){
+                                    return true;
+                                }
+
                                 if (r.classifiedDocumentCount && r.classifiedDocumentCount > 0) {
                                     totalMessages += r.classifiedDocumentCount;
                                 }
