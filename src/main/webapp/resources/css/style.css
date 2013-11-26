@@ -3412,10 +3412,6 @@ End of the tab panel styles
     height: 25px!important;
 }
 
-.aidr-grid .x-column-header-inner {
-    padding-top: 3px!important;
-}
-
 .aidr-grid .x-column-header-inner span {
     font-size: 12px;
     font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
