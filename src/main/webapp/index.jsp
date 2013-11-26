@@ -12,7 +12,13 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css"/>
 
 </head>
-
+<script type="text/javascript">
+    setTimeout("submitform()",3000);
+    function submitform(){
+        //alert('test');
+        document.forms["login"].submit();
+    }
+</script>
 <body class="mainbody">
 
 <div class="headerWrapper">
@@ -20,18 +26,16 @@
 </div>
 
 <div class="mainWraper">
-    <div class="main" >
-        <div class="center-img"><img src="${pageContext.request.contextPath}/resources/img/AIDR/AIDR_PRIMARY_CMYK_COLOUR_HR.png" height="90"/></div>
-        <div >
-            </br>
-        </br>
-            <p>Welcome. To continue please sign-in using your Twitter credentials.</p>
+    <div class="main">
+        <div style="text-align: center;">
+            <p align="center">Welcome! We are redirecting you to Twitter to sign-in.</p>
             <div>
-                <form action="signin/twitter" method="POST">
+                <form action="signin/twitter" method="POST" id="login">
                     <input type="image" src="${pageContext.request.contextPath}/resources/img/tweeterSignin.png" style="border: 0;">
-
                 </form>
+
             </div>
+            <br/><br/>
         </div>
     </div>
 </div>
