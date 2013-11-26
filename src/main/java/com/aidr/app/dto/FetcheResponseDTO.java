@@ -20,6 +20,7 @@ public class FetcheResponseDTO implements Serializable{
 	private Integer tweetsCount;
 	private String lastDocument;
         private String languageFilter;
+        private String statusMessage;
 	
 	public String getId() {
 		return id;
@@ -94,6 +95,20 @@ public class FetcheResponseDTO implements Serializable{
      */
     public void setLanguageFilter(String languageFilter) {
         this.languageFilter = languageFilter;
+    }
+
+    /**
+     * @return the statusMessage
+     */
+    public String getStatusMessage() {
+        return statusMessage;
+    }
+
+    /**
+     * @param statusMessage the statusMessage to set
+     */
+    public void setStatusMessage(String statusMessage) {
+        this.statusMessage = statusMessage;
     }
 
 	
