@@ -257,7 +257,9 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
 
         var children = me.mainComponent.labelsBlock.items ? me.mainComponent.labelsBlock.items.items : [];
         Ext.each(children, function (child) {
-            child.edit();
+            if (child.name != NA_CATEGORY_NAME) {
+                child.edit();
+            }
         });
 
         me.mainComponent.valuesEditButton.hide();
@@ -270,7 +272,9 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
 
         var children = me.mainComponent.labelsBlock.items ? me.mainComponent.labelsBlock.items.items : [];
         Ext.each(children, function (child) {
-            child.save();
+            if (child.name != NA_CATEGORY_NAME) {
+                child.save();
+            }
         });
 
         me.mainComponent.valuesEditButton.show();
@@ -284,7 +288,9 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
 
         var children = me.mainComponent.labelsBlock.items ? me.mainComponent.labelsBlock.items.items : [];
         Ext.each(children, function (child) {
-            child.cancel();
+            if (child.name != NA_CATEGORY_NAME) {
+                child.cancel();
+            }
         });
 
         me.mainComponent.valuesEditButton.show();
