@@ -1,7 +1,7 @@
 <jsp:include page="header.jsp"/>
 <title>AIDR - Add training examples</title>
 </head>
-<body>
+<body class="mainbody">
   <script type="text/javascript" src="<%=request.getContextPath()%>/resources/js/taggui/training-examples/Application.js"></script>
 
   <script type="text/javascript">

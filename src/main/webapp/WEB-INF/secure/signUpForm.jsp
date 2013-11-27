@@ -3,7 +3,7 @@
 <html>
  <head>
  </head>
- <body>
+ <body class="mainbody">
 
 <p>Please choose your user name</p>
 
