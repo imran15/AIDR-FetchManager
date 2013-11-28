@@ -42,9 +42,9 @@ http://www.barrelny.com
 
 .headeraidrlogo {
     margin-top: 10px;
-    border-radius: 8px;
+    border-radius: 0px;
     padding: 8px;
-    background: white;
+    background: none;
 }
 
 .mainWraper {
@@ -56,7 +56,7 @@ http://www.barrelny.com
     padding: 1em;
     border-radius: 12px;
     margin: 0 auto;
-    width: 960px;
+    width: 1020px;
     background: white;
 }
 
@@ -103,7 +103,7 @@ http://www.barrelny.com
 .headerWrapper{
     background-color: #00a79d;
     opacity: 0.9;
-    height: 130px;
+    height: 120px;
     width: auto;
     margin: 0;
     padding: 0;
@@ -112,7 +112,7 @@ http://www.barrelny.com
 .header{
     margin: 0 auto;
     padding: 0;
-    width: 992px;
+    width: 1040px;
 }
 
 .search-item {
