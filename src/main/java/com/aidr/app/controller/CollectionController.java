@@ -130,7 +130,10 @@ public class CollectionController extends BaseController{
         AidrCollection collection = collectionService.findById(id);
         AidrCollectionTotalDTO dto = convertAidrCollectionToDTO(collection);
         if (dto != null) {
-            Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id) + dto.getCount();
+            Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id);
+            if (CollectionStatus.RUNNING.equals(dto.getStatus()) && CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
+                totalCount += dto.getCount();
+            }
             dto.setTotalCount(totalCount);
         }
         return dto;
@@ -192,7 +195,10 @@ public class CollectionController extends BaseController{
                 AidrCollection collection = collectionService.start(id, userEntity.getId());
                 AidrCollectionTotalDTO dto = convertAidrCollectionToDTO(collection);
                 if (dto != null) {
-                    Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id) + dto.getCount();
+                    Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id);
+                    if (CollectionStatus.RUNNING.equals(dto.getStatus()) && CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
+                        totalCount += dto.getCount();
+                    }
                     dto.setTotalCount(totalCount);
                 } else {
                     return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
@@ -211,7 +217,10 @@ public class CollectionController extends BaseController{
          AidrCollection collection = collectionService.stop(id);
          AidrCollectionTotalDTO dto = convertAidrCollectionToDTO(collection);
          if (dto != null) {
-             Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id) + dto.getCount();
+             Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id);
+             if (CollectionStatus.RUNNING.equals(dto.getStatus()) && CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
+                 totalCount += dto.getCount();
+             }
              dto.setTotalCount(totalCount);
          } else {
              return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
@@ -229,7 +238,10 @@ public class CollectionController extends BaseController{
             collection = collectionService.statusById(id);
             dto = convertAidrCollectionToDTO(collection);
             if (dto != null) {
-                Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id) + dto.getCount();
+                Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id);
+                if (CollectionStatus.RUNNING.equals(dto.getStatus()) && CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
+                    totalCount += dto.getCount();
+                }
                 dto.setTotalCount(totalCount);
             } else {
                 return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");

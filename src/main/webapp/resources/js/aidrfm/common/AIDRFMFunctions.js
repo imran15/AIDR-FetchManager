@@ -111,3 +111,5 @@ Ext.define('AIDRFM.common.AIDRFMFunctions', {
 });
 
 AIDRFMFunctions = new AIDRFM.common.AIDRFMFunctions();
+
+NA_CATEGORY_NAME = 'N/A: does not apply, or cannot judge';

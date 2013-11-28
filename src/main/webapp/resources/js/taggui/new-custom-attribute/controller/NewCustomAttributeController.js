@@ -76,6 +76,15 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
         taggerCollectionDetailsController = this;
 
         var me = this;
+
+//      create N/A category
+        var labels = [],
+            r = {};
+        r.name = NA_CATEGORY_NAME;
+        r.description = 'If these categories do not apply to this message, or you cannot be sure about which is the correct category';
+        r.code = 'null';
+        labels.push(r);
+        me.mainComponent.labelsStore.loadData(labels, true);
     },
 
     addLabel: function() {
@@ -132,6 +141,7 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
         labels.push(r);
 
         me.mainComponent.labelsStore.loadData(labels, true);
+        return true;
     },
 
     clearAttributeFields: function(){
