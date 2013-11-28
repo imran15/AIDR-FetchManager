@@ -85,7 +85,6 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
                             me.mainComponent.createDate = Ext.Date.format(new Date(), "c");
                             if (r.data){
                                 var tweetData = Ext.JSON.decode(r.data);
-                                console.log(tweetData.text);
                                 me.mainComponent.documentTextLabel.setText(tweetData.text);
                             }
                             if (r.attributeInfo){
@@ -143,7 +142,7 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
                 params: {
                     documentID: me.mainComponent.documentID,
                     crisisID: CRISIS_ID,
-                    category: values[0].name,
+                    category: values[0].code,
                     taskcreated: me.mainComponent.createDate,
                     taskcompleted: Ext.Date.format(new Date(), "c")
                 },
