@@ -125,8 +125,8 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             allowBlank: false,
             width: 370,
             emptyText: 'e.g., Sandy2012 or EQJapan2011',
-            maxLength: 15,
-            maxLengthText: 'The maximum length for this field is 15 ',
+            maxLength: 64,
+            maxLengthText: 'The maximum length for this field is 64',
             maskRe: /[^ ]/,
             disabled: true
         });
@@ -143,9 +143,11 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             fieldLabel: 'Keywords',
             name: 'track',
             allowBlank: false,
+            maxLength: 400,
+            maxLengthText: 'The maximum length for this field is 400',
             flex: 1,
             rows: 4,
-            emptyText: 'e.g., #sandy, #newyork,#joplin'
+            emptyText: 'e.g., #sandy, #newyork,#joplin (max 400)'
         });
 
         this.geoE = Ext.create('Ext.form.field.Text', {
@@ -153,7 +155,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             labelWidth: 130,
             name: 'geo',
             flex: 1,
-            emptyText: 'e.g., 43.43, 22.44, 89.32, 56.43'
+            emptyText: 'e.g., 43.43, 22.44, 89.32, 56.43 (max 25)'
         });
 
         this.geoDescription = Ext.create('Ext.form.Label', {
@@ -167,7 +169,7 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
             name: 'follow',
             labelWidth: 130,
             flex: 1,
-            emptyText: 'e.g., 47423744, 53324456'
+            emptyText: 'e.g., 47423744, 53324456 (max 5000)'
         });
 
         this.langComboStore = Ext.create('Ext.data.ArrayStore', {

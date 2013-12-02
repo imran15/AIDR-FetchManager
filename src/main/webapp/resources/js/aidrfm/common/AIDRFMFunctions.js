@@ -102,6 +102,8 @@ Ext.define('AIDRFM.common.AIDRFMFunctions', {
             statusText = "<b class='blueInfo'> INITIALIZING </b>";
         } else if (raw == 'STOPPED' || raw == 'FATAL-ERROR') {
             statusText = "<b class='redInfo'>" + raw + " </b>";
+        }  else if (raw == 'NOT_RUNNING') {
+            statusText = "<b class='warningFont'>" + raw + " </b>" + ' (Click on "Start" to start this collection.)';
         } else {
             statusText = "<b class='warningFont'>" + raw + " </b>";
         }

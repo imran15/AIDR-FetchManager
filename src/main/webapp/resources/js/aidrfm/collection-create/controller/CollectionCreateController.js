@@ -138,7 +138,7 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
                     'Accept': 'application/json'
                 },
                 success: function (response) {
-                    AIDRFMFunctions.setAlert("Ok", ["Collection created successfully.", "You will be redirected to Home screen."]);
+                    AIDRFMFunctions.setAlert("Collection Created", ["Collection created successfully.", "You will be redirected to Home screen."]);
                     mask.hide();
 
                     var maskRedirect = AIDRFMFunctions.getMask(true, 'Redirecting ...');

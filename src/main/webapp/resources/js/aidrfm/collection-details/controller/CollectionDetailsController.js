@@ -366,8 +366,8 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             this.DetailsComponent.startButton.show();
             this.DetailsComponent.enableTaggerButton.disable();
             this.DetailsComponent.stopButton.hide();
-        }
-
+        } 
+        
         this.DetailsComponent.statusL.setText(statusText, false);
     },
 

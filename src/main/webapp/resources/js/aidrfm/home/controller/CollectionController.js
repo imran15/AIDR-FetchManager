@@ -177,8 +177,7 @@ Ext.define('AIDRFM.home.controller.CollectionController', {
                 lastDocField = document.getElementById("lastDocField_" + id),
                 docCount = data.count ? Ext.util.Format.number(data.count,'0,000') : 0,
                 lastDoc = data.lastDocument ? data.lastDocument : "<span class='na-text'>N/A</span>";
-
-
+                
             statusField.innerHTML = AIDRFMFunctions.getStatusWithStyle(data.status);
             docCountField.innerHTML = 'Downloaded items:&nbsp;&nbsp;&nbsp' + docCount;
             lastDocField.innerHTML = 'Last downloaded item:&nbsp;&nbsp;&nbsp;<span class="tweet">' + lastDoc + '</span>';
