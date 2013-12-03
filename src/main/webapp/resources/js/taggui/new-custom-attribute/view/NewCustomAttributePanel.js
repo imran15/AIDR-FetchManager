@@ -61,7 +61,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
         this.descriptionE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Description',
             name: 'description',
-            allowBlank: true,
+            allowBlank: false,
             flex: 1,
             emptyText: 'e.g. Indicate the item being donated'
         });
@@ -88,7 +88,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
         this.DescriptionLabelE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Description',
             name: 'description',
-            allowBlank: true,
+            allowBlank: false,
             flex: 1,
             emptyText: 'e.g. Footwear in general, shoes, boots, etc.'
         });
