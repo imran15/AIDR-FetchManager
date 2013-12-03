@@ -45,8 +45,8 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             allowBlank: false,
             flex: 1,
             emptyText: 'e.g. donationtype',
-            maxLength: 15,
-            maxLengthText: 'The maximum length for this field is 15 ',
+            maxLength: 64,
+            maxLengthText: 'The maximum length for this field is 64 ',
             maskRe: /[^ ]/
         });
 
@@ -72,8 +72,8 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             allowBlank: false,
             flex: 1,
             emptyText: 'e.g. shoesdonation',
-            maxLength: 15,
-            maxLengthText: 'The maximum length for this field is 15 ',
+            maxLength: 64,
+            maxLengthText: 'The maximum length for this field is 64 ',
             maskRe: /[^ ]/
         });
 
