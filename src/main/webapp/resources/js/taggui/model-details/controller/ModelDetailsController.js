@@ -90,33 +90,33 @@ Ext.define('TAGGUI.model-details.controller.ModelDetailsController', {
                             var classifiedMessages = '0 (0%)';
                             if (r.classifiedDocumentCount){
                                 var classifiedMessagesPercentage = ((r.classifiedDocumentCount * 100) / totalMessages).toFixed(2)
-                                classifiedMessages = r.classifiedDocumentCount + ' (' + classifiedMessagesPercentage + '%)';
+                                classifiedMessages = r.classifiedDocumentCount.format() + ' (' + classifiedMessagesPercentage + '%)';
                             }
                             var trainingDocuments = '0 (0%)';
                             if (r.trainingDocuments){
                                 var trainingDocumentsPercentage = ((r.trainingDocuments * 100) / totalExamples).toFixed(2)
-                                trainingDocuments = r.trainingDocuments + ' (' + trainingDocumentsPercentage + '%)';
+                                trainingDocuments = r.trainingDocuments.format() + ' (' + trainingDocumentsPercentage + '%)';
                             }
                             model.classifiedDocumentCount = classifiedMessages;
                             model.trainingDocumentsCount = trainingDocuments;
-                            model.labelAuc = r.labelAuc;
-                            model.labelPrecision = r.labelPrecision;
-                            model.labelRecall = r.labelRecall;
+                            model.labelAuc = r.labelAuc.toFixed(2);
+                            model.labelPrecision = r.labelPrecision.toFixed(2);
+                            model.labelRecall = r.labelRecall.toFixed(2);
                             models.push(model);
                         });
 
                         var totalModel = {};
                         totalModel.value = '';
-                        totalModel.classifiedDocumentCount = totalMessages + ' total';
-                        totalModel.trainingDocumentsCount = totalExamples + ' total';
+                        totalModel.classifiedDocumentCount = totalMessages.format() + ' total';
+                        totalModel.trainingDocumentsCount = totalExamples.format() + ' total';
                         totalModel.labelAuc = (totalAUC / count).toFixed(2) + ' avg';
                         totalModel.labelPrecision = (totalPrecision / count).toFixed(2) + ' avg';
                         totalModel.labelRecall = (totalRecall / count).toFixed(2) + ' avg';
                         models.push(totalModel);
 
                         me.mainComponent.modelDetails.setText('Status: <b>' + status + '</b>.&nbsp;' +
-                            'Has classified <b>' + totalMessages + '</b> messages.&nbsp;' +
-                            'Trained on <b>' + totalExamples + '</b> training examples.&nbsp;' +
+                            'Has classified <b>' + totalMessages.format() + '</b> messages.&nbsp;' +
+                            'Trained on <b>' + totalExamples.format() + '</b> training examples.&nbsp;' +
                             '<a href="' + BASE_URL +  '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/' + MODEL_FAMILY_ID
                             + '/training-data">Manage training examples &raquo;</a>', false);
                         me.mainComponent.modelLabelsStore.loadData(models);

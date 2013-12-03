@@ -115,3 +115,8 @@ Ext.define('AIDRFM.common.AIDRFMFunctions', {
 AIDRFMFunctions = new AIDRFM.common.AIDRFMFunctions();
 
 NA_CATEGORY_NAME = 'N/A: does not apply, or cannot judge';
+
+Number.prototype.format = function(n, x) {
+    var re = '(\\d)(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$1,');
+};
