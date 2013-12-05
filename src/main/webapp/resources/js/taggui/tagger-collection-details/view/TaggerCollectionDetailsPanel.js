@@ -190,7 +190,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '</div>',
             {
                 getNumber: function (r) {
-                    return r ? r : 0;
+                    return r ? r.format() : 0;
                 },
                 getAucNumber: function (r) {
                     if (r){
