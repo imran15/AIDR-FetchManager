@@ -576,6 +576,7 @@ public class TaggerServiceImpl implements TaggerService {
 
             String resp = clientResponse.getEntity(String.class);
             logger.info("saveTaskAnswer - clientResponse : " + resp);
+            logger.info("saveTaskAnswer - response status : " + clientResponse.getStatus());
 
             return clientResponse.getStatus() == 204;
         } catch (Exception e) {
