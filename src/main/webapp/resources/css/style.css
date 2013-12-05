@@ -3427,3 +3427,9 @@ End of the tab panel styles
 .aidr-grid .x-column-header-last {
     border-right-width: 0!important;
 }
+
+.small-gray-text {
+    font-size: 12px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
+    color: #999;
+}

@@ -3,20 +3,14 @@ Ext.define('TAGGUI.training-examples.view.LabelPanel', {
     alias: 'widget.label-panel-view',
 
     layout: 'vbox',
-    padding: '12 0 12 0',
+    padding: '7 0 7 0',
     width: '100%',
 
     initComponent: function () {
         var me = this;
 
-        this.attributeNameLabel = Ext.create('Ext.form.Label', {
-            cls: 'styled-text',
-            html: '',
-            flex: 1
-        });
-
         this.optionRG = Ext.create('Ext.form.RadioGroup', {
-            columns: 2,
+            columns: 1,
             vertical: true,
             width: 700,
             items: []
@@ -24,23 +18,15 @@ Ext.define('TAGGUI.training-examples.view.LabelPanel', {
 
         this.optionPanel = Ext.create('Ext.container.Container', {
             flex: 1,
-            margin: '5 0 5 0',
+            margin: 0,
             layout: 'hbox',
             items: [
                 this.optionRG
             ]
         });
 
-        this.optinText = Ext.create('Ext.form.Label', {
-            cls: 'styled-text',
-            html: '',
-            flex: 1
-        });
-
         this.items = [
-            this.attributeNameLabel,
-            this.optionPanel,
-            this.optinText
+            this.optionPanel
         ];
 
         this.callParent(arguments);
@@ -48,21 +34,22 @@ Ext.define('TAGGUI.training-examples.view.LabelPanel', {
 
     showData: function(attr){
         var me = this;
-
-        if (attr.name) {
-            me.attributeNameLabel.setText(attr.name);
-        }
         if (attr.nominalLabelJsonModelSet && Ext.isArray(attr.nominalLabelJsonModelSet)) {
+            var labels = attr.nominalLabelJsonModelSet;
+
+            labels.sort(function(a, b){
+                if(a.norminalLabelCode < b.norminalLabelCode) return -1;
+                if(a.norminalLabelCode > b.norminalLabelCode) return 1;
+                return 0;
+            });
+
             Ext.each(attr.nominalLabelJsonModelSet, function (lbl) {
                 me.optionRG.add({
-                    boxLabel: lbl.name,
+                    boxLabel: '<span class="styled-text">' + lbl.name + '</span>&nbsp;<span class="small-gray-text">' +lbl.description + '</span>',
                     name: attr.nominalAttributeID,
                     code: lbl.norminalLabelCode
                 });
             })
-        }
-        if (attr.description) {
-            me.optinText.setText('<div class="na-text">' + attr.description + '</div>', false);
         }
     }
 

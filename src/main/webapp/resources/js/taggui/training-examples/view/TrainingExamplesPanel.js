@@ -53,15 +53,8 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
 
         this.labelsLabel = Ext.create('Ext.form.Label', {
             cls: 'header-h1',
-            margin: '15 0 10 0',
+            margin: '15 0 5 0',
             html: 'Labels',
-            flex: 1
-        });
-
-        this.attributeNameLabel = Ext.create('Ext.form.Label', {
-            cls: 'styled-text',
-            margin: '0 15 10 15',
-            html: '',
             flex: 1
         });
 
@@ -82,17 +75,10 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
         this.optionPanel = Ext.create('Ext.container.Container', {
             flex: 1,
             layout: 'vbox',
-            margin: '0 15 0 15',
+            margin: '0 10 0 10',
             items: [
 
             ]
-        });
-
-        this.optinText = Ext.create('Ext.form.Label', {
-            cls: 'styled-text',
-            margin: '0 15 15 15',
-            html: '',
-            flex: 1
         });
 
         this.saveLabelsButton = Ext.create('Ext.Button', {
