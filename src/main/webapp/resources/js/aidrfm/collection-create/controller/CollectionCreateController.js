@@ -200,15 +200,15 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
         v = v.replace(/ /g, '_');
         v = Ext.util.Format.lowercase(v);
 
-        var date = Ext.Date.format(new Date(), "_M-y");
+        var date = Ext.Date.format(new Date(), "Y-m-");
         date = Ext.util.Format.lowercase(date);
 
         var length = value.length;
-        if (length > 8){
-            length = 8;
+        if (length > 47){
+            length = 47;
         }
 
-        var result = Ext.util.Format.substr(v, 0, length) + date;
+        var result = date + Ext.util.Format.substr(v, 0, length);
         me.isExistForGenerated(result);
     },
 

@@ -279,7 +279,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             this.breadcrumbs,
             {
                 xtype: 'container',
-                margin: '5 0 5 0',
+                margin: '5 0 5 0'
             },
             this.descriptionL,
             {
