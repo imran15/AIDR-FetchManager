@@ -127,11 +127,11 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
                 url: 'collection/save.action',
                 method: 'POST',
                 params: {
-                    name: form.findField('name').getValue(),
-                    code: form.findField('code').getValue(),
-                    track: form.findField('track').getValue(),
-                    follow: form.findField('follow').getValue(),
-                    geo: form.findField('geo').getValue(),
+                    name: Ext.String.trim( form.findField('name').getValue() ),
+                    code: Ext.String.trim( form.findField('code').getValue() ),
+                    track: Ext.String.trim( form.findField('track').getValue() ),
+                    follow: Ext.String.trim( form.findField('follow').getValue() ),
+                    geo: Ext.String.trim( form.findField('geo').getValue() ),
                     langFilters: form.findField('langFilters').getValue()
                 },
                 headers: {

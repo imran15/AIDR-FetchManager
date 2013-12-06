@@ -85,7 +85,7 @@ Ext.define('TAGGUI.tagger-collection-details.controller.TaggerCollectionDetailsC
             params: {
                 crisisID: CRISIS_ID,
                 crisisTypeID: crisisTypeId,
-                crisisTypeName: crisisTypeName
+                crisisTypeName: Ext.String.trim( crisisTypeName )
             },
             headers: {
                 'Accept': 'application/json'

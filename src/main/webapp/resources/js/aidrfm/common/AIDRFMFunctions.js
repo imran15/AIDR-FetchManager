@@ -66,7 +66,7 @@ Ext.define('AIDRFM.common.AIDRFMFunctions', {
             AIDRFMFunctions.setAlert('Error', 'Collection Code is mandatory');
             isValid = false;
         }
-        if (form.findField('code').getValue() && form.findField('code').getValue().length > 15) {
+        if (form.findField('code').getValue() && form.findField('code').getValue().length > 55) {
             form.findField('code').markInvalid(['The maximum length for Collection Code field is 15']);
             AIDRFMFunctions.setAlert('Error', 'The maximum length for Collection Code field is 15');
             isValid = false;

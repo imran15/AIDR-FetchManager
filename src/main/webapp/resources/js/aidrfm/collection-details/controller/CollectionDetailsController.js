@@ -475,11 +475,11 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             method: 'POST',
             params: {
                 id: id,
-                name: form.findField('name').getValue(),
-                code: form.findField('code').getValue(),
-                track: form.findField('track').getValue(),
-                follow: form.findField('follow').getValue(),
-                geo: form.findField('geo').getValue(),
+                name: Ext.String.trim( form.findField('name').getValue() ),
+                code: Ext.String.trim( form.findField('code').getValue() ),
+                track: Ext.String.trim( form.findField('track').getValue() ),
+                follow: Ext.String.trim( form.findField('follow').getValue() ),
+                geo: Ext.String.trim(  form.findField('geo').getValue() ),
                 status: status,
                 fromDate: startDate,
                 endDate: endDate,
@@ -593,8 +593,8 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
             url: BASE_URL + '/protected/tagger/createCrises.action',
             method: 'POST',
             params: {
-                code: code,
-                name: name,
+                code: Ext.String.trim( code ),
+                name: Ext.String.trim( name ),
                 crisisTypeID: crisisTypeID
             },
             headers: {

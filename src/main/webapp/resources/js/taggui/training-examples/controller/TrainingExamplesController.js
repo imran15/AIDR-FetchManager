@@ -142,7 +142,7 @@ Ext.define('TAGGUI.training-examples.controller.TrainingExamplesController', {
                 params: {
                     documentID: me.mainComponent.documentID,
                     crisisID: CRISIS_ID,
-                    category: values[0].code,
+                    category: Ext.String.trim( values[0].code ),
                     taskcreated: me.mainComponent.createDate,
                     taskcompleted: Ext.Date.format(new Date(), "c")
                 },
