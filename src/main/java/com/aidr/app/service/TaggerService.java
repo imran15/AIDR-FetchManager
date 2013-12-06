@@ -57,4 +57,8 @@ public interface TaggerService {
     public String skipTask(Integer id, String userName)  throws AidrException;
 
     public boolean saveTaskAnswer(List<TaskAnswer> taskAnswer) throws AidrException;
+
+    public String generateCSVLink(String code) throws Exception;
+
+    public String generateTweetIdsLink(String code) throws Exception;
 }

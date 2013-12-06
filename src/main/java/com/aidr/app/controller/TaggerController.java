@@ -407,6 +407,32 @@ public class TaggerController extends BaseController {
         }
     }
 
+    @RequestMapping(value = "/taggerGenerateCSVLink.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> taggerGenerateCSVLink(@RequestParam String code) throws Exception {
+        String result = "";
+        try {
+            result = taggerService.generateCSVLink(code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+        }
+        return getUIWrapper(result,true);
+    }
+
+    @RequestMapping(value = "/taggerGenerateTweetIdsLink.action", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String,Object> taggerGenerateTweetIdsLink(@RequestParam String code) throws Exception {
+        String result = "";
+        try {
+            result = taggerService.generateTweetIdsLink(code);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return getUIWrapper(false, "System is down or under maintenance. For further inquiries please contact admin.");
+        }
+        return getUIWrapper(result,true);
+    }
+
     private TaggerCrisisRequest transformCrisesRequestToTaggerCrises (CrisisRequest request, Integer taggerUserId) throws Exception{
         TaggerCrisisType crisisType = new TaggerCrisisType(request.getCrisisTypeID());
         TaggerUserRequest taggerUser = new TaggerUserRequest(taggerUserId);

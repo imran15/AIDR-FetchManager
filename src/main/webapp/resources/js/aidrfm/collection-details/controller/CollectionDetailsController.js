@@ -645,9 +645,11 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                     if (resp.data && resp.data != '') {
                         me.DetailsComponent.CSVLink.setText('<div class="styled-text download-link"><a href="' + resp.data + '">' + resp.data + '</a></div>', false);
                     } else {
+                        me.DetailsComponent.CSVLink.setText('', false);
                         AIDRFMFunctions.setAlert("Error", "Generate CSV service returned empty url. For further inquiries please contact admin.");
                     }
                 } else {
+                    me.DetailsComponent.CSVLink.setText('', false);
                     AIDRFMFunctions.setAlert("Error", resp.message);
                 }
             },
@@ -679,9 +681,11 @@ Ext.define('AIDRFM.collection-details.controller.CollectionDetailsController', {
                     if (resp.data && resp.data != '') {
                         me.DetailsComponent.tweetsIdsLink.setText('<div class="styled-text download-link"><a href="' + resp.data + '">' + resp.data + '</a></div>', false);
                     } else {
+                        me.DetailsComponent.tweetsIdsLink.setText('', false);
                         AIDRFMFunctions.setAlert("Error", "Generate Tweet Ids service returned empty url. For further inquiries please contact admin.");
                     }
                 } else {
+                    me.DetailsComponent.tweetsIdsLink.setText('', false);
                     AIDRFMFunctions.setAlert("Error", resp.message);
                 }
             },

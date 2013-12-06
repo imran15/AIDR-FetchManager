@@ -331,6 +331,62 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
 
+        this.CSVLink = Ext.create('Ext.form.Label', {
+            flex: 1,
+            padding: '5 5 5 5',
+            html: ''
+        });
+        this.tweetsIdsLink = Ext.create('Ext.form.Label', {
+            flex: 1,
+            margin: '5 5 5 5',
+            html: ''
+        });
+
+        this.generateCSVButton = Ext.create('Ext.Button', {
+            text: 'Export tweets (.csv) (Last 100k tweets)',
+            margin: 5,
+            cls:'btn btn-blue download-button',
+            id: 'generateCSVLink'
+        });
+
+        this.generateTweetIdsButton = Ext.create('Ext.Button', {
+            text: 'Export tweet-ids only (.csv) (All tweets)',
+            margin: 5,
+            cls:'btn btn-blue download-button',
+            id: 'generateTweetIdsLink'
+        });
+
+        this.downloadText = Ext.create('Ext.form.Label', {
+            flex: 1,
+            html: ''
+        });
+
+        this.downloadsBlock = Ext.create('Ext.container.Container', {
+            layout: 'vbox',
+            items: [
+                {
+                    xtype: 'container',
+                    padding: '15 0 0 0',
+                    defaultType: 'label',
+                    layout: 'hbox',
+                    items: [
+                        this.generateCSVButton,
+                        this.CSVLink
+                    ]
+                },
+                {
+                    xtype: 'container',
+                    defaultType: 'label',
+                    layout: 'hbox',
+                    items: [
+                        this.generateTweetIdsButton,
+                        this.tweetsIdsLink
+                    ]
+                },
+                this.downloadText
+            ]
+        });
+
         this.feedsBlock = Ext.create('Ext.container.Container', {
             flex: 1,
             layout: 'vbox',
@@ -407,7 +463,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         this.tabPanel = Ext.create('Ext.tab.Panel', {
             cls: 'tabPanel',
             width: '100%',
-            minHeight: 200,
+            minHeight: 400,
             activeTab: 0,
             items: [
                 {
@@ -467,7 +523,8 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     title: 'Download/Export',
                     padding: '10 0 0 0',
                     items: [
-                        this.feedsBlock
+//                        this.feedsBlock
+                        this.downloadsBlock
                     ]
                 }
             ]
