@@ -580,8 +580,8 @@ public class TaggerServiceImpl implements TaggerService {
                     .accept(MediaType.APPLICATION_JSON)
                     .post(ClientResponse.class, objectMapper.writeValueAsString(taskAnswer));
 
-            String resp = clientResponse.getEntity(String.class);
-            logger.info("saveTaskAnswer - clientResponse : " + resp);
+//            String resp = clientResponse.getEntity(String.class);
+//            logger.info("saveTaskAnswer - clientResponse : " + resp);
             logger.info("saveTaskAnswer - response status : " + clientResponse.getStatus());
 
             return clientResponse.getStatus() == 204;
