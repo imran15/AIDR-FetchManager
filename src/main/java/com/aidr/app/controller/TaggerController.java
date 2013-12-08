@@ -298,7 +298,9 @@ public class TaggerController extends BaseController {
     public Map<String, Object> getTrainingDataByModelIdAndCrisisId(@RequestParam Integer start,
                                                                    @RequestParam Integer limit,
                                                                    @RequestParam Integer modelFamilyId,
-                                                                   @RequestParam Integer crisisId) throws Exception {
+                                                                   @RequestParam Integer crisisId,
+                                                                   @RequestParam (value = "sortColumn", required = false, defaultValue = "") String sortColumn,
+                                                                   @RequestParam (value = "sortDirection", required = false, defaultValue = "") String sortDirection) throws Exception {
         if (modelFamilyId == null || crisisId == null ) {
             logger.error("Error while Getting training data for Crisis and Model. Model ID or Crisis ID is empty");
             return getUIWrapper(false);
@@ -307,7 +309,7 @@ public class TaggerController extends BaseController {
         limit = (limit != null) ? limit : 20;
         List<TrainingDataDTO> response;
         try {
-            response = taggerService.getTrainingDataByModelIdAndCrisisId(modelFamilyId, crisisId, start, limit);
+            response = taggerService.getTrainingDataByModelIdAndCrisisId(modelFamilyId, crisisId, start, limit, sortColumn, sortDirection);
         } catch (AidrException e) {
             logger.error(e.getMessage(), e);
             return getUIWrapper(false, e.getMessage());

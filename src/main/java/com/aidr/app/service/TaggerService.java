@@ -48,7 +48,12 @@ public interface TaggerService {
 
     public TaggerAttribute attributeExists(String code) throws AidrException;
 
-    public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelFamilyId, Integer crisisId, Integer start, Integer limit) throws AidrException;
+    public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelFamilyId,
+                                                                     Integer crisisId,
+                                                                     Integer start,
+                                                                     Integer limit,
+                                                                     String sortColumn,
+                                                                     String sortDirection) throws AidrException;
 
     public String getAssignableTask(Integer id, String userName)  throws AidrException;
 

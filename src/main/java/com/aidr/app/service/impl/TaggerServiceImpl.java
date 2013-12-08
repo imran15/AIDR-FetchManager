@@ -498,9 +498,19 @@ public class TaggerServiceImpl implements TaggerService {
         }
     }
 
-    public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelFamilyId, Integer crisisId, Integer start, Integer limit) throws AidrException{
+    public List<TrainingDataDTO> getTrainingDataByModelIdAndCrisisId(Integer modelFamilyId,
+                                                                     Integer crisisId,
+                                                                     Integer start,
+                                                                     Integer limit,
+                                                                     String sortColumn,
+                                                                     String sortDirection) throws AidrException{
         try {
-            WebResource webResource = client.resource(taggerMainUrl + "/misc/getTrainingData?crisisID=" + crisisId + "&modelFamilyID=" + modelFamilyId + "&fromRecord=" + start +"&limit=" + limit);
+            WebResource webResource = client.resource(taggerMainUrl + "/misc/getTrainingData?crisisID=" + crisisId
+                    + "&modelFamilyID=" + modelFamilyId
+                    + "&fromRecord=" + start
+                    + "&limit=" + limit
+                    + "&sortColumn=" + sortColumn
+                    + "&sortDirection=" + sortDirection);
             ObjectMapper objectMapper = new ObjectMapper();
             ClientResponse clientResponse = webResource.type(MediaType.APPLICATION_JSON)
                     .accept(MediaType.APPLICATION_JSON)

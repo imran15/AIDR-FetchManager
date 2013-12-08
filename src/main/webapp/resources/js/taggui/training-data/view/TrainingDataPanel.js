@@ -66,13 +66,17 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
             pageSize: 20,
             storeId: 'trainingDataStore',
             fields: ['labelID', 'labelName', 'labeledTime', 'labelerID', 'labelerName', 'tweetJSON'],
+            remoteSort: true,
             proxy: {
                 type: 'ajax',
                 url: BASE_URL + '/protected/tagger/getTrainingDataByModelIdAndCrisisId.action',
                 reader: {
                     root: 'data',
                     totalProperty: 'total'
-                }
+                },
+                simpleSortMode: true,
+                sortParam: 'sortColumn',
+                directionParam: 'sortDirection'
             },
             autoLoad: true,
             listeners: {
@@ -91,19 +95,19 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
             cls: 'aidr-grid',
             columns: [
                 {
-                    xtype: 'gridcolumn', dataIndex: 'labelName', text: 'Value', width: 150, sortable: false,
+                    xtype: 'gridcolumn', dataIndex: 'labelName', text: 'Value', width: 150,
                     renderer: function (value, meta, record) {
                         return me.getField(value);
                     }
                 },
                 {
-                    xtype: 'gridcolumn', dataIndex: 'tweetJSON', text: 'Text', flex: 1, sortable: false,
+                    xtype: 'gridcolumn', dataIndex: 'tweetJSON', text: 'Text', flex: 1,
                     renderer: function (value, meta, record) {
                         return me.getTwitterText(value);
                     }
                 },
                 {
-                    xtype: 'gridcolumn', dataIndex: 'labelerName', text: 'Labeler', width: 150, sortable: false,
+                    xtype: 'gridcolumn', dataIndex: 'labelerName', text: 'Labeler', width: 150,
                     renderer: function (value, meta, record) {
                         return me.getField(value);
                     }
@@ -167,4 +171,4 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
         }
     }
 
-})
+});
