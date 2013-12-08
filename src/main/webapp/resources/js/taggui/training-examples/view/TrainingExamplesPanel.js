@@ -37,13 +37,6 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
             flex: 1
         });
 
-//        this.documentLabel = Ext.create('Ext.form.Label', {
-//            cls: 'header-h1',
-//            margin: '0 0 10 0',
-//            html: 'Document',
-//            flex: 1
-//        });
-
         this.documentTextLabel = Ext.create('Ext.form.Label', {
             cls:'tweet',
             margin: '0 15 20 15',
@@ -53,24 +46,10 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
 
         this.labelsLabel = Ext.create('Ext.form.Label', {
             cls: 'header-h1',
-            margin: '15 0 5 0',
+            margin: '10 0 5 0',
             html: 'Labels',
             flex: 1
         });
-
-//        this.instructionsLabel = Ext.create('Ext.form.Label', {
-//            cls: 'header-h1',
-//            margin: '0 0 10 0',
-//            html: 'Instructions',
-//            flex: 1
-//        });
-//
-//        this.instructionsText = Ext.create('Ext.form.Label', {
-//            cls: 'styled-text',
-//            margin: '0 15 15 15',
-//            html: 'Teach the system how to label incoming documents by labeling examples.',
-//            flex: 1
-//        });
 
         this.optionPanel = Ext.create('Ext.container.Container', {
             flex: 1,
@@ -127,7 +106,6 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
                 },
                 items: [
                     this.taggerTitle,
-                    this.documentLabel,
                     this.documentTextLabel,
                     {
                         xtype: 'container',
@@ -136,14 +114,7 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
                     },
                     this.labelsLabel,
                     this.optionPanel,
-                    this.buttonsBlock,
-                    {
-                        xtype: 'container',
-                        margin: '5 0 10 0',
-                        html: '<div class="horisontalLine"></div>'
-                    },
-                    //this.instructionsLabel,
-                    //this.instructionsText
+                    this.buttonsBlock
                 ]
             },
             {
