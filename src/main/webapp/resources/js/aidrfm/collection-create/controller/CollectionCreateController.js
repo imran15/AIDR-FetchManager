@@ -204,8 +204,8 @@ Ext.define('AIDRFM.collection-create.controller.CollectionCreateController', {
         date = Ext.util.Format.lowercase(date);
 
         var length = value.length;
-        if (length > 47){
-            length = 47;
+        if (length > 56){
+            length = 56;
         }
 
         var result = date + Ext.util.Format.substr(v, 0, length);
