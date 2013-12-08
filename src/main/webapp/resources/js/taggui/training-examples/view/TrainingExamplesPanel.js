@@ -37,12 +37,12 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
             flex: 1
         });
 
-        this.documentLabel = Ext.create('Ext.form.Label', {
-            cls: 'header-h1',
-            margin: '0 0 10 0',
-            html: 'Document',
-            flex: 1
-        });
+//        this.documentLabel = Ext.create('Ext.form.Label', {
+//            cls: 'header-h1',
+//            margin: '0 0 10 0',
+//            html: 'Document',
+//            flex: 1
+//        });
 
         this.documentTextLabel = Ext.create('Ext.form.Label', {
             cls:'tweet',
@@ -58,19 +58,19 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
             flex: 1
         });
 
-        this.instructionsLabel = Ext.create('Ext.form.Label', {
-            cls: 'header-h1',
-            margin: '0 0 10 0',
-            html: 'Instructions',
-            flex: 1
-        });
-
-        this.instructionsText = Ext.create('Ext.form.Label', {
-            cls: 'styled-text',
-            margin: '0 15 15 15',
-            html: 'Teach the system how to label incoming documents by labeling examples.',
-            flex: 1
-        });
+//        this.instructionsLabel = Ext.create('Ext.form.Label', {
+//            cls: 'header-h1',
+//            margin: '0 0 10 0',
+//            html: 'Instructions',
+//            flex: 1
+//        });
+//
+//        this.instructionsText = Ext.create('Ext.form.Label', {
+//            cls: 'styled-text',
+//            margin: '0 15 15 15',
+//            html: 'Teach the system how to label incoming documents by labeling examples.',
+//            flex: 1
+//        });
 
         this.optionPanel = Ext.create('Ext.container.Container', {
             flex: 1,
@@ -142,8 +142,8 @@ Ext.define('TAGGUI.training-examples.view.TrainingExamplesPanel', {
                         margin: '5 0 10 0',
                         html: '<div class="horisontalLine"></div>'
                     },
-                    this.instructionsLabel,
-                    this.instructionsText
+                    //this.instructionsLabel,
+                    //this.instructionsText
                 ]
             },
             {
