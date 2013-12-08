@@ -226,9 +226,9 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
             url: BASE_URL + '/protected/tagger/createAttribute.action',
             method: 'POST',
             params: {
-                name: name,
-                code: code,
-                description: description
+                name: Ext.String.trim( name ),
+                code: Ext.String.trim( code ),
+                description: Ext.String.trim( description )
             },
             headers: {
                 'Accept': 'application/json'
@@ -264,8 +264,8 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
             method: 'POST',
             params: {
                 name: name,
-                nominalLabelCode: code,
-                description: description,
+                nominalLabelCode: Ext.String.trim( code ),
+                description: Ext.String.trim( description ),
                 nominalAttributeID: attributeID
             },
             headers: {

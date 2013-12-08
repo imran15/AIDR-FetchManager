@@ -134,7 +134,7 @@ Ext.define('TAGGUI.attribute-details.view.AttributeValuePanel', {
                 method: 'POST',
                 params: {
                     labelID: me.labelId,
-                    labelName: newName,
+                    labelName: Ext.String.trim( newName ),
                     attributeID: ATTRIBUTE_ID
                 },
                 headers: {

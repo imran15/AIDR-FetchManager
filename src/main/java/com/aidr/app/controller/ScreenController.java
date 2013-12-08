@@ -34,21 +34,6 @@ public class ScreenController extends BaseController{
 		return "signin";
 	}
 
-	@RequestMapping("protected/task")
-	public String task() throws Exception {
-		return "task";
-	}
-	
-	@RequestMapping("protected/master")
-	public String master(Map<String, String> model) throws Exception {
-		return "master";
-	}
-	
-	@RequestMapping("protected/collection")
-	public String collection(Map<String, String> model) throws Exception {
-		return "collection";
-	}
-
     @RequestMapping("protected/{code}/collection-details")
     public ModelAndView collectionDetails(@PathVariable(value="code") String code) throws Exception {
         AidrCollection collection = collectionService.findByCode(code);

@@ -209,7 +209,7 @@ Ext.define('TAGGUI.attribute-details.controller.AttributeDetailsController', {
             method: 'POST',
             params: {
                 attributeID: ATTRIBUTE_ID,
-                attributeName: attributeName
+                attributeName: Ext.String.trim( attributeName )
             },
             headers: {
                 'Accept': 'application/json'

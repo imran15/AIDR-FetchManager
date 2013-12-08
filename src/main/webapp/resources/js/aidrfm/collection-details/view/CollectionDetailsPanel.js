@@ -805,7 +805,6 @@ Ext.define('AIDRFM.collection-details.view.CollectionDetailsPanel', {
                                         this.CSVLink
                                     ]
                                 },
-                                
                                 {
                                     xtype: 'container',
                                     defaultType: 'label',

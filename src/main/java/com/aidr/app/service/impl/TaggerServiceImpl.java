@@ -20,12 +20,18 @@ import java.util.*;
 public class TaggerServiceImpl implements TaggerService {
 
     private Logger logger = Logger.getLogger(getClass());
+
     @Autowired
     private Client client;
+
     @Value("${taggerMainUrl}")
     private String taggerMainUrl;
+
     @Value("${crowdsourcingAPIMainUrl}")
     private String crowdsourcingAPIMainUrl;
+
+    @Value("${persisterMainUrl}")
+    private String persisterMainUrl;
 
     public List<TaggerCrisisType> getAllCrisisTypes() throws AidrException{
         try {
@@ -574,12 +580,47 @@ public class TaggerServiceImpl implements TaggerService {
                     .accept(MediaType.APPLICATION_JSON)
                     .post(ClientResponse.class, objectMapper.writeValueAsString(taskAnswer));
 
-            String resp = clientResponse.getEntity(String.class);
-            logger.info("saveTaskAnswer - clientResponse : " + resp);
+//            String resp = clientResponse.getEntity(String.class);
+//            logger.info("saveTaskAnswer - clientResponse : " + resp);
+            logger.info("saveTaskAnswer - response status : " + clientResponse.getStatus());
 
             return clientResponse.getStatus() == 204;
         } catch (Exception e) {
             throw new AidrException("Error while saving TaskAnswer in AIDRCrowdsourcing", e);
+        }
+    }
+
+    public String generateCSVLink(String code) throws AidrException {
+        try {
+            WebResource webResource = client.resource(persisterMainUrl + "/taggerPersister/genCSV?collectionCode=" + code + "&exportLimit=100000");
+            ClientResponse clientResponse = webResource.type(MediaType.TEXT_PLAIN)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            if (jsonResponse != null && "http".equals(jsonResponse.substring(0, 4))) {
+                return jsonResponse;
+            } else {
+                return "";
+            }
+        } catch (Exception e) {
+            throw new AidrException("Error while generating CSV link in Persister", e);
+        }
+    }
+
+    public String generateTweetIdsLink(String code) throws AidrException {
+        try {
+            WebResource webResource = client.resource(persisterMainUrl + "/taggerPersister/genTweetIds?collectionCode=" + code);
+            ClientResponse clientResponse = webResource.type(MediaType.TEXT_PLAIN)
+                    .get(ClientResponse.class);
+            String jsonResponse = clientResponse.getEntity(String.class);
+
+            if (jsonResponse != null && "http".equals(jsonResponse.substring(0, 4))) {
+                return jsonResponse;
+            } else {
+                return "";
+            }
+        } catch (Exception e) {
+            throw new AidrException("Error while generating Tweet Ids link in Persister", e);
         }
     }
 
