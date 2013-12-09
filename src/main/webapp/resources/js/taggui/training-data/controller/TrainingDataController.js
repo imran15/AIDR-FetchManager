@@ -4,13 +4,18 @@ Ext.define('TAGGUI.training-data.controller.TrainingDataController', {
     views: [
         'TrainingDataPanel'
     ],
-
+    // href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/' + MODEL_FAMILY_ID +/training-examples
     init: function () {
 
         this.control({
 
             'training-data-view': {
                 beforerender: this.beforeRenderView
+            },
+            "#addNewTrainingData": {
+                click: function (btn, e, eOpts) {
+                    this.addNewTrainingData();
+                }
             }
 
         });
@@ -24,6 +29,10 @@ Ext.define('TAGGUI.training-data.controller.TrainingDataController', {
         taggerCollectionDetailsController = this;
 
         this.loadModelData();
+    },
+
+    addNewTrainingData: function() {
+        document.location.href = BASE_URL + "/protected/" + CRISIS_CODE + '/' + MODEL_ID + '/' + MODEL_FAMILY_ID +'/training-examples';
     },
 
     loadModelData: function() {

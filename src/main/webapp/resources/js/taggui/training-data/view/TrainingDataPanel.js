@@ -50,11 +50,12 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
             flex: 1
         });
 
-        this.addTrainingData = Ext.create('Ext.container.Container', {
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/' + MODEL_ID + '/' + MODEL_FAMILY_ID +
-                '/training-examples">Add training data &raquo;</a></div>',
-            margin: 0,
-            flex:1
+        this.addTrainingData = Ext.create('Ext.Button', {
+            text: 'Add training data',
+            cls:'btn btn-blue',
+            id: 'addNewTrainingData',
+            width: 150,
+            margin: '0 0 0 0'
         });
 
         this.horisontalLine = Ext.create('Ext.container.Container', {
@@ -139,8 +140,15 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
                 },
                 items: [
                     this.taggerTitle,
-                    this.taggerDescription,
-                    this.taggerDescription2line
+                    this.taggerDescription
+                ]
+            },
+            {
+                xtype: 'container',
+                layout: 'hbox',
+                items: [
+                    this.taggerDescription2line,
+                    this.addTrainingData
                 ]
             },
             this.trainingDataGrid,
@@ -148,10 +156,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
             {
                 xtype: 'container',
                 layout: 'hbox',
-                padding: '20 0 0 0',
-                items: [
-                    this.addTrainingData
-                ]
+                padding: '20 0 0 0'
             }
         ];
 
