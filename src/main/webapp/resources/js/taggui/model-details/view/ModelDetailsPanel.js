@@ -79,7 +79,7 @@ Ext.define('TAGGUI.model-details.view.ModelDetailsPanel', {
 
             '<div class="img">',
             '<tpl if="xindex != xcount">' +
-                '<img alt="Collection History image" src="/AIDRFetchManager/resources/img/AIDR/AIDR_EMBLEM_CMYK_COLOUR_HR.jpg" width="70">',
+                '<img alt="Collection History image" src="/AIDRFetchManager/resources/img/AIDR/tag.png" width="70">',
             '</tpl>',
             '<tpl if="xindex == xcount">' +
                 '<div style="width: 70px;"></div>',
@@ -90,7 +90,7 @@ Ext.define('TAGGUI.model-details.view.ModelDetailsPanel', {
 
             '<div class="rightColumn">',
             '<tpl if="xindex != xcount">' +
-                '<div class="styled-text-17">Value:</div>',
+                '<div class="styled-text-17">Category:</div>',
             '</tpl>',
             '<tpl if="xindex == xcount">' +
                 '<div class="styled-text-17">Summary:</div>',
