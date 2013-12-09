@@ -152,12 +152,7 @@ Ext.define('TAGGUI.training-data.view.TrainingDataPanel', {
                 ]
             },
             this.trainingDataGrid,
-            this.trainingDataPaging,
-            {
-                xtype: 'container',
-                layout: 'hbox',
-                padding: '20 0 0 0'
-            }
+            this.trainingDataPaging
         ];
 
         this.callParent(arguments);
