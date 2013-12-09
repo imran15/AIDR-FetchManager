@@ -7,7 +7,7 @@ Ext.define('TAGGUI.home.view.TaggerHomePanel', {
     alias: 'widget.tagger-home-view',
     border: false,
     bodyPadding: 40,
-    margin: '25 0',
+    margin: '25 0 0 0',
     width: 1040,
     layout: {
         type: 'vbox',

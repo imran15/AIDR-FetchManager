@@ -7,7 +7,7 @@ Ext.define('AIDRFM.home.view.CollectionPanel', {
     alias: 'widget.collection-view',
     border: false,
     bodyPadding: 40,
-    margin: '25 0',
+    margin: '25 0 0 0',
     width: 1040,
     layout: {
         type: 'vbox',

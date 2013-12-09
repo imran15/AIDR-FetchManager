@@ -36,6 +36,14 @@ Ext.application({
                             xtype: 'collection-view'
                         },
                         {
+                            xtype: 'panel',
+                            width: 1040,
+                            border: false,
+                            flex: 1,
+                            margin: '0 0 25 0',
+                            id: 'push'
+                        },
+                        {
                             xtype: 'container',
                             width: '100%',
                             html: '<div class="site-footer"><div class="footer"><a style="text-decoration: none;color: #ffffff" href="http://www.qcri.qa/">A project by <img align="middle" id="footerqcrilogo" src="' + BASE_URL + '/resources/img/qcri-gray-horiz.png"></a></div>' +
