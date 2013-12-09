@@ -66,9 +66,9 @@ Ext.define('AIDRFM.common.AIDRFMFunctions', {
             AIDRFMFunctions.setAlert('Error', 'Collection Code is mandatory');
             isValid = false;
         }
-        if (form.findField('code').getValue() && form.findField('code').getValue().length > 15) {
-            form.findField('code').markInvalid(['The maximum length for Collection Code field is 15']);
-            AIDRFMFunctions.setAlert('Error', 'The maximum length for Collection Code field is 15');
+        if (form.findField('code').getValue() && form.findField('code').getValue().length > 64) {
+            form.findField('code').markInvalid(['The maximum length for Collection Code field is 64']);
+            AIDRFMFunctions.setAlert('Error', 'The maximum length for Collection Code field is 64');
             isValid = false;
         }
         if (!form.findField('name').getValue()) {
@@ -102,6 +102,8 @@ Ext.define('AIDRFM.common.AIDRFMFunctions', {
             statusText = "<b class='blueInfo'> INITIALIZING </b>";
         } else if (raw == 'STOPPED' || raw == 'FATAL-ERROR') {
             statusText = "<b class='redInfo'>" + raw + " </b>";
+        }  else if (raw == 'NOT_RUNNING') {
+            statusText = "<b class='warningFont'>" + raw + " </b>" + ' (Click on "Start" to start this collection.)';
         } else {
             statusText = "<b class='warningFont'>" + raw + " </b>";
         }
@@ -113,3 +115,8 @@ Ext.define('AIDRFM.common.AIDRFMFunctions', {
 AIDRFMFunctions = new AIDRFM.common.AIDRFMFunctions();
 
 NA_CATEGORY_NAME = 'N/A: does not apply, or cannot judge';
+
+Number.prototype.format = function(n, x) {
+    var re = '(\\d)(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$1,');
+};

@@ -3164,12 +3164,12 @@ Overriding of the standard ExtJs styles for tab panel
     top: 25px;
 }
 
-.tabPanel button {
+.tabPanel .x-tab button {
     color: #00acee;
     padding: 0 14px;
 }
 
-.tabPanel button  span{
+.tabPanel .x-tab button  span{
     font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
 }
 
@@ -3426,4 +3426,10 @@ End of the tab panel styles
 
 .aidr-grid .x-column-header-last {
     border-right-width: 0!important;
+}
+
+.small-gray-text {
+    font-size: 12px;
+    font-family: "Lucida Sans Unicode", "Lucida Grande", "Arial";
+    color: #999;
 }

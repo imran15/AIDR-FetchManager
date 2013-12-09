@@ -131,7 +131,7 @@ public class CollectionController extends BaseController{
         AidrCollectionTotalDTO dto = convertAidrCollectionToDTO(collection);
         if (dto != null) {
             Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id);
-            if (CollectionStatus.RUNNING.equals(dto.getStatus()) && CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
+            if (CollectionStatus.RUNNING.equals(dto.getStatus()) || CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
                 totalCount += dto.getCount();
             }
             dto.setTotalCount(totalCount);
@@ -196,7 +196,7 @@ public class CollectionController extends BaseController{
                 AidrCollectionTotalDTO dto = convertAidrCollectionToDTO(collection);
                 if (dto != null) {
                     Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id);
-                    if (CollectionStatus.RUNNING.equals(dto.getStatus()) && CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
+                    if (CollectionStatus.RUNNING.equals(dto.getStatus()) || CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
                         totalCount += dto.getCount();
                     }
                     dto.setTotalCount(totalCount);
@@ -218,7 +218,7 @@ public class CollectionController extends BaseController{
          AidrCollectionTotalDTO dto = convertAidrCollectionToDTO(collection);
          if (dto != null) {
              Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id);
-             if (CollectionStatus.RUNNING.equals(dto.getStatus()) && CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
+             if (CollectionStatus.RUNNING.equals(dto.getStatus()) || CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
                  totalCount += dto.getCount();
              }
              dto.setTotalCount(totalCount);
@@ -239,7 +239,7 @@ public class CollectionController extends BaseController{
             dto = convertAidrCollectionToDTO(collection);
             if (dto != null) {
                 Integer totalCount = collectionLogService.countTotalDownloadedItemsForCollection(id);
-                if (CollectionStatus.RUNNING.equals(dto.getStatus()) && CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
+                if (CollectionStatus.RUNNING.equals(dto.getStatus()) || CollectionStatus.RUNNING_WARNING.equals(dto.getStatus())){
                     totalCount += dto.getCount();
                 }
                 dto.setTotalCount(totalCount);

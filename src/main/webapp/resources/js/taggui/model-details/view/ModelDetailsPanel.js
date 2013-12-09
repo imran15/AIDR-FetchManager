@@ -24,14 +24,14 @@ Ext.define('TAGGUI.model-details.view.ModelDetailsPanel', {
         this.breadcrumbs = Ext.create('Ext.container.Container', {
             html: '<div class="bread-crumbs">' +
                 '<a href="' + BASE_URL + '/protected/tagger-home">Tagger</a><span>&nbsp;>&nbsp;</span>' +
-                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + CRISIS_NAME + '</a><span>&nbsp;>&nbsp;Model details</span></div>',
+                '<a href="' + BASE_URL + '/protected/' + CRISIS_CODE + '/tagger-collection-details">' + CRISIS_NAME + '</a><span>&nbsp;>&nbsp;Classifier details</span></div>',
             margin: 0,
             padding: 0
         });
 
         this.taggerTitle = Ext.create('Ext.form.Label', {
             cls: 'header-h1 bold-text',
-            text: 'Model of attribute "' + MODEL_NAME + '" in collection "' + CRISIS_NAME + '"',
+            text: 'Classifier "' + MODEL_NAME,
             flex: 1
         });
 
@@ -45,7 +45,7 @@ Ext.define('TAGGUI.model-details.view.ModelDetailsPanel', {
 
         this.linkToAttribute = Ext.create('Ext.container.Container', {
 //            TODO check if this is correct place we need to go to
-            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + MODEL_ID + '/attribute-details">Details on attribute "' + MODEL_NAME + '" &raquo;</a></div>',
+            html: '<div class="bread-crumbs"><a href="' + BASE_URL + '/protected/' + MODEL_ID + '/attribute-details">Edit classifier "' + MODEL_NAME + '" &raquo;</a></div>',
             margin: 0,
             padding: '30 0 0 0',
             flex:1
@@ -95,7 +95,7 @@ Ext.define('TAGGUI.model-details.view.ModelDetailsPanel', {
             '<tpl if="xindex == xcount">' +
                 '<div class="styled-text-17">Summary:</div>',
             '</tpl>',
-
+            
             '<div>Training examples:</div>',
             '<div>Classified messages:</div>',
             '<div>Precision:</div>',

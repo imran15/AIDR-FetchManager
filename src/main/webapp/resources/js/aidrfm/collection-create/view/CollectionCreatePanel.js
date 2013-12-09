@@ -46,8 +46,8 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             allowBlank: false,
             width: 370,
             emptyText: 'e.g., Sandy2012 or EQJapan2011',
-            maxLength: 15,
-            maxLengthText: 'The maximum length for this field is 15 ',
+            maxLength: 64,
+            maxLengthText: 'The maximum length for this field is 64',
             maskRe: /[^ ]/
         });
 
@@ -64,6 +64,8 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             fieldLabel: 'Keywords',
             name: 'track',
             allowBlank: false,
+            maxLength: 400,
+            maxLengthText: 'The maximum length for this field is 400',
             flex: 1,
             rows: 4,
             emptyText: 'e.g., #sandy, #newyork,#joplin (max 400)'
@@ -74,6 +76,8 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             labelWidth: 130,
             name: 'geo',
             flex: 1,
+            maxLength: 25,
+            maxLengthText: 'The maximum length for this field is 25',
             emptyText: 'e.g., 43.43, 22.44, 89.32, 56.43 (max 25)'
         });
 
@@ -275,7 +279,7 @@ Ext.define('AIDRFM.collection-create.view.CollectionCreatePanel', {
             this.breadcrumbs,
             {
                 xtype: 'container',
-                margin: '5 0 5 0',
+                margin: '5 0 5 0'
             },
             this.descriptionL,
             {

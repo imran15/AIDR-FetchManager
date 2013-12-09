@@ -95,6 +95,7 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
         var r = {},
             name = me.mainComponent.nameLabelE.getValue(),
             code = me.mainComponent.codeLabelE.getValue(),
+            description = me.mainComponent.DescriptionLabelE.getValue(),
             error = false,
             msg;
 
@@ -110,6 +111,11 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
         if (!name) {
             msg = "This field is required";
             me.mainComponent.nameLabelE.markInvalid(msg);
+            error = true;
+        }
+        if (!description) {
+            msg = "This field is required";
+            me.mainComponent.DescriptionLabelE.markInvalid(msg);
             error = true;
         }
         if (error){
@@ -133,7 +139,7 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
         }
 
         r.name = name;
-        r.description = me.mainComponent.DescriptionLabelE.getValue();
+        r.description = description;
         r.code = code;
 
         me.clearAttributeFields();
@@ -170,6 +176,11 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
         if (!name) {
             msg = "This field is required";
             me.mainComponent.nameE.markInvalid(msg);
+            error = true;
+        }
+        if (!description) {
+            msg = "This field is required";
+            me.mainComponent.descriptionE.markInvalid(msg);
             error = true;
         }
         if (error){
@@ -215,9 +226,9 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
             url: BASE_URL + '/protected/tagger/createAttribute.action',
             method: 'POST',
             params: {
-                name: name,
-                code: code,
-                description: description
+                name: Ext.String.trim( name ),
+                code: Ext.String.trim( code ),
+                description: Ext.String.trim( description )
             },
             headers: {
                 'Accept': 'application/json'
@@ -253,8 +264,8 @@ Ext.define('TAGGUI.new-custom-attribute.controller.NewCustomAttributeController'
             method: 'POST',
             params: {
                 name: name,
-                nominalLabelCode: code,
-                description: description,
+                nominalLabelCode: Ext.String.trim( code ),
+                description: Ext.String.trim( description ),
                 nominalAttributeID: attributeID
             },
             headers: {

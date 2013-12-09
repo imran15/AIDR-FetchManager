@@ -45,8 +45,8 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             allowBlank: false,
             flex: 1,
             emptyText: 'e.g. donationtype',
-            maxLength: 15,
-            maxLengthText: 'The maximum length for this field is 15 ',
+            maxLength: 64,
+            maxLengthText: 'The maximum length for this field is 64 ',
             maskRe: /[^ ]/
         });
 
@@ -61,7 +61,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
         this.descriptionE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Description',
             name: 'description',
-            allowBlank: true,
+            allowBlank: false,
             flex: 1,
             emptyText: 'e.g. Indicate the item being donated'
         });
@@ -72,8 +72,8 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
             allowBlank: false,
             flex: 1,
             emptyText: 'e.g. shoesdonation',
-            maxLength: 15,
-            maxLengthText: 'The maximum length for this field is 15 ',
+            maxLength: 64,
+            maxLengthText: 'The maximum length for this field is 64 ',
             maskRe: /[^ ]/
         });
 
@@ -88,7 +88,7 @@ Ext.define('TAGGUI.new-custom-attribute.view.NewCustomAttributePanel', {
         this.DescriptionLabelE = Ext.create('Ext.form.field.Text', {
             fieldLabel: 'Description',
             name: 'description',
-            allowBlank: true,
+            allowBlank: false,
             flex: 1,
             emptyText: 'e.g. Footwear in general, shoes, boots, etc.'
         });

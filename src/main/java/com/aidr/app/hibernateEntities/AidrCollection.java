@@ -31,7 +31,7 @@ public class AidrCollection implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
     
-	@Column(name="code",unique=true)
+	@Column(length=64, name="code", unique=true)
 	private String code;
 	private String name;
 	private String target;

@@ -57,13 +57,6 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             margin: '27 0 0 0'
         });
 
-        this.settingsTitle = Ext.create('Ext.form.Label', {
-            cls: 'header-h1 bold-text',
-            text: 'Settings',
-            margin: '17 0 12 0',
-            flex: 1
-        });
-
         this.publicLink = Ext.create('Ext.container.Container', {
             html: 'Public link for volunteers:',
             margin: '6 15 0 0'
@@ -190,7 +183,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             '</div>',
             {
                 getNumber: function (r) {
-                    return r ? r : 0;
+                    return r ? r.format() : 0;
                 },
                 getAucNumber: function (r) {
                     if (r){
@@ -338,6 +331,62 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
         });
 
 
+        this.CSVLink = Ext.create('Ext.form.Label', {
+            flex: 1,
+            padding: '5 5 5 5',
+            html: ''
+        });
+        this.tweetsIdsLink = Ext.create('Ext.form.Label', {
+            flex: 1,
+            margin: '5 5 5 5',
+            html: ''
+        });
+
+        this.generateCSVButton = Ext.create('Ext.Button', {
+            text: 'Export tweets (.csv) (Last 100k tweets)',
+            margin: 5,
+            cls:'btn btn-blue download-button',
+            id: 'generateCSVLink'
+        });
+
+        this.generateTweetIdsButton = Ext.create('Ext.Button', {
+            text: 'Export tweet-ids only (.csv) (All tweets)',
+            margin: 5,
+            cls:'btn btn-blue download-button',
+            id: 'generateTweetIdsLink'
+        });
+
+        this.downloadText = Ext.create('Ext.form.Label', {
+            flex: 1,
+            html: ''
+        });
+
+        this.downloadsBlock = Ext.create('Ext.container.Container', {
+            layout: 'vbox',
+            items: [
+                {
+                    xtype: 'container',
+                    padding: '15 0 0 0',
+                    defaultType: 'label',
+                    layout: 'hbox',
+                    items: [
+                        this.generateCSVButton,
+                        this.CSVLink
+                    ]
+                },
+                {
+                    xtype: 'container',
+                    defaultType: 'label',
+                    layout: 'hbox',
+                    items: [
+                        this.generateTweetIdsButton,
+                        this.tweetsIdsLink
+                    ]
+                },
+                this.downloadText
+            ]
+        });
+
         this.feedsBlock = Ext.create('Ext.container.Container', {
             flex: 1,
             layout: 'vbox',
@@ -411,12 +460,81 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
             ]
         });
 
+        this.tabPanel = Ext.create('Ext.tab.Panel', {
+            cls: 'tabPanel',
+            width: '100%',
+            minHeight: 400,
+            activeTab: 0,
+            items: [
+                {
+                    title: 'Details',
+                    items: [
+                        {
+                            xtype: 'container',
+                            flex: 1,
+                            layout: 'hbox',
+                            margin: '25 0 5 0',
+                            items: [
+                                this.publicLink,
+                                this.socialIcons,
+                                this.gotoCollectorButton
+                            ]
+                        },
+                        this.pyBossaLink,
+                        {
+                            xtype: 'container',
+                            margin: '15 0 0 0',
+                            html: '<div class="horisontalLine"></div>'
+                        },
+                        {
+                            xtype: 'container',
+                            layout: 'hbox',
+                            items: [
+                                this.classifiersTitle,
+                                this.addNewClassifierButton
+                            ]
+                        },
+                        this.crisisModelsView,
+                        {
+                            xtype: 'container',
+                            layout: 'hbox',
+                            padding: '15 0 0 0',
+                            items: [
+                                {
+                                    xtype: 'container',
+                                    flex: 1
+                                },
+                                this.aucHint
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: 'Edit',
+                    padding: '10 0 0 0',
+                    defaults: {
+                        anchor: '100%'
+                    },
+                    items: [
+                        this.detailsBlock
+                    ]
+                },
+                {
+                    title: 'Download/Export',
+                    padding: '10 0 0 0',
+                    items: [
+//                        this.feedsBlock
+                        this.downloadsBlock
+                    ]
+                }
+            ]
+        });
 
         this.items = [
             this.breadcrumbs,
             {
                 xtype: 'container',
-                margin: '5 0 0 0',
+                margin: '5 0 5 0',
                 html: '<div class="horisontalLine"></div>'
             },
             {
@@ -429,52 +547,7 @@ Ext.define('TAGGUI.tagger-collection-details.view.TaggerCollectionDetailsPanel',
                     this.taggerTitle
                 ]
             },
-            {
-                xtype: 'container',
-                flex: 1,
-                layout: 'hbox',
-                margin: '0 0 5 0',
-                items: [
-                    this.publicLink,
-                    this.socialIcons,
-                    this.gotoCollectorButton
-                ]
-            },
-            this.pyBossaLink,
-            {
-                xtype: 'container',
-                margin: '15 0 0 0',
-                html: '<div class="horisontalLine"></div>'
-            },
-            {
-                xtype: 'container',
-                layout: 'hbox',
-                items: [
-                    this.classifiersTitle,
-                    this.addNewClassifierButton
-                ]
-            },
-            this.crisisModelsView,
-            {
-                xtype: 'container',
-                layout: 'hbox',
-                padding: '15 0 0 0',
-                items: [
-                    {
-                        xtype: 'container',
-                        flex: 1
-                    },
-                    this.aucHint
-                ]
-            },
-            {
-                xtype: 'container',
-                margin: '15 0 0 0',
-                html: '<div class="horisontalLine"></div>'
-            },
-            this.settingsTitle,
-            this.detailsBlock,
-            this.feedsBlock
+            this.tabPanel
         ];
 
         this.callParent(arguments);
